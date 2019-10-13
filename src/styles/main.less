@@ -1,0 +1,49 @@
+@app-bg-gray: #222222;
+@app-titles-blue: #73D7FB;
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+header {
+    width: 100%;
+    background-color: black;
+    display: flex;
+    justify-content: space-between;
+
+    .portfolio-title {
+        margin: 0;
+        padding: 10px 30px 10px 10px;
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    .menu-links {
+        display: flex;
+        align-items: center;
+        width: 100%;
+
+        a {
+            font-size: 1.2em;
+            padding: 0 30px;
+        }
+    }
+}
+
+footer {
+    font-size: 0.9em;
+    position: absolute;
+    bottom: 20px;
+    margin: 0;
+    width: 100%;
+}
+
+body {
+    height: 100vh;
+    background: @app-bg-gray;
+    color: @app-titles-blue;
+    text-align: center;
+}
