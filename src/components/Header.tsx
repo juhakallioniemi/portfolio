@@ -52,7 +52,11 @@ export class Header extends React.Component<HeaderProps, HeaderState> {
         return (
             <React.Fragment>
                 <div className="portfolio-title">
-                    <h1 onClick={() => this.props.history.push("/")}>
+                    <h1
+                        onClick={() =>
+                            this.props.history.push(window.location.pathname)
+                        }
+                    >
                         Portfolio
                     </h1>
                 </div>
