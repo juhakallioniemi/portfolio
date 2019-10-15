@@ -49,6 +49,7 @@ export class Header extends React.Component<HeaderProps, HeaderState> {
     };
 
     render() {
+        console.log(window.location.pathname);
         return (
             <React.Fragment>
                 <div className="portfolio-title">
