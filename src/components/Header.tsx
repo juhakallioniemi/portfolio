@@ -17,7 +17,7 @@ export class Header extends React.Component<HeaderProps, HeaderState> {
     constructor(props: any) {
         super(props);
         this.state = {
-            menuButtons: this.props.t("menu-titles")
+            menuButtons: ["asd", "asd2", "asdsdad"]
         };
     }
 
