@@ -1,6 +1,4 @@
 {
-    "test": "tämä on testi",
-    "titles": {
-        "contact": "Yhteydenotto"
-    }
+    "test": "testitesti",
+    "menu-titles": ["Minusta", "Projektit", "Yhteydenotto"]
 }

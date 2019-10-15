@@ -9,15 +9,25 @@ interface HeaderProps {
     isEnglish: boolean;
 }
 
-export class Header extends React.Component<HeaderProps, {}> {
+interface HeaderState {
+    menuButtons: string[];
+}
+
+export class Header extends React.Component<HeaderProps, HeaderState> {
+    constructor(props: any) {
+        super(props);
+        this.state = {
+            menuButtons: this.props.t("menu-titles")
+        };
+    }
+
     changeLanguage = (lang: string) => {
         this.props.i18n.changeLanguage(lang);
+        localStorage.setItem("lang", lang);
     };
 
-    isLangEnglish: boolean = this.props.i18n.language == "en" ? true : false;
-
     renderLocaleButton(): JSX.Element {
-        if (!this.isLangEnglish) {
+        if (this.props.i18n.language != "en") {
             return (
                 <i
                     className="flag-en"
@@ -34,10 +44,8 @@ export class Header extends React.Component<HeaderProps, {}> {
         }
     }
 
-    menuButtons: string[] = ["AboutMe", "Projects", "Contact"];
-
     menuClick = (linkName: string) => {
-        this.props.history.push("#" + linkName);
+        this.props.history.push("#" + linkName.replace(/\s/g, ""));
     };
 
     render() {
@@ -48,9 +56,8 @@ export class Header extends React.Component<HeaderProps, {}> {
                         Portfolio
                     </h1>
                 </div>
-                <div className="flag-icon">{this.renderLocaleButton()}</div>
                 <div className="menu-links">
-                    {this.menuButtons.map(btn => (
+                    {this.state.menuButtons.map(btn => (
                         <button
                             key={btn}
                             type="button"
@@ -61,6 +68,7 @@ export class Header extends React.Component<HeaderProps, {}> {
                         </button>
                     ))}
                 </div>
+                <div className="flag-icon">{this.renderLocaleButton()}</div>
             </React.Fragment>
         );
     }
