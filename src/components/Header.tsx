@@ -17,7 +17,7 @@ export class Header extends React.Component<HeaderProps, HeaderState> {
     constructor(props: any) {
         super(props);
         this.state = {
-            menuButtons: ["asd", "asd2", "asdsdad"]
+            menuButtons: this.props.t("menu-titles")
         };
     }
 
@@ -53,7 +53,7 @@ export class Header extends React.Component<HeaderProps, HeaderState> {
             <React.Fragment>
                 <div className="portfolio-title">
                     <h1 onClick={() => this.props.history.push("/")}>
-                        Portfolios
+                        Portfolio
                     </h1>
                 </div>
                 <div className="menu-links">
