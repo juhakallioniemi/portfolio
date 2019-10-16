@@ -9,12 +9,27 @@ interface FooterProps {
 }
 
 export class Footer extends React.Component<FooterProps, {}> {
+    lastUpdate = (url: string, wch: string) => {
+        try {
+            var req = new XMLHttpRequest();
+            req.open("HEAD", url, false);
+            req.send(null);
+            if (req.status == 200) {
+                return req.getResponseHeader(wch);
+            } else return false;
+        } catch (er) {
+            return er.message;
+        }
+    };
+
     render() {
-        console.log(document.lastModified);
+        console.log("fetchHeader implemented.");
+        console.log(this.lastUpdate);
         return (
             <React.Fragment>
                 <div>
-                    {this.props.t("lastUpdate")}: {document.lastModified}
+                    {this.props.t("lastUpdate")}:{" "}
+                    {this.lastUpdate(location.href, "Last-Modified")}
                 </div>
             </React.Fragment>
         );
