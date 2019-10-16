@@ -20,8 +20,8 @@ export class Footer extends React.Component<FooterProps, FooterState> {
 
     async componentDidMount() {
         const response = await fetch(
-            "https://github.com/juhakallioniemi/portfolio/blob/master/docs/main.js" ||
-                "/docs/main.js"
+            "/docs/main.js" ||
+                "https://github.com/juhakallioniemi/portfolio/blob/master/docs/main.js"
         );
 
         console.log(response);
