@@ -1,5 +1,6 @@
 import * as React from "react";
 import { Header } from "./components/Header";
+import { Footer } from "./components/Footer";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useState } from "react";
@@ -25,7 +26,9 @@ const App: React.FC = () => {
                     )}
                 />
             </header>
-            <footer>Created by Juha Kallioniemi</footer>
+            <footer>
+                <Route component={() => <Footer t={t} i18n={i18n} />} />
+            </footer>
         </Router>
     );
 };

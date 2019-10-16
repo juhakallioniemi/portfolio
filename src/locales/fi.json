@@ -1,3 +1,5 @@
 {
-    "menu-titles": ["Minusta", "Projektit", "Yhteydenotto"]
+    "date": "{{date, DD/MM/YYY}}",
+    "menu-titles": ["Minusta", "Projektit", "Yhteydenotto"],
+    "lastUpdate": "Päivitetty"
 }
