@@ -19,7 +19,10 @@ export class Footer extends React.Component<FooterProps, FooterState> {
     }
 
     async componentDidMount() {
-        const response = await fetch("/docs/main.js");
+        const response = await fetch(
+            "https://github.com/juhakallioniemi/portfolio/blob/master/docs/main.js" ||
+                "/docs/main.js"
+        );
 
         console.log(response);
         const headers = new Date(response.headers.get("Last-Modified"));
@@ -27,7 +30,7 @@ export class Footer extends React.Component<FooterProps, FooterState> {
             lastUpdate: headers.toLocaleString(this.props.i18n.language)
         });
     }
-
+    //https://github.com/juhakallioniemi/portfolio/blob/master/docs/main.js
     render() {
         return (
             <React.Fragment>
