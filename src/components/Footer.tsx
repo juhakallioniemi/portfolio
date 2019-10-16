@@ -27,7 +27,7 @@ export class Footer extends React.Component<FooterProps, FooterState> {
     }
 
     render() {
-        console.log("Hello from footer.");
+        console.log(this.state.lastUpdate);
         return (
             <React.Fragment>
                 <div>
