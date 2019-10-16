@@ -19,14 +19,9 @@ export class Footer extends React.Component<FooterProps, FooterState> {
     }
 
     async componentDidMount() {
+        console.log(process.env.NODE_ENV);
         const response = await fetch(
             "https://api.github.com/repos/juhakallioniemi/portfolio/contents/docs/main.js"
-        );
-        console.log("test");
-        console.log(
-            fetch(
-                "https://api.github.com/repos/juhakallioniemi/portfolio/contents/docs/main.js"
-            )
         );
         const headers = new Date(response.headers.get("Last-Modified"));
         this.setState({
