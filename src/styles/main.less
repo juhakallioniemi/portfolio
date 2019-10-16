@@ -40,6 +40,10 @@ header {
             }
 
             .title-effect-lines(@titleColor: @app-basic-lightblue);
+
+            &:active {
+                transform: scale(1.02);
+            }
         }
     }
 
@@ -86,6 +90,10 @@ header {
                 max-width: calc(250px / 3);
                 height: 30px;
             }
+
+            &:focus {
+                height: 100%;
+            }
         }
     }
 
@@ -100,7 +108,7 @@ header {
         bottom: 0;
         right: 15px;
 
-        &:hover {
+        &:active {
             transform: scale(1.1);
         }
 
