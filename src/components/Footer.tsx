@@ -8,27 +8,29 @@ interface FooterProps {
     i18n: i18n;
 }
 
-export class Footer extends React.Component<FooterProps, {}> {
-    lastUpdate = (url: string, wch: string) => {
-        try {
-            var req = new XMLHttpRequest();
-            req.open("HEAD", url, false);
-            req.send(null);
-            if (req.status == 200) {
-                return req.getResponseHeader(wch);
-            } else return false;
-        } catch (er) {
-            return er.message;
-        }
-    };
+interface FooterState {
+    lastUpdate: string;
+}
+
+export class Footer extends React.Component<FooterProps, FooterState> {
+    constructor(props: any) {
+        super(props);
+        this.state = { lastUpdate: "" };
+    }
+
+    async componentDidMount() {
+        const response = await fetch("/docs/main.js");
+        const headers = new Date(response.headers.get("Last-Modified"));
+        this.setState({
+            lastUpdate: headers.toLocaleString(this.props.i18n.language)
+        });
+    }
 
     render() {
-        console.log(this.lastUpdate);
         return (
             <React.Fragment>
                 <div>
-                    {this.props.t("lastUpdate")}:{" "}
-                    {this.lastUpdate(location.href, "Last-Modified")}
+                    {this.props.t("lastUpdate")}: {this.state.lastUpdate}
                 </div>
             </React.Fragment>
         );
