@@ -23,7 +23,6 @@ export class Footer extends React.Component<FooterProps, {}> {
     };
 
     render() {
-        console.log("fetchHeader implemented.");
         console.log(this.lastUpdate);
         return (
             <React.Fragment>
