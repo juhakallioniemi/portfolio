@@ -20,6 +20,8 @@ export class Footer extends React.Component<FooterProps, FooterState> {
 
     async componentDidMount() {
         const response = await fetch("/docs/main.js");
+
+        console.log(response);
         const headers = new Date(response.headers.get("Last-Modified"));
         this.setState({
             lastUpdate: headers.toLocaleString(this.props.i18n.language)
@@ -27,7 +29,6 @@ export class Footer extends React.Component<FooterProps, FooterState> {
     }
 
     render() {
-        console.log(this.state.lastUpdate);
         return (
             <React.Fragment>
                 <div>
