@@ -32,11 +32,14 @@ header {
             display: inline-block;
             vertical-align: middle;
             cursor: pointer;
+            position: relative;
 
             @media @mobile {
                 font-size: 1.5em;
                 padding: 0px;
             }
+
+            .title-effect-lines(@titleColor: @app-basic-lightblue);
         }
     }
 
@@ -49,22 +52,21 @@ header {
             max-width: 200px;
         }
 
-        .link {
+        .link-button {
             display: inline-block;
             font-size: 1.2em;
             font-weight: bold;
             margin: 0 15px;
-            color: #000;
+            height: 40px;
 
-            &:hover {
-                background-color: @app-basic-lightblue;
-            }
+            .button-effect-lines(@mainColor: @app-basic-lightblue, @secondaryColor: #000);
 
             @media @mobile {
                 font-size: 0.75em;
                 margin: 0 2.5px;
                 padding: 5px 1px;
                 max-width: calc(250px / 3);
+                height: 30px;
             }
         }
     }
@@ -80,22 +82,13 @@ header {
         bottom: 0;
         right: 15px;
 
+        &:hover {
+            transform: scale(1.1);
+        }
+
         @media @mobile {
             width: 25px;
             right: 10px;
-        }
-
-        .flag-en,
-        .flag-fi {
-            display: block;
-            width: 100%;
-            height: 25px;
-            background-repeat: no-repeat;
-
-            @media @mobile {
-                height: 20px;
-                min-width: 25px;
-            }
         }
 
         .flag-en {
@@ -105,7 +98,28 @@ header {
         .flag-fi {
             background: url(../styles/icons/fi.svg);
         }
+
+        .flag-en,
+        .flag-fi {
+            display: block;
+            width: 100%;
+            height: 25px;
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+
+            @media @mobile {
+                height: 20px;
+                min-width: 25px;
+            }
+        }
     }
+}
+
+body {
+    height: 100vh;
+    background: @app-bg-gray;
+    color: @app-basic-lightblue;
+    text-align: center;
 }
 
 footer {
@@ -116,9 +130,78 @@ footer {
     width: 100%;
 }
 
-body {
-    height: 100vh;
-    background: @app-bg-gray;
-    color: @app-basic-lightblue;
-    text-align: center;
+.title-effect-lines(@titleColor) {
+
+    &:before,
+    &:after {
+        content: '';
+        position: absolute;
+        width: 50%;
+        top: 100%;
+        left: 0;
+        right: 0;
+        margin: auto;
+        height: 2px;
+        background: @titleColor;
+        opacity: 0;
+    }
+
+    &:after {
+        bottom: 0;
+        width: 0;
+    }
+
+    &:hover:before,
+    &:hover:after {
+        opacity: 1;
+        width: 100%;
+        top: 0;
+        transition: 800ms ease all;
+    }
+
+    &:hover:after {
+        top: unset;
+        bottom: 0;
+    }
+}
+
+.button-effect-lines(@mainColor, @secondaryColor) {
+    background: @mainColor;
+    color: @secondaryColor;
+    border: none;
+    position: relative;
+    cursor: pointer;
+    transition: 800ms ease all;
+    outline: none;
+
+    &:hover {
+        background: @secondaryColor;
+        color: @mainColor;
+    }
+
+    &:before,
+    &:after {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        height: 2px;
+        width: 0;
+        background: @mainColor;
+        transition: 400ms ease all;
+    }
+
+    &:after {
+        right: inherit;
+        top: inherit;
+        left: 0;
+        bottom: 0;
+    }
+
+    &:hover:before,
+    &:hover:after {
+        width: 100%;
+        transition: 800ms ease all;
+    }
+
 }

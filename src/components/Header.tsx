@@ -49,7 +49,6 @@ export class Header extends React.Component<HeaderProps, HeaderState> {
     };
 
     render() {
-        console.log(window.location.pathname);
         return (
             <React.Fragment>
                 <div className="portfolio-title">
@@ -66,7 +65,7 @@ export class Header extends React.Component<HeaderProps, HeaderState> {
                         <button
                             key={btn}
                             type="button"
-                            className="btn btn-info link"
+                            className="link-button"
                             onClick={() => this.menuClick(btn)}
                         >
                             {btn}
