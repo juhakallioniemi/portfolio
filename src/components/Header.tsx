@@ -16,8 +16,15 @@ export class Header extends React.Component<HeaderProps, HeaderState> {
     constructor(props: any) {
         super(props);
         this.state = {
-            menuButtons: this.props.t("menu-titles")
+            menuButtons: ["About Me", "Projects", "Contact"]
+            // menuButtons: this.props.t("menu-titles")
         };
+    }
+
+    componentDidMount() {
+        if (location.hash) {
+            document.getElementById(location.hash.substr(1)).focus();
+        }
     }
 
     changeLanguage = (lang: string) => {
@@ -60,14 +67,15 @@ export class Header extends React.Component<HeaderProps, HeaderState> {
                     </h1>
                 </div>
                 <div className="menu-links">
-                    {this.state.menuButtons.map(btn => (
+                    {this.state.menuButtons.map((btn, i) => (
                         <button
+                            id={this.state.menuButtons[i].replace(/\s/g, "")}
                             key={btn}
                             type="button"
                             className="link-button"
                             onClick={() => this.menuClick(btn)}
                         >
-                            {btn}
+                            {this.props.t("menu-titles")[i]}
                         </button>
                     ))}
                 </div>
