@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
+import { Main } from "./components/Main";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useState } from "react";
@@ -26,6 +27,9 @@ const App: React.FC = () => {
                     )}
                 />
             </header>
+            <main>
+                <Route component={() => <Main t={t} i18n={i18n} />} />
+            </main>
             <footer>
                 <Route component={() => <Footer t={t} i18n={i18n} />} />
             </footer>

@@ -1,5 +1,6 @@
 {
     "date": "{{date, MM/DD/YYYY}}",
     "menu-titles": ["About Me", "Projects", "Contact"],
-    "lastUpdate": "Last update"
+    "lastUpdate": "Last update",
+    "noContent": "Content not yet available."
 }

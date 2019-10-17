@@ -1,5 +1,6 @@
 {
     "date": "{{date, DD/MM/YYY}}",
     "menu-titles": ["Minusta", "Projektit", "Yhteydenotto"],
-    "lastUpdate": "Päivitetty"
+    "lastUpdate": "Päivitetty",
+    "noContent": "Sisältöä ei vielä saatavilla."
 }

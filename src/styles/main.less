@@ -3,13 +3,6 @@
 @app-bg-gray: #222222;
 @app-basic-lightblue: #73D7FB;
 
-/*Bootsrap modifications*/
-.btn-info {
-    background-color: @app-basic-lightblue;
-    border-color: @app-basic-lightblue;
-}
-
-/*App*/
 html,
 body {
     margin: 0;
@@ -18,16 +11,22 @@ body {
 }
 
 header {
-    width: 100%;
+    width: inherit;
     height: 100%;
     background-color: black;
     display: flex;
     position: relative;
+    margin: 10px;
+
+    @media @mobile {
+        margin: 0px;
+    }
 
     .portfolio-title {
         padding: 10px 10px 10px 10px;
 
         h1 {
+            color: @app-basic-lightblue;
             margin: 0;
             display: inline-block;
             vertical-align: middle;
@@ -230,4 +229,16 @@ footer {
         transition: 800ms ease all;
     }
 
+}
+
+main {
+    margin: 10px;
+
+    @media @mobile {
+        margin: 0;
+    }
+
+    #brand-game {
+        color: red;
+    }
 }

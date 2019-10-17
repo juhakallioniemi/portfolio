@@ -6,7 +6,6 @@ interface HeaderProps {
     history?: History<LocationState>;
     t: TFunction;
     i18n: i18n;
-    isEnglish: boolean;
 }
 
 interface HeaderState {
