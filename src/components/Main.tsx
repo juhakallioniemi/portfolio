@@ -17,6 +17,7 @@ interface MainProps {
 
 export class Main extends React.Component<MainProps, {}> {
     render() {
+        console.log(appEnvironment + " url: " + brandGameUrl);
         if (location.hash === "#" + localesEn["menu-titles"][1]) {
             return (
                 <React.Fragment>
