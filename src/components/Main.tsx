@@ -3,13 +3,7 @@ import { History, LocationState } from "history";
 import { TFunction, i18n } from "i18next";
 import localesEn from "../locales/en.json";
 
-const appEnvironment = process.env.NODE_ENV;
-const brandGameTemplate = {
-    __html:
-        appEnvironment === "production"
-            ? require("../../brand-game/dist/index.html")
-            : require("../../brand-game/public/index.html")
-};
+const brandGameUrl = "brand-game/index.html";
 
 interface MainProps {
     history?: History<LocationState>;
@@ -22,7 +16,7 @@ export class Main extends React.Component<MainProps, {}> {
         if (location.hash === "#" + localesEn["menu-titles"][1]) {
             return (
                 <React.Fragment>
-                    <span dangerouslySetInnerHTML={brandGameTemplate}></span>
+                    <a href={brandGameUrl}>Brand game</a>
                 </React.Fragment>
             );
         }
