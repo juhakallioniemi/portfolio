@@ -17,7 +17,7 @@ interface MainProps {
 
 export class Main extends React.Component<MainProps, {}> {
     render() {
-        console.log("wat wat");
+        console.log("wat wat wat");
         console.log(appEnvironment + " url: " + brandGameUrl);
         if (location.hash === "#" + localesEn["menu-titles"][1]) {
             return (
