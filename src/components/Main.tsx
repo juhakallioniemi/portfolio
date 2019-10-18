@@ -17,12 +17,15 @@ interface MainProps {
 
 export class Main extends React.Component<MainProps, {}> {
     render() {
-        console.log("wat wat wat");
-        console.log(appEnvironment + " url: " + brandGameUrl);
         if (location.hash === "#" + localesEn["menu-titles"][1]) {
             return (
                 <React.Fragment>
-                    <a href={brandGameUrl}>Brand game</a>
+                    <object
+                        type="text/html"
+                        data={brandGameUrl}
+                        width="800px"
+                        height="600px"
+                    ></object>
                 </React.Fragment>
             );
         }
