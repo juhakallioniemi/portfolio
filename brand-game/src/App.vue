@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <a href="/">Back</a>
+    <a :href="`/${location.pathname.split('/')[1]}/`">Back</a>
     {{ message }}
   </div>
 </template>
