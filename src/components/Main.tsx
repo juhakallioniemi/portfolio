@@ -3,7 +3,11 @@ import { History, LocationState } from "history";
 import { TFunction, i18n } from "i18next";
 import localesEn from "../locales/en.json";
 
-const brandGameUrl = "/brand-game/index.html";
+const appEnvironment = process.env.NODE_ENV;
+const brandGameUrl =
+    appEnvironment === "production"
+        ? "/brand-game/index.html"
+        : "/docs/brand-game/index.html";
 
 interface MainProps {
     history?: History<LocationState>;
