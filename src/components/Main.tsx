@@ -6,7 +6,7 @@ import localesEn from "../locales/en.json";
 const appEnvironment = process.env.NODE_ENV;
 const brandGameUrl =
     appEnvironment === "production"
-        ? "brand-game/index.html"
+        ? "portfolio/brand-game/index.html"
         : "docs/brand-game/index.html";
 
 interface MainProps {
