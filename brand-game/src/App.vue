@@ -14,7 +14,7 @@ export default {
   data() {
     return {
       message: "Hello World",
-      urlBackToPortfolio: location.pathname.split("/")[1]
+      urlBackToPortfolio: "/" + location.pathname.split("/")[1]
     };
   }
 };
