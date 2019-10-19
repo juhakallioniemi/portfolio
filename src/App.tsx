@@ -6,9 +6,8 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useState } from "react";
 import "./i18n";
-
-const { fadeInDown } = require("react-animations");
-const Radium = require("radium");
+import * as fadeInDown from "react-animations/lib/fade-in-down";
+import * as Radium from "radium";
 
 const reactAnimationStyles = {
     fadeInDown: {

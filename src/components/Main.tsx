@@ -3,8 +3,7 @@ import { History, LocationState } from "history";
 import { TFunction, i18n } from "i18next";
 import { ProjectsList } from "./ProjectsList";
 import localesEn from "../locales/en.json";
-
-const { StyleRoot } = require("radium");
+import { StyleRoot } from "radium";
 
 interface MainProps {
     history?: History<LocationState>;

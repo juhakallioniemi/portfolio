@@ -1,6 +1,5 @@
 import * as React from "react";
 import { Project } from "./Project";
-import { History, LocationState } from "history";
 import { TFunction, i18n } from "i18next";
 
 interface ProjectsListProps {

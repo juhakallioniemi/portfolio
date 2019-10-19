@@ -1,6 +1,5 @@
 import * as React from "react";
 import { History, LocationState } from "history";
-import { TFunction, i18n } from "i18next";
 
 const appEnvironment = process.env.NODE_ENV;
 const brandGameUrl =

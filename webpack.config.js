@@ -1,13 +1,27 @@
 const path = require("path");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
+const webpack = require("webpack");
 
 module.exports = {
     entry: "./src/index.tsx",
     output: {
+        filename: "main.bundle.js",
+        chunkFilename: "[name].bundle.js",
         path: path.join(__dirname, "/docs/")
     },
     resolve: {
         extensions: [".ts", ".tsx", ".js", ".json"]
+    },
+    optimization: {
+        splitChunks: {
+            cacheGroups: {
+                commons: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name: "vendor",
+                    chunks: "initial"
+                }
+            }
+        }
     },
     module: {
         rules: [
@@ -58,6 +72,10 @@ module.exports = {
             template: "./public/index.html",
             filename: "./index.html",
             favicon: "./public/favicon.ico"
+        }),
+        new webpack.optimize.AggressiveSplittingPlugin({
+            minSize: 200000,
+            maxSize: 244000
         })
     ]
 };
