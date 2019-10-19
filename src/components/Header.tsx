@@ -1,6 +1,7 @@
 import * as React from "react";
 import { History, LocationState } from "history";
 import { TFunction, i18n } from "i18next";
+import localesEn from "../locales/en.json";
 
 interface HeaderProps {
     history?: History<LocationState>;
@@ -16,15 +17,29 @@ export class Header extends React.Component<HeaderProps, HeaderState> {
     constructor(props: any) {
         super(props);
         this.state = {
-            menuButtons: ["About Me", "Projects", "Contact"]
-            // menuButtons: this.props.t("menu-titles")
+            menuButtons: localesEn["menu-titles"].map(title =>
+                title.replace(/\s/g, "")
+            )
         };
     }
 
     componentDidMount() {
         if (location.hash) {
-            document.getElementById(location.hash.substr(1)).focus();
+            document
+                .getElementById(location.hash.substr(1))
+                .classList.add("active");
         }
+    }
+
+    componentDidUpdate() {
+        let activeButton = location.hash.substr(1);
+        this.state.menuButtons.forEach(menuButton => {
+            if (menuButton === activeButton) {
+                document.getElementById(activeButton).classList.add("active");
+            } else {
+                document.getElementById(menuButton).classList.remove("active");
+            }
+        });
     }
 
     changeLanguage = (lang: string) => {
@@ -51,7 +66,7 @@ export class Header extends React.Component<HeaderProps, HeaderState> {
     }
 
     menuClick = (linkName: string) => {
-        this.props.history.push("#" + linkName.replace(/\s/g, ""));
+        this.props.history.push("#" + linkName);
     };
 
     render() {
@@ -69,7 +84,7 @@ export class Header extends React.Component<HeaderProps, HeaderState> {
                 <div className="menu-links">
                     {this.state.menuButtons.map((btn, i) => (
                         <button
-                            id={this.state.menuButtons[i].replace(/\s/g, "")}
+                            id={this.state.menuButtons[i]}
                             key={btn}
                             type="button"
                             className="link-button"

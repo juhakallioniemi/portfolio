@@ -2,5 +2,6 @@
     "date": "{{date, DD/MM/YYY}}",
     "menu-titles": ["Minusta", "Projektit", "Yhteydenotto"],
     "lastUpdate": "Päivitetty",
-    "noContent": "Sisältöä ei vielä saatavilla."
+    "noContent": "Sisältöä ei vielä saatavilla.",
+    "brand-game": "Brändi-peli"
 }

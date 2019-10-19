@@ -2,5 +2,6 @@
     "date": "{{date, MM/DD/YYYY}}",
     "menu-titles": ["About Me", "Projects", "Contact"],
     "lastUpdate": "Last update",
-    "noContent": "Content not yet available."
+    "noContent": "Content not yet available.",
+    "brand-game": "Brand game"
 }

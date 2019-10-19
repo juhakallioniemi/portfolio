@@ -10,20 +10,28 @@ body {
     overflow: hidden;
 }
 
+body {
+    height: 100vh;
+    background: @app-bg-gray;
+    color: @app-basic-lightblue;
+    text-align: center;
+}
+
 header {
     width: inherit;
     height: 100%;
     background-color: black;
-    display: flex;
-    position: relative;
     margin: 10px;
+    text-align: center;
+    position: relative;
+    border: 2px solid @app-basic-lightblue;
 
     @media @mobile {
         margin: 0px;
     }
 
     .portfolio-title {
-        padding: 10px 10px 10px 10px;
+        padding: 5px 0 0 0;
 
         h1 {
             color: @app-basic-lightblue;
@@ -35,7 +43,6 @@ header {
 
             @media @mobile {
                 font-size: 1.5em;
-                padding: 0px;
             }
 
             .title-effect-lines(@titleColor: @app-basic-lightblue);
@@ -48,22 +55,20 @@ header {
 
     .menu-links {
         display: flex;
-        align-items: center;
         overflow: hidden;
-        width: 100%;
         justify-content: space-evenly;
-        margin: 0 60px 0 0;
+        margin: 0;
+        padding: 18px 0;
         position: relative;
 
         @media @mobile {
-            max-width: 200px;
-            margin: 0 10px 0 0;
+            padding: 12px 0;
         }
 
         &:before {
             content: "";
             position: absolute;
-            width: 50%;
+            width: 60%;
             background: @app-basic-lightblue;
             top: 0;
             bottom: 0;
@@ -74,50 +79,51 @@ header {
         }
 
         .link-button {
+            width: calc(100% / 4);
             display: inline-block;
             font-size: 1.2em;
             font-weight: bold;
-            margin: 0 15px;
-            height: 40px;
+            height: 41px;
+            padding: 0;
 
             .button-effect-lines(@mainColor: @app-basic-lightblue, @secondaryColor: #000);
 
+            &.active {
+                background: white;
+                transform: translateY(20px);
+
+                @media @mobile {
+                    transform: translateY(14px);
+                }
+            }
+
             @media @mobile {
                 font-size: 0.75em;
-                margin: 0 2.5px;
-                padding: 5px 1px;
-                max-width: calc(250px / 3);
                 height: 30px;
             }
 
             &:focus {
-                height: 100%;
+                transform: translateY(20px);
+
+                @media @mobile {
+                    transform: translateY(14px);
+                }
             }
 
-            &:active {
-                height: 40px;
-            }
+            // &:not(:focus) {
+            //     transform: translateY(0);
+            // }
         }
     }
 
     .flag-icon {
-        display: flex;
-        align-items: center;
-        width: 35px;
         cursor: pointer;
-        margin: 0;
         position: absolute;
-        top: 0;
-        bottom: 0;
-        right: 15px;
+        top: 10px;
+        right: 10px;
 
         &:active {
             transform: scale(1.1);
-        }
-
-        @media @mobile {
-            width: 25px;
-            right: 10px;
         }
 
         .flag-en {
@@ -131,35 +137,21 @@ header {
         .flag-en,
         .flag-fi {
             display: block;
-            width: 100%;
+            width: 35px;
             height: 25px;
             background-repeat: no-repeat;
             background-size: 100% 100%;
 
             @media @mobile {
-                height: 20px;
-                min-width: 25px;
+                width: calc(35px / 1.25);
+                height: calc(25px / 1.25);
             }
         }
     }
 }
 
-body {
-    height: 100vh;
-    background: @app-bg-gray;
-    color: @app-basic-lightblue;
-    text-align: center;
-}
-
-footer {
-    font-size: 0.9em;
-    position: absolute;
-    bottom: 20px;
-    margin: 0;
-    width: 100%;
-}
-
 .title-effect-lines(@titleColor) {
+    padding: 5px 10%;
 
     &:before,
     &:after {
@@ -173,6 +165,7 @@ footer {
         height: 2px;
         background: @titleColor;
         opacity: 0;
+        box-shadow: 0 0 15px 2px @titleColor;
     }
 
     &:after {
@@ -184,7 +177,9 @@ footer {
     &:hover:after {
         opacity: 1;
         width: 100%;
+        left: 0;
         top: 0;
+        margin: auto;
         transition: 800ms ease all;
     }
 
@@ -202,11 +197,6 @@ footer {
     cursor: pointer;
     transition: 800ms ease all;
     outline: none;
-
-    &:hover {
-        background: @secondaryColor;
-        color: @mainColor;
-    }
 
     &:before,
     &:after {
@@ -227,9 +217,70 @@ footer {
         bottom: 0;
     }
 
+
+    &:hover {
+        background: @secondaryColor;
+        color: @mainColor;
+    }
+
     &:hover:before,
     &:hover:after {
         width: 100%;
         transition: 800ms ease all;
     }
+}
+
+main {
+    margin: 0 10px;
+    overflow: hidden;
+
+    @media @mobile {
+        margin: 5px 0;
+    }
+
+    .projects-list {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        padding: 0.5%;
+        margin: 0;
+        border: 2px solid @app-basic-lightblue;
+
+        &:active {
+            height: 100%;
+            transition: 800ms ease all;
+        }
+
+        .project {
+            width: 49%;
+            position: relative;
+            padding-bottom: 25%;
+            margin: 0.5%;
+
+            @media @mobile {
+                width: 98%;
+                margin: 1%;
+            }
+
+            &:before {
+                content: '';
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                top: 0;
+                left: 0;
+                background: @app-basic-lightblue;
+                opacity: 0.25;
+            }
+        }
+    }
+}
+
+
+footer {
+    font-size: 0.9em;
+    position: absolute;
+    bottom: 20px;
+    margin: 0;
+    width: 100%;
 }
