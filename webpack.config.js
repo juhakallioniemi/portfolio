@@ -1,4 +1,5 @@
 const path = require("path");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 
 module.exports = {
@@ -8,7 +9,7 @@ module.exports = {
     output: {
         filename: "[name].bundle.js",
         path: path.join(__dirname, "/docs/"),
-        chunkFilename: "[name].[chunkhash].bundle.js"
+        chunkFilename: "[name].[contenthash].bundle.js"
     },
     resolve: {
         extensions: [".ts", ".tsx", ".js", ".json"]
@@ -70,6 +71,8 @@ module.exports = {
             template: "./public/index.html",
             filename: "./index.html",
             favicon: "./public/favicon.ico"
-        })
+        }),
+
+        new CleanWebpackPlugin()
     ]
 };
