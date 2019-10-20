@@ -2,13 +2,21 @@ const path = require("path");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 
 module.exports = {
-    entry: "./src/index.tsx",
+    entry: {
+        main: "./src/index.tsx",
+        another: "./src/another-module.tsx"
+    },
     output: {
         filename: "[name].bundle.js",
         path: path.join(__dirname, "/docs/")
     },
     resolve: {
         extensions: [".ts", ".tsx", ".js", ".json"]
+    },
+    optimization: {
+        splitChunks: {
+            chunks: "all"
+        }
     },
     module: {
         rules: [
