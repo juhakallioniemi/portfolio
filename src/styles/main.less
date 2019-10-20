@@ -90,28 +90,15 @@ header {
             font-size: 1.2em;
             font-weight: bold;
             height: 41px;
+            line-height: 41px;
             padding: 0;
 
             .button-effect-lines(@mainColor: @app-basic-lightblue, @secondaryColor: #000);
-
-
 
             @media @mobile {
                 font-size: 0.75em;
                 height: 30px;
             }
-
-            &:focus {
-                transform: translateY(20px);
-
-                @media @mobile {
-                    transform: translateY(14px);
-                }
-            }
-
-            // &:not(:focus) {
-            //     transform: translateY(0);
-            // }
         }
     }
 
