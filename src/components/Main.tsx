@@ -1,12 +1,10 @@
 import * as React from "react";
-import { History, LocationState } from "history";
 import { TFunction, i18n } from "i18next";
 import { ProjectsList } from "./ProjectsList";
 import localesEn from "../locales/en.json";
 import { StyleRoot } from "radium";
 
 interface MainProps {
-    history?: History<LocationState>;
     t: TFunction;
     i18n: i18n;
     fadeInDown?: any;

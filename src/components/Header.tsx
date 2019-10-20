@@ -1,4 +1,5 @@
 import * as React from "react";
+import * as ReactDOM from "react-dom";
 import { History, LocationState } from "history";
 import { TFunction, i18n } from "i18next";
 import localesEn from "../locales/en.json";
@@ -36,12 +37,16 @@ export class Header extends React.Component<HeaderProps, HeaderState> {
     }
 
     componentDidUpdate() {
-        let activeButton = location.hash.substr(1);
+        let locationHash = location.hash.substr(1);
         this.state.menuButtons.forEach(menuButton => {
-            if (menuButton === activeButton) {
-                document.getElementById(activeButton).classList.add("active");
+            if (menuButton === locationHash) {
+                (ReactDOM.findDOMNode(
+                    this.refs[menuButton]
+                ) as Element).classList.add("active");
             } else {
-                document.getElementById(menuButton).classList.remove("active");
+                (ReactDOM.findDOMNode(
+                    this.refs[menuButton]
+                ) as Element).classList.remove("active");
             }
         });
     }
@@ -88,10 +93,11 @@ export class Header extends React.Component<HeaderProps, HeaderState> {
                 <div className="menu-links">
                     {this.state.menuButtons.map((btn, i) => (
                         <button
-                            id={this.state.menuButtons[i]}
+                            id={btn}
                             key={btn}
                             type="button"
                             className="link-button"
+                            ref={btn}
                             onClick={() => this.menuClick(btn)}
                         >
                             {this.props.t("menu-titles")[i]}

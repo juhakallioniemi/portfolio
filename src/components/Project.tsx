@@ -1,5 +1,4 @@
 import * as React from "react";
-import { History, LocationState } from "history";
 
 const appEnvironment = process.env.NODE_ENV;
 const brandGameUrl =
@@ -8,7 +7,6 @@ const brandGameUrl =
         : "docs/brand-game/index.html";
 
 interface ProjectProps {
-    history?: History<LocationState>;
     projectName: string;
 }
 

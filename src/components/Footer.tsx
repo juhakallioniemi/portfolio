@@ -1,11 +1,9 @@
 import * as React from "react";
-import { History, LocationState } from "history";
 import { TFunction, i18n } from "i18next";
 
 const appEnvironment = process.env.NODE_ENV;
 
 interface FooterProps {
-    history?: History<LocationState>;
     t: TFunction;
     i18n: i18n;
 }
