@@ -16,7 +16,18 @@ module.exports = {
     },
     optimization: {
         splitChunks: {
-            chunks: "all"
+            cacheGroups: {
+                vendors: {
+                    test: /[\\/]node_modules[\\/]/,
+                    chunks: "all",
+                    enforce: true
+                },
+                styles: {
+                    test: /\.less$/,
+                    chunks: "all",
+                    enforce: true
+                }
+            }
         }
     },
     performance: {
