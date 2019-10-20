@@ -2,10 +2,7 @@ const path = require("path");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 
 module.exports = {
-    entry: {
-        main: "./src/index.tsx",
-        chunk: "./src/chunk-module.tsx"
-    },
+    entry: "./src/index.tsx",
     output: {
         filename: "[name].bundle.js",
         path: path.join(__dirname, "/docs/")
@@ -17,6 +14,9 @@ module.exports = {
         splitChunks: {
             chunks: "all"
         }
+    },
+    performance: {
+        hints: false
     },
     module: {
         rules: [
