@@ -8,8 +8,7 @@ module.exports = {
     },
     output: {
         filename: "[name].bundle.js",
-        path: path.join(__dirname, "/docs/"),
-        chunkFilename: "[name].[contenthash].bundle.js"
+        path: path.join(__dirname, "/docs/")
     },
     resolve: {
         extensions: [".ts", ".tsx", ".js", ".json"]
@@ -72,7 +71,16 @@ module.exports = {
             filename: "./index.html",
             favicon: "./public/favicon.ico"
         }),
-
-        new CleanWebpackPlugin()
+        new CleanWebpackPlugin({
+            verbose: true,
+            dry: false,
+            cleanOnceBeforeBuildPatterns: [
+                "index.html",
+                "*.js",
+                "*.js.map",
+                "*.css",
+                "*.css.map"
+            ]
+        })
     ]
 };
