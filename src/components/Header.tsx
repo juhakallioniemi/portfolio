@@ -11,6 +11,7 @@ interface HeaderProps {
 
 interface HeaderState {
     menuButtons: string[];
+    isLocationHash: boolean;
 }
 
 export class Header extends React.Component<HeaderProps, HeaderState> {
@@ -19,15 +20,18 @@ export class Header extends React.Component<HeaderProps, HeaderState> {
         this.state = {
             menuButtons: localesEn["menu-titles"].map(title =>
                 title.replace(/\s/g, "")
-            )
+            ),
+            isLocationHash: false
         };
     }
 
     componentDidMount() {
         if (location.hash) {
-            document
-                .getElementById(location.hash.substr(1))
-                .classList.add("active");
+            process.nextTick(() => {
+                this.setState({
+                    isLocationHash: location.hash !== ""
+                });
+            });
         }
     }
 

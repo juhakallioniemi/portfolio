@@ -7,14 +7,20 @@ html,
 body {
     margin: 0;
     padding: 0;
-    overflow: hidden;
 }
 
 body {
-    height: 100vh;
+    height: 100%;
     background: @app-bg-gray;
     color: @app-basic-lightblue;
     text-align: center;
+    position: relative;
+    margin-bottom: 40px;
+    min-height: calc(100vh - 50px);
+
+    @media @mobile {
+        min-height: calc(100vh - 40px);
+    }
 }
 
 header {
@@ -88,14 +94,7 @@ header {
 
             .button-effect-lines(@mainColor: @app-basic-lightblue, @secondaryColor: #000);
 
-            &.active {
-                background: white;
-                transform: translateY(20px);
 
-                @media @mobile {
-                    transform: translateY(14px);
-                }
-            }
 
             @media @mobile {
                 font-size: 0.75em;
@@ -228,6 +227,22 @@ header {
         width: 100%;
         transition: 800ms ease all;
     }
+
+    &.active {
+        background: @secondaryColor;
+        color: @mainColor;
+        transform: translateY(20px);
+        pointer-events: none;
+
+        &:before,
+        &:after {
+            width: 100%;
+        }
+
+        @media @mobile {
+            transform: translateY(14px);
+        }
+    }
 }
 
 main {
@@ -239,26 +254,27 @@ main {
     }
 
     .projects-list {
+        width: 100%;
         display: flex;
         justify-content: center;
-        flex-wrap: wrap;
+        flex-wrap: nowrap;
         padding: 0.5%;
         margin: 0;
         border: 2px solid @app-basic-lightblue;
 
-        &:active {
-            height: 100%;
-            transition: 800ms ease all;
+        @media @mobile {
+            flex-wrap: wrap;
         }
 
         .project {
-            width: 49%;
+            width: 100%;
             position: relative;
             padding-bottom: 25%;
             margin: 0.5%;
 
             @media @mobile {
-                width: 98%;
+                width: 50%;
+                padding-bottom: 35%;
                 margin: 1%;
             }
 
@@ -276,11 +292,10 @@ main {
     }
 }
 
-
 footer {
     font-size: 0.9em;
     position: absolute;
-    bottom: 20px;
+    bottom: -30px;
     margin: 0;
     width: 100%;
 }
