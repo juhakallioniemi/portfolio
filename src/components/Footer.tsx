@@ -23,7 +23,7 @@ export class Footer extends React.Component<FooterProps, FooterState> {
     async componentDidMount() {
         const requestUrl =
             appEnvironment === "production"
-                ? "https://api.github.com/repos/juhakallioniemi/portfolio/contents/docs/main.js"
+                ? "https://api.github.com/repos/juhakallioniemi/portfolio/contents/docs/main.bundle.js"
                 : "/docs/main.bundle.js";
         const response = await fetch(requestUrl);
         const lastModified = new Date(response.headers.get("Last-Modified"));
