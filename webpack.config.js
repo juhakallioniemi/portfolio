@@ -10,11 +10,11 @@ module.exports = {
     resolve: {
         extensions: [".ts", ".tsx", ".js", ".json"]
     },
-    optimization: {
-        splitChunks: {
-            chunks: "all"
-        }
-    },
+    // optimization: {
+    //     splitChunks: {
+    //         chunks: "all"
+    //     }
+    // },
     performance: {
         hints: false
     },
