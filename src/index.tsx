@@ -3,7 +3,7 @@ import * as ReactDOM from "react-dom";
 import "../src/styles/main.less";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
-import * as browserslist from "browserslist";
+const browserslist = require("browserslist");
 
 ReactDOM.render(<App />, document.getElementById("root"));
 
