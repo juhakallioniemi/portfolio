@@ -2,7 +2,7 @@ const path = require("path");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 
-module.exports = {
+module.exports = (env, argv) => ({
     entry: {
         main: "./src/index.tsx"
     },
@@ -83,16 +83,20 @@ module.exports = {
             filename: "./index.html",
             favicon: "./public/favicon.ico"
         }),
-        new CleanWebpackPlugin({
-            verbose: true,
-            dry: false,
-            cleanOnceBeforeBuildPatterns: [
-                "index.html",
-                "*.js",
-                "*.js.map",
-                "*.css",
-                "*.css.map"
-            ]
-        })
+        ...(argv.mode === "production"
+            ? [
+                  new CleanWebpackPlugin({
+                      verbose: true,
+                      dry: false,
+                      cleanOnceBeforeBuildPatterns: [
+                          "index.html",
+                          "*.js",
+                          "*.js.map",
+                          "*.css",
+                          "*.css.map"
+                      ]
+                  })
+              ]
+            : [])
     ]
-};
+});
