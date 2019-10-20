@@ -8,6 +8,7 @@ module.exports = {
     },
     output: {
         filename: "[name].bundle.js",
+        chunkFilename: "[name].[contenthash].js",
         path: path.join(__dirname, "/docs/")
     },
     resolve: {
