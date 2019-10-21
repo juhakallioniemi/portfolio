@@ -32,21 +32,14 @@ export class ProjectsList extends React.Component<
     };
 
     render() {
-        // TODO: object width and height 100% somehow
-        // try .content styling from less
-        // Save running project state somehow
-        var testHeight = "500px";
-
         if (this.state.isProjectRunning) {
             return (
-                <div className="projects-list running-project">
+                <div className="projects-list" style={{ padding: 0 }}>
                     <React.Fragment>
                         <object
-                            className="content"
+                            className="running-project"
                             type="text/html"
                             data={this.state.projectUrl}
-                            width="800px"
-                            height={testHeight}
                         ></object>
                     </React.Fragment>
                 </div>

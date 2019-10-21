@@ -39,7 +39,9 @@ export class Project extends React.Component<ProjectProps, ProjectState> {
         return (
             <React.Fragment>
                 <div className="project" onClick={this.openProject}>
-                    {this.state.projectInfo}
+                    <div className="project-content">
+                        {this.state.projectInfo}
+                    </div>
                 </div>
             </React.Fragment>
         );
