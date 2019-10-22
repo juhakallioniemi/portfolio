@@ -1,7 +1,7 @@
 @mobile: ~"only screen and (max-width: 640px)";
 
 @app-bg-gray: #222222;
-@app-basic-lightblue: #73D7FB;
+@app-basic-lightblue: #61DAFB;
 
 html,
 body {
@@ -10,6 +10,7 @@ body {
 }
 
 body {
+    // color: skyblue;
     width: 100%;
     height: 100%;
     background: @app-bg-gray;
@@ -18,6 +19,8 @@ body {
     position: relative;
     margin-bottom: 40px;
     min-height: calc(100vh - 50px);
+    background: url(../styles/images/binary.jpg) no-repeat;
+    background-size: cover;
 
     @media @mobile {
         min-height: calc(100vh - 40px);
@@ -302,8 +305,8 @@ main {
         display: flex;
         justify-content: center;
         flex-wrap: nowrap;
-        padding: 0.5%;
-        margin: 0;
+        padding: 5px;
+        margin: auto;
         border: 2px solid @app-basic-lightblue;
 
         @media @mobile {
@@ -314,7 +317,7 @@ main {
             width: 100%;
             position: relative;
             padding-bottom: 25%;
-            margin: 0.5%;
+            margin: 5px;
             cursor: pointer;
             overflow: hidden;
             position: relative;
