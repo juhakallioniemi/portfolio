@@ -12,7 +12,7 @@ interface MainProps {
 
 export class Main extends React.Component<MainProps, {}> {
     render() {
-        if (location.hash === "#" + localesEn["menu-titles"][1]) {
+        if (location.hash.split("/")[1] === localesEn["menu-titles"][1]) {
             return (
                 <StyleRoot style={this.props.fadeInDown}>
                     <ProjectsList t={this.props.t} i18n={this.props.i18n} />

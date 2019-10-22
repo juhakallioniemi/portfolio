@@ -3,5 +3,6 @@
     "menu-titles": ["Minusta", "Projektit", "Yhteydenotto"],
     "lastUpdate": "Päivitetty",
     "noContent": "Sisältöä ei vielä saatavilla.",
-    "brand-game": "Brändi-peli"
+    "brand-game": "Brändi-peli",
+    "repository": "GitHub ohjelmavarasto"
 }

@@ -3,5 +3,6 @@
     "menu-titles": ["About Me", "Projects", "Contact"],
     "lastUpdate": "Last update",
     "noContent": "Content not yet available.",
-    "brand-game": "Brand game"
+    "brand-game": "Brand game",
+    "repository": "GitHub repository"
 }

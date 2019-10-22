@@ -12,7 +12,7 @@ interface HeaderProps {
 
 interface HeaderState {
     menuButtons: string[];
-    isLocationHash: boolean;
+    activeButton: string;
 }
 
 export class Header extends React.Component<HeaderProps, HeaderState> {
@@ -22,24 +22,23 @@ export class Header extends React.Component<HeaderProps, HeaderState> {
             menuButtons: localesEn["menu-titles"].map(title =>
                 title.replace(/\s/g, "")
             ),
-            isLocationHash: false
+            activeButton: location.hash.split("/")[1]
         };
     }
 
     componentDidMount() {
-        if (location.hash) {
-            process.nextTick(() => {
-                this.setState({
-                    isLocationHash: location.hash !== ""
-                });
-            });
+        if (this.state.activeButton) {
+            this.props.history.push(
+                "#" + this.props.i18n.language + "/" + this.state.activeButton
+            );
+        } else {
+            this.props.history.push("#" + this.props.i18n.language);
         }
     }
 
     componentDidUpdate() {
-        let locationHash = location.hash.substr(1);
         this.state.menuButtons.forEach(menuButton => {
-            if (menuButton === locationHash) {
+            if (menuButton === this.state.activeButton) {
                 (ReactDOM.findDOMNode(
                     this.refs[menuButton]
                 ) as Element).classList.add("active");
@@ -51,13 +50,13 @@ export class Header extends React.Component<HeaderProps, HeaderState> {
         });
     }
 
-    changeLanguage = (lang: string) => {
+    changeLanguage(lang: string) {
         this.props.i18n.changeLanguage(lang);
         localStorage.setItem("lang", lang);
-    };
+    }
 
-    renderLocaleButton(): JSX.Element {
-        if (this.props.i18n.language != "en") {
+    localeButton(): JSX.Element {
+        if (this.props.i18n.language !== "en") {
             return (
                 <i
                     className="flag-en"
@@ -75,21 +74,28 @@ export class Header extends React.Component<HeaderProps, HeaderState> {
     }
 
     menuClick = (linkName: string) => {
-        this.props.history.push("#" + linkName);
+        let currentLocale = location.hash.split("/")[0];
+        this.props.history.push(currentLocale + "/" + linkName);
+        this.setState({
+            activeButton: location.hash.split("/")[1]
+        });
     };
 
     render() {
         return (
             <React.Fragment>
                 <div className="portfolio-title">
-                    <h1
-                        onClick={() =>
-                            this.props.history.push(window.location.pathname)
-                        }
-                    >
-                        Portfolio
-                    </h1>
+                    <h1 onClick={() => this.menuClick("")}>Portfolio</h1>
                 </div>
+                <a
+                    href="https://github.com/juhakallioniemi/portfolio"
+                    className="repository-link"
+                    target="_blank"
+                >
+                    <span className="underline-animation">
+                        {this.props.t("repository")}
+                    </span>
+                </a>
                 <div className="menu-links">
                     {this.state.menuButtons.map((btn, i) => (
                         <button
@@ -104,7 +110,7 @@ export class Header extends React.Component<HeaderProps, HeaderState> {
                         </button>
                     ))}
                 </div>
-                <div className="flag-icon">{this.renderLocaleButton()}</div>
+                <div className="flag-icon">{this.localeButton()}</div>
             </React.Fragment>
         );
     }
