@@ -73,9 +73,9 @@ export class Header extends React.Component<HeaderProps, HeaderState> {
         }
     }
 
-    menuClick = (linkName: string) => {
+    menuClick = (btnName: string) => {
         let currentLocale = location.hash.split("/")[0];
-        this.props.history.push(currentLocale + "/" + linkName);
+        this.props.history.push(currentLocale + "/" + btnName);
         this.setState({
             activeButton: location.hash.split("/")[1]
         });

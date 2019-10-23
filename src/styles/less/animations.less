@@ -1,0 +1,194 @@
+.fade-in-down(@time) {
+    @keyframes fade-in-down {
+        from {
+            clip-path: inset(0 0 100% 0);
+            opacity: 0;
+        }
+
+        to {
+            clip-path: inset(0 0 0 0);
+            opacity: 1;
+        }
+    }
+
+    animation: fade-in-down @time ease-out forwards;
+}
+
+.underline-animation(@underline-color) {
+    transition: color ease 0.3s;
+
+    &:before,
+    &:after {
+        content: '';
+        position: absolute;
+        background-color: @underline-color;
+        height: 2px;
+        left: 0;
+        bottom: -2px;
+    }
+
+    &:before {
+        width: 0%;
+        transition: width ease 0.4s;
+    }
+
+    &:after {
+        width: 100%;
+        transition: all ease 0.6s;
+    }
+
+    &:hover {
+
+        &:before {
+            width: 100%;
+        }
+
+        &:after {
+            left: 100%;
+            width: 0%;
+            transition: all ease 0.2s;
+        }
+    }
+}
+
+.title-effect-lines(@titleColor) {
+    padding: 5px 10%;
+
+    &:before,
+    &:after {
+        content: '';
+        position: absolute;
+        width: 50%;
+        top: 100%;
+        left: 0;
+        right: 0;
+        margin: auto;
+        height: 2px;
+        background: @titleColor;
+        opacity: 0;
+        box-shadow: 0 0 15px 2px @titleColor;
+    }
+
+    &:after {
+        bottom: 0;
+        width: 0;
+    }
+
+    &:hover:before,
+    &:hover:after {
+        opacity: 1;
+        width: 75%;
+        left: 0;
+        top: 0;
+        margin: auto;
+        transition: 800ms ease all;
+    }
+
+    &:hover:after {
+        top: inherit;
+        bottom: 0;
+    }
+}
+
+.button-effect-lines(@mainColor, @secondaryColor) {
+    background: @mainColor;
+    color: @secondaryColor;
+    border: none;
+    position: relative;
+    cursor: pointer;
+    transition: 800ms ease all;
+    outline: none;
+
+    &:before,
+    &:after {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        height: 2px;
+        width: 0;
+        background: @mainColor;
+        transition: 400ms ease all;
+    }
+
+    &:after {
+        right: inherit;
+        top: inherit;
+        left: 0;
+        bottom: 0;
+    }
+
+
+    &:hover {
+        background: @secondaryColor;
+        color: @mainColor;
+    }
+
+    &:hover:before,
+    &:hover:after {
+        width: 100%;
+        transition: 800ms ease all;
+    }
+
+    &.active {
+        background: @secondaryColor;
+        color: @mainColor;
+        transform: translateY(20px);
+        pointer-events: none;
+
+        &:before,
+        &:after {
+            width: 100%;
+        }
+
+        @media @mobile {
+            transform: translateY(14px);
+        }
+    }
+}
+
+.rotating-border-animation(@borderColorFirst, @borderColorSecond, @bgColor) {
+    @keyframes rotate {
+        100% {
+            transform: rotate(1turn);
+        }
+    }
+
+    &:before {
+        content: '';
+        position: absolute;
+        z-index: -2;
+        left: -50%;
+        top: -50%;
+        width: 200%;
+        height: 200%;
+        background-repeat: no-repeat;
+        background-size: 50% 50%, 50% 50%;
+        background-position: 0 0, 100% 0, 100% 100%, 0 100%;
+        background-image: linear-gradient(@borderColorFirst, @borderColorFirst), linear-gradient(@borderColorSecond, @borderColorSecond), linear-gradient(@borderColorFirst, @borderColorFirst), linear-gradient(@borderColorSecond, @borderColorSecond);
+        animation: rotate 16s linear infinite;
+        pointer-events: none;
+    }
+
+    &:hover:before {
+        background-size: 100%;
+        animation-play-state: paused;
+    }
+
+    &:after {
+        content: '';
+        position: absolute;
+        z-index: -1;
+        left: 2px;
+        top: 2px;
+        width: calc(100% - 4px);
+        height: calc(100% - 4px);
+        background: @bgColor;
+        pointer-events: none;
+    }
+
+    &:hover:after {
+        background: lighten(@bgColor, 10%);
+        outline: 2px solid @borderColorFirst;
+    }
+}

@@ -6,15 +6,6 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useState } from "react";
 import "./i18n";
-import { fadeInDown } from "react-animations";
-import * as Radium from "radium";
-
-const reactAnimationStyles = {
-    fadeInDown: {
-        animation: "1s",
-        animationName: Radium.keyframes(fadeInDown, "fadeInDown")
-    }
-};
 
 const App: React.FC = () => {
     const { t, i18n } = useTranslation();
@@ -37,15 +28,7 @@ const App: React.FC = () => {
                 />
             </header>
             <main>
-                <Route
-                    component={() => (
-                        <Main
-                            t={t}
-                            i18n={i18n}
-                            fadeInDown={reactAnimationStyles.fadeInDown}
-                        />
-                    )}
-                />
+                <Route component={() => <Main t={t} i18n={i18n} />} />
             </main>
             <footer>
                 <Route component={() => <Footer t={t} i18n={i18n} />} />

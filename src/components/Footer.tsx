@@ -33,9 +33,7 @@ export class Footer extends React.Component<FooterProps, FooterState> {
     render() {
         return (
             <React.Fragment>
-                <div>
-                    {this.props.t("lastUpdate")}: {this.state.lastUpdate}
-                </div>
+                {this.props.t("lastUpdate")}: {this.state.lastUpdate}
             </React.Fragment>
         );
     }

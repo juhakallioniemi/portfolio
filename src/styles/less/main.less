@@ -1,0 +1,261 @@
+@import "animations.less";
+
+@mobile: ~"only screen and (max-width: 640px)";
+// IE fallback
+@IE: ~"screen and (-ms-high-contrast: active), (-ms-high-contrast: none)";
+
+@app-bg-gray: #222222;
+@app-basic-lightblue: #61DAFB;
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    width: 100%;
+    height: 100%;
+    background: @app-bg-gray;
+    color: @app-basic-lightblue;
+    text-align: center;
+    position: relative;
+    margin-bottom: 40px;
+    min-height: calc(100vh - 50px);
+    background: url(../images/binary.jpg) no-repeat;
+    background-size: cover;
+
+    @media @mobile {
+        min-height: calc(100vh - 40px);
+    }
+}
+
+header {
+    width: inherit;
+    height: 100%;
+    background-color: @app-bg-gray;
+    margin: 10px;
+    text-align: center;
+    position: relative;
+    border: 2px solid @app-basic-lightblue;
+
+    @media @mobile {
+        margin: 0px;
+    }
+
+    .portfolio-title {
+        padding: 5px 0 0 0;
+
+        h1 {
+            color: @app-basic-lightblue;
+            margin: 0;
+            display: inline-block;
+            vertical-align: middle;
+            cursor: pointer;
+            position: relative;
+
+            @media @mobile {
+                font-size: 1.5em;
+            }
+
+            .title-effect-lines(@titleColor: @app-basic-lightblue);
+
+            &:active {
+                transform: scale(1.02);
+            }
+        }
+    }
+
+    .repository-link {
+        cursor: pointer;
+        position: absolute;
+        top: 2px;
+        left: 7px;
+        text-decoration: none;
+        display: inline-block;
+        color: #FFF;
+
+        @media @mobile {
+            font-size: 0.65em;
+            top: 0;
+            left: 2px;
+        }
+
+        .underline-animation(@app-basic-lightblue);
+    }
+
+    .menu-links {
+        display: flex;
+        overflow: hidden;
+        justify-content: space-evenly;
+        margin: 0;
+        padding: 18px 0;
+        position: relative;
+
+        @media @IE {
+            justify-content: center;
+        }
+
+        @media @mobile {
+            padding: 12px 0;
+        }
+
+        &:before {
+            content: "";
+            position: absolute;
+            width: 60%;
+            background: @app-basic-lightblue;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            margin: auto;
+        }
+
+        .link-button {
+            width: calc(100% / 4);
+            display: inline-block;
+            font-size: 1.2em;
+            font-weight: bold;
+            height: 41px;
+            line-height: 41px;
+            padding: 0;
+
+            .button-effect-lines(@mainColor: @app-basic-lightblue, @secondaryColor: @app-bg-gray);
+
+            @media @mobile {
+                font-size: 0.75em;
+                height: 30px;
+                line-height: 30px;
+            }
+
+            @media @IE {
+                margin: 0 6%;
+            }
+        }
+    }
+
+    .flag-icon {
+        cursor: pointer;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+
+        &:hover {
+            transform: scale(1.1);
+        }
+
+        .flag-en {
+            background: url(../icons/en.svg);
+        }
+
+        .flag-fi {
+            background: url(../icons/fi.svg);
+        }
+
+        .flag-en,
+        .flag-fi {
+            display: block;
+            width: 35px;
+            height: 25px;
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+
+            @media @mobile {
+                width: calc(35px / 1.25);
+                height: calc(25px / 1.25);
+            }
+        }
+    }
+}
+
+main {
+    margin: 0 10px;
+    overflow: hidden;
+
+    @media @mobile {
+        margin: 5px 0;
+    }
+
+    .main-content {
+        .no-content {
+            .fade-in-down(400ms);
+            border: 2px solid @app-basic-lightblue;
+            padding: 2px 0;
+            background: @app-bg-gray;
+        }
+
+        .projects-list {
+            .fade-in-down(800ms);
+            border: 2px solid @app-basic-lightblue;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            flex-wrap: nowrap;
+            padding: 5px;
+            margin: auto;
+
+            @media @mobile {
+                flex-wrap: wrap;
+            }
+
+            .project {
+                width: 100%;
+                position: relative;
+                padding-bottom: 25%;
+                margin: 5px;
+                cursor: pointer;
+                overflow: hidden;
+                position: relative;
+
+                @media @mobile {
+                    width: 50%;
+                    padding-bottom: 35%;
+                    margin: 1%;
+                }
+
+                .rotating-border-animation(@app-basic-lightblue, #000, @app-bg-gray);
+
+                .project-content {
+                    position: absolute;
+                    width: 100%;
+                    height: 100%;
+                    top: 0;
+                    left: 0;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    font-size: 1.4em;
+
+                    @media @mobile {
+                        font-size: 0.8em;
+                    }
+                }
+            }
+
+            .running-project {
+                width: 100%;
+                height: 76.5vh;
+            }
+        }
+    }
+}
+
+footer {
+    font-size: 0.9em;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -30px;
+    margin: 0 10px;
+    width: inherit;
+    border: 2px solid @app-basic-lightblue;
+    background: @app-bg-gray;
+    padding: 2px 0;
+
+    @media @mobile {
+        margin: 0;
+        bottom: -40px;
+    }
+}
