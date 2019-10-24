@@ -1,15 +1,17 @@
 import * as React from "react";
 import { Project } from "./Project";
 import { TFunction, i18n } from "i18next";
+import { History, LocationState } from "history";
+import { Prompt } from "react-router-dom";
 
 interface ProjectsListProps {
     t: TFunction;
     i18n: i18n;
+    history?: History<LocationState>;
 }
 
 interface ProjectsListState {
-    isProjectRunning: boolean;
-    projectUrl: string;
+    isProjectActive: boolean;
 }
 
 export class ProjectsList extends React.Component<
@@ -19,29 +21,26 @@ export class ProjectsList extends React.Component<
     constructor(props: any) {
         super(props);
         this.state = {
-            isProjectRunning: false,
-            projectUrl: ""
+            isProjectActive: location.hash.split("/")[2] !== undefined
         };
     }
 
-    openClickedProject = (projectUrl: string) => {
-        this.setState({
-            projectUrl: projectUrl,
-            isProjectRunning: true
-        });
-    };
+    componentDidMount() {
+        if (this.state.isProjectActive) {
+            window.onbeforeunload = () => true;
+        } else {
+            window.onbeforeunload = undefined;
+        }
+    }
 
     render() {
-        if (this.state.isProjectRunning) {
+        if (this.state.isProjectActive) {
             return (
                 <div className="projects-list" style={{ padding: 0 }}>
-                    <React.Fragment>
-                        <object
-                            className="running-project"
-                            type="text/html"
-                            data={this.state.projectUrl}
-                        ></object>
-                    </React.Fragment>
+                    <Prompt
+                        message={this.props.t("project-exit-confirmation")}
+                    />
+                    <Project isProjectActive={true} />
                 </div>
             );
         } else {
@@ -49,19 +48,17 @@ export class ProjectsList extends React.Component<
                 <div className="projects-list">
                     <Project
                         projectName={this.props.t("brand-game")}
-                        clickedProject={this.openClickedProject}
+                        t={this.props.t}
+                        i18n={this.props.i18n}
+                        history={this.props.history}
+                    />
+                    <Project
+                        projectName="TODO"
                         t={this.props.t}
                         i18n={this.props.i18n}
                     />
                     <Project
                         projectName="TODO"
-                        clickedProject={this.openClickedProject}
-                        t={this.props.t}
-                        i18n={this.props.i18n}
-                    />
-                    <Project
-                        projectName="TODO"
-                        clickedProject={this.openClickedProject}
                         t={this.props.t}
                         i18n={this.props.i18n}
                     />

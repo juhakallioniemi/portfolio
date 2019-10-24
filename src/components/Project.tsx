@@ -1,5 +1,6 @@
 import * as React from "react";
 import { TFunction, i18n } from "i18next";
+import { History, LocationState } from "history";
 
 const appEnvironment = process.env.NODE_ENV;
 const brandGameUrl =
@@ -8,10 +9,12 @@ const brandGameUrl =
         : "docs/brand-game/index.html";
 
 interface ProjectProps {
-    projectName: string;
-    clickedProject: any;
-    t: TFunction;
-    i18n: i18n;
+    projectName?: string;
+    clickedProject?: any;
+    t?: TFunction;
+    i18n?: i18n;
+    history?: History<LocationState>;
+    isProjectActive?: boolean;
 }
 
 interface ProjectState {
@@ -25,9 +28,10 @@ export class Project extends React.Component<ProjectProps, ProjectState> {
             projectInfo: this.props.projectName
         };
     }
+
     openProject = () => {
         if (this.props.projectName === this.props.t("brand-game")) {
-            this.props.clickedProject(brandGameUrl);
+            this.props.history.push(location.hash + "/" + "Brand-game");
         } else {
             this.setState({
                 projectInfo: this.props.t("noContent")
@@ -36,14 +40,26 @@ export class Project extends React.Component<ProjectProps, ProjectState> {
     };
 
     render() {
-        return (
-            <React.Fragment>
-                <div className="project" onClick={this.openProject}>
-                    <div className="project-content">
-                        {this.state.projectInfo}
+        if (this.props.isProjectActive) {
+            return (
+                <React.Fragment>
+                    <object
+                        className="active-project"
+                        type="text/html"
+                        data={brandGameUrl}
+                    ></object>
+                </React.Fragment>
+            );
+        } else {
+            return (
+                <React.Fragment>
+                    <div className="project" onClick={this.openProject}>
+                        <div className="project-content">
+                            {this.state.projectInfo}
+                        </div>
                     </div>
-                </div>
-            </React.Fragment>
-        );
+                </React.Fragment>
+            );
+        }
     }
 }

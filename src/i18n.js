@@ -5,7 +5,8 @@ import translationEN from "../src/locales/en.json";
 import translationFI from "../src/locales/fi.json";
 
 // the translations
-const resources = {
+// const resources = {
+export const resources = {
     en: {
         translation: translationEN
     },

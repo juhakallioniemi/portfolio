@@ -4,5 +4,7 @@
     "lastUpdate": "Päivitetty",
     "noContent": "Sisältöä ei vielä saatavilla.",
     "brand-game": "Brändi-peli",
-    "repository": "GitHub ohjelmavarasto"
+    "repository": "GitHub ohjelmavarasto",
+    "project-exit-confirmation": "Oletko varma että haluat poistua nykyisestä tilasta? Aktiivisen projektin tilaa ei tallenneta!",
+    "locale-button-disabled": "Tämä painike on poissa käytöstä nykyisessä tilassa."
 }

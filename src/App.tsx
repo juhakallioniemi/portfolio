@@ -23,12 +23,21 @@ const App: React.FC = () => {
             <header>
                 <Route
                     component={(props: any) => (
-                        <Header t={t} i18n={i18n} {...props} />
+                        <Header
+                            t={t}
+                            i18n={i18n}
+                            changeLanguage={changeLanguage}
+                            {...props}
+                        />
                     )}
                 />
             </header>
             <main>
-                <Route component={() => <Main t={t} i18n={i18n} />} />
+                <Route
+                    component={(props: any) => (
+                        <Main t={t} i18n={i18n} {...props} />
+                    )}
+                />
             </main>
             <footer>
                 <Route component={() => <Footer t={t} i18n={i18n} />} />

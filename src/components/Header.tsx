@@ -8,11 +8,13 @@ interface HeaderProps {
     history?: History<LocationState>;
     t: TFunction;
     i18n: i18n;
+    changeLanguage: any;
 }
 
 interface HeaderState {
     menuButtons: string[];
     activeButton: string;
+    activeProject: string;
 }
 
 export class Header extends React.Component<HeaderProps, HeaderState> {
@@ -22,18 +24,14 @@ export class Header extends React.Component<HeaderProps, HeaderState> {
             menuButtons: localesEn["menu-titles"].map(title =>
                 title.replace(/\s/g, "")
             ),
-            activeButton: location.hash.split("/")[1]
+            activeButton: location.hash.split("/")[1],
+            activeProject: location.hash.split("/")[2]
         };
     }
 
     componentDidMount() {
-        if (this.state.activeButton) {
-            this.props.history.push(
-                "#" + this.props.i18n.language + "/" + this.state.activeButton
-            );
-        } else {
-            this.props.history.push("#" + this.props.i18n.language);
-        }
+        console.log("Header mounted.");
+        this.urlHandler();
     }
 
     componentDidUpdate() {
@@ -50,25 +48,58 @@ export class Header extends React.Component<HeaderProps, HeaderState> {
         });
     }
 
+    urlHandler(): void {
+        let url = "#" + this.props.i18n.language;
+        if (this.state.activeButton) {
+            url += "/" + this.state.activeButton;
+        }
+        if (this.state.activeProject) {
+            url += "/" + this.state.activeProject;
+        }
+        this.props.history.push(url);
+    }
+
     changeLanguage(lang: string) {
-        this.props.i18n.changeLanguage(lang);
+        this.props.changeLanguage(lang);
         localStorage.setItem("lang", lang);
     }
 
     localeButton(): JSX.Element {
+        let isActiveProject: boolean =
+            location.hash.split("/")[2] !== undefined;
         if (this.props.i18n.language !== "en") {
             return (
-                <i
+                // <i
+                //     className="flag-en"
+                //     onClick={() => this.changeLanguage("en")}
+                // ></i>
+                <button
                     className="flag-en"
+                    title={
+                        isActiveProject
+                            ? this.props.t("locale-button-disabled")
+                            : ""
+                    }
+                    disabled={isActiveProject}
                     onClick={() => this.changeLanguage("en")}
-                ></i>
+                ></button>
             );
         } else {
             return (
-                <i
+                <button
                     className="flag-fi"
+                    title={
+                        isActiveProject
+                            ? this.props.t("locale-button-disabled")
+                            : ""
+                    }
+                    disabled={isActiveProject}
                     onClick={() => this.changeLanguage("fi")}
-                ></i>
+                ></button>
+                // <i
+                //     className="flag-fi"
+                //     onClick={() => this.changeLanguage("fi")}
+                // ></i>
             );
         }
     }
