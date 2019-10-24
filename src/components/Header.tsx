@@ -30,7 +30,6 @@ export class Header extends React.Component<HeaderProps, HeaderState> {
     }
 
     componentDidMount() {
-        console.log("Header mounted.");
         this.urlHandler();
     }
 
@@ -64,44 +63,22 @@ export class Header extends React.Component<HeaderProps, HeaderState> {
         localStorage.setItem("lang", lang);
     }
 
-    localeButton(): JSX.Element {
+    localeButton(lang: string): JSX.Element {
         let isActiveProject: boolean =
             location.hash.split("/")[2] !== undefined;
-        if (this.props.i18n.language !== "en") {
-            return (
-                // <i
-                //     className="flag-en"
-                //     onClick={() => this.changeLanguage("en")}
-                // ></i>
-                <button
-                    className="flag-en"
-                    title={
-                        isActiveProject
-                            ? this.props.t("locale-button-disabled")
-                            : ""
-                    }
-                    disabled={isActiveProject}
-                    onClick={() => this.changeLanguage("en")}
-                ></button>
-            );
-        } else {
-            return (
-                <button
-                    className="flag-fi"
-                    title={
-                        isActiveProject
-                            ? this.props.t("locale-button-disabled")
-                            : ""
-                    }
-                    disabled={isActiveProject}
-                    onClick={() => this.changeLanguage("fi")}
-                ></button>
-                // <i
-                //     className="flag-fi"
-                //     onClick={() => this.changeLanguage("fi")}
-                // ></i>
-            );
-        }
+        let newLang = lang === "en" ? "fi" : "en";
+        return (
+            <button
+                className={"flag-" + newLang}
+                title={
+                    isActiveProject
+                        ? this.props.t("locale-button-disabled")
+                        : ""
+                }
+                disabled={isActiveProject}
+                onClick={() => this.changeLanguage(newLang)}
+            ></button>
+        );
     }
 
     menuClick = (btnName: string) => {
@@ -141,7 +118,9 @@ export class Header extends React.Component<HeaderProps, HeaderState> {
                         </button>
                     ))}
                 </div>
-                <div className="flag-icon">{this.localeButton()}</div>
+                <div className="flag-icon">
+                    {this.localeButton(this.props.i18n.language)}
+                </div>
             </React.Fragment>
         );
     }
