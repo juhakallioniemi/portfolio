@@ -30,6 +30,49 @@ body {
     }
 }
 
+
+#popup {
+    display: block;
+    position: fixed;
+    width: 400px;
+    height: 300px;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    z-index: 20;
+
+    @media @mobile {
+        width: 75%;
+        height: 200px;
+    }
+
+    &:after {
+        position: fixed;
+        content: "";
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        background: @app-bg-gray;
+        opacity: 0.7;
+        z-index: -2;
+    }
+
+    &:before {
+        position: absolute;
+        content: "";
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        background: #FFF;
+        z-index: -1;
+        border: 2px solid @app-basic-lightblue;
+    }
+}
+
 header {
     width: inherit;
     height: 100%;
@@ -161,7 +204,7 @@ header {
             height: 25px;
             background-repeat: no-repeat;
             background-size: 100% 100%;
-            border: 1px solid @app-basic-lightblue;
+            border: none;
 
             @media @mobile {
                 width: calc(35px / 1.25);

@@ -18,7 +18,9 @@ export class Main extends React.Component<MainProps, {}> {
     };
 
     render() {
-        if (location.hash.split("/")[1] === localesEn["menu-titles"][1]) {
+        if (
+            location.hash.split("/")[1] === localesEn.header["menu-titles"][1]
+        ) {
             return (
                 <div className="main-content" key={this.getShortId()}>
                     <ProjectsList
@@ -31,7 +33,9 @@ export class Main extends React.Component<MainProps, {}> {
         }
         return (
             <div className="main-content" key={this.getShortId()}>
-                <div className="no-content">{this.props.t("noContent")}</div>
+                <div className="no-content">
+                    {this.props.t("main.noContent")}
+                </div>
             </div>
         );
     }

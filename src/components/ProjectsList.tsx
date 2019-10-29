@@ -38,7 +38,9 @@ export class ProjectsList extends React.Component<
             return (
                 <div className="projects-list" style={{ padding: 0 }}>
                     <Prompt
-                        message={this.props.t("project-exit-confirmation")}
+                        message={this.props.t(
+                            "common.project-exit-confirmation"
+                        )}
                     />
                     <Project isProjectActive={true} />
                 </div>
@@ -47,7 +49,7 @@ export class ProjectsList extends React.Component<
             return (
                 <div className="projects-list">
                     <Project
-                        projectName={this.props.t("brand-game")}
+                        projectName={this.props.t("projects.brand-game")}
                         t={this.props.t}
                         i18n={this.props.i18n}
                         history={this.props.history}

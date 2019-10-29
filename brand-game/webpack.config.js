@@ -11,7 +11,15 @@ module.exports = {
         rules: [
             { test: /\.js$/, use: "babel-loader" },
             { test: /\.vue$/, use: "vue-loader" },
-            { test: /\.css$/, use: ["vue-style-loader", "css-loader"] }
+            {
+                test: /\.s[ac]ss$/i,
+                use: [
+                    "vue-style-loader",
+                    "style-loader",
+                    "css-loader",
+                    "sass-loader"
+                ]
+            }
         ]
     },
     plugins: [

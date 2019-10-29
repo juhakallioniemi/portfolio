@@ -21,7 +21,7 @@ export class Header extends React.Component<HeaderProps, HeaderState> {
     constructor(props: any) {
         super(props);
         this.state = {
-            menuButtons: localesEn["menu-titles"].map(title =>
+            menuButtons: localesEn.header["menu-titles"].map(title =>
                 title.replace(/\s/g, "")
             ),
             activeButton: location.hash.split("/")[1],
@@ -72,7 +72,7 @@ export class Header extends React.Component<HeaderProps, HeaderState> {
                 className={"flag-" + newLang}
                 title={
                     isActiveProject
-                        ? this.props.t("locale-button-disabled")
+                        ? this.props.t("header.locale-button-disabled")
                         : ""
                 }
                 disabled={isActiveProject}
@@ -101,7 +101,7 @@ export class Header extends React.Component<HeaderProps, HeaderState> {
                     target="_blank"
                 >
                     <span className="underline-animation">
-                        {this.props.t("repository")}
+                        {this.props.t("header.repository")}
                     </span>
                 </a>
                 <div className="menu-links">
@@ -114,7 +114,7 @@ export class Header extends React.Component<HeaderProps, HeaderState> {
                             ref={btn}
                             onClick={() => this.menuClick(btn)}
                         >
-                            {this.props.t("menu-titles")[i]}
+                            {this.props.t("header.menu-titles")[i]}
                         </button>
                     ))}
                 </div>

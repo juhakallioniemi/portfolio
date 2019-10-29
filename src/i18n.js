@@ -5,8 +5,7 @@ import translationEN from "../src/locales/en.json";
 import translationFI from "../src/locales/fi.json";
 
 // the translations
-// const resources = {
-export const resources = {
+const resources = {
     en: {
         translation: translationEN
     },
@@ -23,10 +22,13 @@ i18n.use(initReactI18next) // passes i18n down to react-i18next
 
         returnObjects: true,
 
-        keySeparator: false, // we do not use keys in form messages.welcome
+        keySeparator: ".",
 
         interpolation: {
-            escapeValue: false // react already safes from xss
+            escapeValue: false
+        },
+        react: {
+            wait: true
         }
     });
 

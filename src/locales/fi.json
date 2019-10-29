@@ -1,10 +1,19 @@
 {
-    "date": "{{date, DD/MM/YYY}}",
-    "menu-titles": ["Minusta", "Projektit", "Yhteydenotto"],
-    "lastUpdate": "Päivitetty",
-    "noContent": "Sisältöä ei vielä saatavilla.",
-    "brand-game": "Brändi-peli",
-    "repository": "GitHub ohjelmavarasto",
-    "project-exit-confirmation": "Oletko varma että haluat poistua nykyisestä tilasta? Aktiivisen projektin tilaa ei tallenneta!",
-    "locale-button-disabled": "Tämä painike on poissa käytöstä nykyisessä tilassa."
+    "header": {
+        "menu-titles": ["Minusta", "Projektit", "Yhteydenotto"],
+        "locale-button-disabled": "Tämä painike on poissa käytöstä nykyisessä tilassa.",
+        "repository": "GitHub ohjelmavarasto"
+    },
+    "main": {
+        "noContent": "Sisältöä ei vielä saatavilla."
+    },
+    "footer": {
+        "lastUpdate": "Päivitetty"
+    },
+    "projects": {
+        "brand-game": "Brändi-peli"
+    },
+    "common": {
+        "project-exit-confirmation": "Oletko varma että haluat poistua nykyisestä tilasta? Aktiivisen projektin tilaa ei tallenneta!"
+    }
 }

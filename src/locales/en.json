@@ -1,10 +1,19 @@
 {
-    "date": "{{date, MM/DD/YYYY}}",
-    "menu-titles": ["About Me", "Projects", "Contact"],
-    "lastUpdate": "Last update",
-    "noContent": "Content not yet available.",
-    "brand-game": "Brand game",
-    "repository": "GitHub repository",
-    "project-exit-confirmation": "Are you sure you want to exit the current state? Any progression within active project will not be saved!",
-    "locale-button-disabled": "This button is disabled in the current state."
+    "header": {
+        "menu-titles": ["About Me", "Projects", "Contact"],
+        "locale-button-disabled": "This button is disabled in the current state.",
+        "repository": "GitHub repository"
+    },
+    "main": {
+        "noContent": "Content not yet available."
+    },
+    "footer": {
+        "lastUpdate": "Last update"
+    },
+    "projects": {
+        "brand-game": "Brand game"
+    },
+    "common": {
+        "project-exit-confirmation": "Are you sure you want to exit the current state? Any progression within active project will not be saved!"
+    }
 }
