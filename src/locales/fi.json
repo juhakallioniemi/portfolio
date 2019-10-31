@@ -8,12 +8,24 @@
         "noContent": "Sisältöä ei vielä saatavilla."
     },
     "footer": {
-        "lastUpdate": "Päivitetty"
+        "last-update": "Päivitetty"
     },
     "projects": {
         "brand-game": "Brändi-peli"
     },
     "common": {
-        "project-exit-confirmation": "Oletko varma että haluat poistua nykyisestä tilasta? Aktiivisen projektin tilaa ei tallenneta!"
+        "yes": "Kyllä",
+        "no": "Ei"
+    },
+    "popup": {
+        "confirmation": {
+            "title": "Poistu nykyisestä tilasta?",
+            "subtitle": "Tekemiäsi muutoksia ei välttämättä tallenneta!"
+        },
+        "project": {
+            "title": "Miten haluat avata projektin {{project}}?",
+            "main-view": "Päänäkymä",
+            "new-tab": "Uusi välilehti"
+        }
     }
 }

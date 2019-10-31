@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import * as React from "react";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
 import { Main } from "./components/Main";
@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useState } from "react";
 import "./i18n";
-import { MyContext, MyContextProvider } from "./components/MyContext";
+import { PopupContextProvider } from "./context/PopupContext";
 import { Popup } from "./components/Popup";
 
 const App: React.FC = () => {
@@ -19,22 +19,15 @@ const App: React.FC = () => {
         changeLanguage(localStorage.getItem("lang") || "en");
         setInitialized(true);
     }
-    const state = useContext(MyContext);
-
-    function renderPopup(): JSX.Element {
-        console.log("jojo: " + state.isPopupVisible);
-        let el = state.isPopupVisible === true ? <Popup /> : null;
-        return el;
-    }
 
     return (
-        <MyContextProvider>
-            {/* <button onClick={() => state.setVisibility(true)}>
-                Current Language is: {String(state.isPopupVisible)}
-            </button>
-            {renderPopup()} */}
-            <Popup />
+        <PopupContextProvider>
             <Router>
+                <Route
+                    component={(props: any) => (
+                        <Popup t={t} i18n={i18n} {...props} />
+                    )}
+                />
                 <header>
                     <Route
                         component={(props: any) => (
@@ -58,7 +51,7 @@ const App: React.FC = () => {
                     <Route component={() => <Footer t={t} i18n={i18n} />} />
                 </footer>
             </Router>
-        </MyContextProvider>
+        </PopupContextProvider>
     );
 };
 

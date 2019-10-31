@@ -8,12 +8,24 @@
         "noContent": "Content not yet available."
     },
     "footer": {
-        "lastUpdate": "Last update"
+        "last-update": "Last update"
     },
     "projects": {
         "brand-game": "Brand game"
     },
     "common": {
-        "project-exit-confirmation": "Are you sure you want to exit the current state? Any progression within active project will not be saved!"
+        "yes": "Yes",
+        "no": "No"
+    },
+    "popup": {
+        "confirmation": {
+            "title": "Exit the current state?",
+            "subtitle": "Changes you made may not be saved!"
+        },
+        "project": {
+            "title": "How do you want to open the project {{project}}?",
+            "main-view": "Main view",
+            "new-tab": "New tab"
+        }
     }
 }

@@ -3,6 +3,7 @@ import * as ReactDOM from "react-dom";
 import { History, LocationState } from "history";
 import { TFunction, i18n } from "i18next";
 import localesEn from "../locales/en.json";
+import { PopupContext } from "../context/PopupContext";
 
 interface HeaderProps {
     history?: History<LocationState>;
@@ -22,7 +23,7 @@ export class Header extends React.Component<HeaderProps, HeaderState> {
         super(props);
         this.state = {
             menuButtons: localesEn.header["menu-titles"].map(title =>
-                title.replace(/\s/g, "")
+                title.replace(/\s/g, "").toLowerCase()
             ),
             activeButton: location.hash.split("/")[1],
             activeProject: location.hash.split("/")[2]
@@ -35,7 +36,8 @@ export class Header extends React.Component<HeaderProps, HeaderState> {
 
     componentDidUpdate() {
         this.state.menuButtons.forEach(menuButton => {
-            if (menuButton === this.state.activeButton) {
+            // if (menuButton === this.state.activeButton) {
+            if (menuButton === location.hash.split("/")[1]) {
                 (ReactDOM.findDOMNode(
                     this.refs[menuButton]
                 ) as Element).classList.add("active");
@@ -82,11 +84,22 @@ export class Header extends React.Component<HeaderProps, HeaderState> {
     }
 
     menuClick = (btnName: string) => {
+        // TODO: Could this be taken from i18n?
         let currentLocale = location.hash.split("/")[0];
-        this.props.history.push(currentLocale + "/" + btnName);
-        this.setState({
-            activeButton: location.hash.split("/")[1]
-        });
+
+        if (location.hash.split("/")[2] !== undefined) {
+            let popupContext: PopupContext = this.context;
+            popupContext.setContext(
+                popupContext.popupType.confirmation,
+                currentLocale + "/" + btnName,
+                location.hash.split("/")[1]
+            );
+        } else {
+            this.props.history.push(currentLocale + "/" + btnName);
+            this.setState({
+                activeButton: location.hash.split("/")[1]
+            });
+        }
     };
 
     render() {
@@ -125,3 +138,5 @@ export class Header extends React.Component<HeaderProps, HeaderState> {
         );
     }
 }
+
+Header.contextType = PopupContext;

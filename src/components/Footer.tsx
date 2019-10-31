@@ -1,6 +1,5 @@
 import * as React from "react";
 import { TFunction, i18n } from "i18next";
-import { MyContext } from "./MyContext";
 
 const appEnvironment = process.env.NODE_ENV;
 
@@ -34,15 +33,7 @@ export class Footer extends React.Component<FooterProps, FooterState> {
     render() {
         return (
             <React.Fragment>
-                <div>
-                    <span>MyContext: </span>
-                    <MyContext.Consumer>
-                        {context =>
-                            context.isPopupVisible === true ? "true" : "false"
-                        }
-                    </MyContext.Consumer>
-                </div>
-                {this.props.t("footer.lastUpdate")}: {this.state.lastUpdate}
+                {this.props.t("footer.last-update")}: {this.state.lastUpdate}
             </React.Fragment>
         );
     }

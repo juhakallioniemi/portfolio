@@ -1,9 +1,7 @@
-import React, { useContext } from "react";
+import * as React from "react";
 import { TFunction, i18n } from "i18next";
 import { History, LocationState } from "history";
-import { Popup } from "./Popup";
-import * as ReactDOM from "react-dom";
-import { MyContext, MyContextProvider } from "./MyContext";
+import { PopupContext } from "../context/PopupContext";
 
 const appEnvironment = process.env.NODE_ENV;
 const brandGameUrl =
@@ -12,8 +10,9 @@ const brandGameUrl =
         : "docs/brand-game/index.html";
 
 interface ProjectProps {
+    // router: any;
+    // route: any;
     projectName?: string;
-    clickedProject?: any;
     t?: TFunction;
     i18n?: i18n;
     history?: History<LocationState>;
@@ -22,33 +21,24 @@ interface ProjectProps {
 
 interface ProjectState {
     projectInfo: string;
-    isPopupVisible: boolean;
-    setPopupVisibility: any;
-}
-
-interface MyContextInteface {
-    isPopupVisible: boolean;
-    setVisibility: (isPopupVisible: boolean) => {};
 }
 
 export class Project extends React.Component<ProjectProps, ProjectState> {
     constructor(props: any) {
         super(props);
         this.state = {
-            projectInfo: this.props.projectName,
-            isPopupVisible: false,
-            setPopupVisibility: null
+            projectInfo: this.props.projectName
         };
     }
 
-    // context = useContext(MyContext);
-
     openProject = () => {
+        let popupContext: PopupContext = this.context;
         if (this.props.projectName === this.props.t("projects.brand-game")) {
-            this.props.history.push(location.hash + "/" + "Brand-game");
-            let myContext: MyContextInteface = this.context;
-            myContext.setVisibility(true);
-            // <MyContextProvider value={this.valleros}></MyContextProvider>;
+            popupContext.setContext(
+                popupContext.popupType.project,
+                brandGameUrl,
+                location.hash + "/" + "brand-game"
+            );
         } else {
             this.setState({
                 projectInfo: this.props.t("main.noContent")
@@ -56,16 +46,19 @@ export class Project extends React.Component<ProjectProps, ProjectState> {
         }
     };
 
-    // setVisibility = (isPopupVisible: boolean) => {
-    //     this.setState({ isPopupVisible });
-    // };
+    // componentWillMount() {
+    //     this.props.router.setRouteLeaveHook(
+    //         this.props.route,
+    //         this.routerWillLeave
+    //     );
+    // }
 
-    // valleros = {
-    //     isPopupVisible: true,
-    //     setVisibility: this.setVisibility
-    // };
+    // routerWillLeave() {
+    //     return <div>sdadsa</div>;
+    // }
 
     render() {
+        let popupContext: PopupContext = this.context;
         if (this.props.isProjectActive) {
             return (
                 <React.Fragment>
@@ -79,14 +72,6 @@ export class Project extends React.Component<ProjectProps, ProjectState> {
         } else {
             return (
                 <React.Fragment>
-                    {/* <MyContextProvider>
-                        <button
-                            onClick={() => this.valleros.setVisibility(true)}
-                        >
-                            Current Language is:
-                            {String(this.state.isPopupVisible)}
-                        </button>
-                    </MyContextProvider> */}
                     <div className="project" onClick={this.openProject}>
                         <div className="project-content">
                             {this.state.projectInfo}
@@ -98,4 +83,4 @@ export class Project extends React.Component<ProjectProps, ProjectState> {
     }
 }
 
-Project.contextType = MyContext;
+Project.contextType = PopupContext;

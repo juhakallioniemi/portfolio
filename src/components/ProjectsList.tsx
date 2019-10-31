@@ -25,23 +25,15 @@ export class ProjectsList extends React.Component<
         };
     }
 
-    componentDidMount() {
-        if (this.state.isProjectActive) {
-            window.onbeforeunload = () => true;
-        } else {
-            window.onbeforeunload = undefined;
-        }
-    }
-
     render() {
         if (this.state.isProjectActive) {
             return (
                 <div className="projects-list" style={{ padding: 0 }}>
-                    <Prompt
+                    {/* <Prompt
                         message={this.props.t(
                             "common.project-exit-confirmation"
                         )}
-                    />
+                    /> */}
                     <Project isProjectActive={true} />
                 </div>
             );
