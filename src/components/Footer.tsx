@@ -36,7 +36,6 @@ export class Footer extends React.Component<FooterProps, FooterState> {
 
     iconClicked(id: string) {
         let url = "";
-        let urlContext: UrlContext = this.context;
         switch (id) {
             case "facebook":
                 url = Appsettings.facebook;
