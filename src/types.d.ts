@@ -17,12 +17,6 @@ interface PopupType {
     project: string;
 }
 
-interface UrlContext {
-    facebook: string;
-    linkedin: string;
-    github: string;
-}
-
 interface AppSettings {
     facebook: string;
     linkedin: string;

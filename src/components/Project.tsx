@@ -2,17 +2,9 @@ import * as React from "react";
 import { TFunction, i18n } from "i18next";
 import { History, LocationState } from "history";
 import { PopupContext } from "../context/PopupContext";
-const Appsettings: AppSettings = require("appsettings");
-
-// const appEnvironment = process.env.NODE_ENV;
-// const brandGameUrl =
-//     appEnvironment === "production"
-//         ? "brand-game/index.html"
-//         : "docs/brand-game/index.html";
+var Appsettings: AppSettings = require("appsettings");
 
 interface ProjectProps {
-    // router: any;
-    // route: any;
     projectName?: string;
     t?: TFunction;
     i18n?: i18n;
@@ -46,17 +38,6 @@ export class Project extends React.Component<ProjectProps, ProjectState> {
             });
         }
     };
-
-    // componentWillMount() {
-    //     this.props.router.setRouteLeaveHook(
-    //         this.props.route,
-    //         this.routerWillLeave
-    //     );
-    // }
-
-    // routerWillLeave() {
-    //     return <div>sdadsa</div>;
-    // }
 
     render() {
         let popupContext: PopupContext = this.context;

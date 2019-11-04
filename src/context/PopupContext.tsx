@@ -1,14 +1,6 @@
 import React, { useState } from "react";
 
-export const PopupContext = React.createContext({
-    // redirectUrl: "",
-    // locationHash: "",
-    // setContext: (
-    //     activeType: string,
-    //     redirectUrl: string,
-    //     locationHash: string
-    // ) => {}
-});
+export const PopupContext = React.createContext({});
 
 export const PopupContextProvider = (props: any) => {
     const setContext = (

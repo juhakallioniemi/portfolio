@@ -108,7 +108,7 @@ export class Header extends React.Component<HeaderProps, HeaderState> {
                 <div className="portfolio-title">
                     <h1 onClick={() => this.menuClick("")}>Portfolio</h1>
                 </div>
-                <a
+                {/* <a
                     href="https://github.com/juhakallioniemi/portfolio"
                     className="repository-link"
                     target="_blank"
@@ -116,7 +116,7 @@ export class Header extends React.Component<HeaderProps, HeaderState> {
                     <span className="underline-animation">
                         {this.props.t("header.repository")}
                     </span>
-                </a>
+                </a> */}
                 <div className="menu-links">
                     {this.state.menuButtons.map((btn, i) => (
                         <button

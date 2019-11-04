@@ -54,10 +54,8 @@ export class Footer extends React.Component<FooterProps, FooterState> {
         return (
             <React.Fragment>
                 <div className="last-updated">
-                    <span className="underline-animation">
-                        {this.props.t("footer.last-update")}:{" "}
-                        {this.state.lastUpdate}
-                    </span>
+                    {this.props.t("footer.last-update")}:{" "}
+                    {this.state.lastUpdate}
                 </div>
                 <div className="icon-container">
                     <i
