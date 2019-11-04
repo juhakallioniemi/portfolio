@@ -2,13 +2,13 @@
     "header": {
         "menu-titles": ["Minusta", "Projektit", "Yhteydenotto"],
         "locale-button-disabled": "Tämä painike on poissa käytöstä nykyisessä tilassa.",
-        "repository": "GitHub ohjelmavarasto"
+        "repository": "Portfolio ohjelmavarasto"
     },
     "main": {
         "noContent": "Sisältöä ei vielä saatavilla."
     },
     "footer": {
-        "last-update": "Päivitetty"
+        "last-update": "Portfoliota on päivitetty viimeksi"
     },
     "projects": {
         "brand-game": "Brändi-peli"

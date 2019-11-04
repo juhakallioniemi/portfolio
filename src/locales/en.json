@@ -2,13 +2,13 @@
     "header": {
         "menu-titles": ["About Me", "Projects", "Contact"],
         "locale-button-disabled": "This button is disabled in the current state.",
-        "repository": "GitHub repository"
+        "repository": "Portfolio repository"
     },
     "main": {
         "noContent": "Content not yet available."
     },
     "footer": {
-        "last-update": "Last update"
+        "last-update": "Portofolio was last updated on"
     },
     "projects": {
         "brand-game": "Brand game"

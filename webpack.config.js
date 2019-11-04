@@ -71,9 +71,13 @@ module.exports = (env, argv) => ({
                 ]
             },
             {
-                test: /\.(png|svg|jpg|jpeg|gif|ico)$/,
+                test: /\.(png|svg|jpg|jpeg|gif|ico|ttf|eot)$/,
                 exclude: /node_modules/,
                 use: ["file-loader?name=[name].[ext]"] // ?name=[name].[ext] is only necessary to preserve the original file name
+            },
+            {
+                test: /\.woff(2)?(\?[a-z0-9]+)?$/,
+                loader: "url-loader?limit=10000&mimetype=application/font-woff"
             }
         ]
     },
@@ -98,5 +102,12 @@ module.exports = (env, argv) => ({
                   })
               ]
             : [])
-    ]
+    ],
+    externals: {
+        appsettings: JSON.stringify(
+            argv.mode === "production"
+                ? require("./config.prod.json")
+                : require("./config.dev.json")
+        )
+    }
 });

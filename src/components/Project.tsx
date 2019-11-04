@@ -2,12 +2,13 @@ import * as React from "react";
 import { TFunction, i18n } from "i18next";
 import { History, LocationState } from "history";
 import { PopupContext } from "../context/PopupContext";
+const Appsettings: AppSettings = require("appsettings");
 
-const appEnvironment = process.env.NODE_ENV;
-const brandGameUrl =
-    appEnvironment === "production"
-        ? "brand-game/index.html"
-        : "docs/brand-game/index.html";
+// const appEnvironment = process.env.NODE_ENV;
+// const brandGameUrl =
+//     appEnvironment === "production"
+//         ? "brand-game/index.html"
+//         : "docs/brand-game/index.html";
 
 interface ProjectProps {
     // router: any;
@@ -36,7 +37,7 @@ export class Project extends React.Component<ProjectProps, ProjectState> {
         if (this.props.projectName === this.props.t("projects.brand-game")) {
             popupContext.setContext(
                 popupContext.popupType.project,
-                brandGameUrl,
+                Appsettings.brandGameUrl,
                 location.hash + "/" + "brand-game"
             );
         } else {
@@ -65,7 +66,7 @@ export class Project extends React.Component<ProjectProps, ProjectState> {
                     <object
                         className="active-project"
                         type="text/html"
-                        data={brandGameUrl}
+                        data={Appsettings.brandGameUrl}
                     ></object>
                 </React.Fragment>
             );

@@ -44,8 +44,18 @@ export class Popup extends React.Component<PopupProps, PopupState> {
         let popupContext: PopupContext = this.context;
 
         if (popupContext.activeType === "project") {
+            // if (popupContext.activeType === "") {
             return (
                 <div id="popup">
+                    <div className="popup-info">
+                        <button
+                            type="button"
+                            className="close popup-close"
+                            onClick={() => this.noButtonClicked(popupContext)}
+                        >
+                            <span>&times;</span>
+                        </button>
+                    </div>
                     <h3 className="popup-title">
                         {this.props.t("popup.project.title", {
                             project: this.props.t(
@@ -73,6 +83,15 @@ export class Popup extends React.Component<PopupProps, PopupState> {
         } else if (popupContext.activeType === "confirmation") {
             return (
                 <div id="popup">
+                    <div className="popup-info">
+                        <button
+                            type="button"
+                            className="close popup-close"
+                            onClick={() => this.noButtonClicked(popupContext)}
+                        >
+                            <span>&times;</span>
+                        </button>
+                    </div>
                     <h3 className="popup-title">
                         {this.props.t("popup.confirmation.title")}
                     </h3>
