@@ -63,12 +63,10 @@ export class ProjectsList extends React.Component<
     render() {
         if (this.state.isProjectActive) {
             return (
-                <div style={{ padding: 0, border: "none" }}>
-                    <Project
-                        isProjectActive={true}
-                        dynamicWindowHeight={this.state.dynamicWindowHeight}
-                    />
-                </div>
+                <Project
+                    isProjectActive={true}
+                    dynamicWindowHeight={this.state.dynamicWindowHeight}
+                />
             );
         } else {
             return (
