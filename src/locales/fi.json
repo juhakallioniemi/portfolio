@@ -1,6 +1,10 @@
 {
     "header": {
-        "menu-titles": ["Minusta", "Projektit", "Yhteydenotto"],
+        "menu-titles": {
+            "aboutMe": "Minusta",
+            "projects": "Projektit",
+            "contact": "Yhteydenotto"
+        },
         "locale-button-disabled": "Tämä painike on poissa käytöstä nykyisessä tilassa.",
         "repository": "Portfolio ohjelmavarasto"
     },

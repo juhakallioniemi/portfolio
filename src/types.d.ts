@@ -22,4 +22,9 @@ interface AppSettings {
     linkedin: string;
     github: string;
     brandGameUrl: string;
+    lastModified: string;
+}
+
+interface LocationHashContext {
+    isProjectActive: boolean;
 }

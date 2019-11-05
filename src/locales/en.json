@@ -1,6 +1,10 @@
 {
     "header": {
-        "menu-titles": ["About Me", "Projects", "Contact"],
+        "menu-titles": {
+            "aboutMe": "About Me",
+            "projects": "Projects",
+            "contact": "Contact"
+        },
         "locale-button-disabled": "This button is disabled in the current state.",
         "repository": "Portfolio repository"
     },

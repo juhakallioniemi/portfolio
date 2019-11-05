@@ -10,6 +10,7 @@ interface ProjectProps {
     i18n?: i18n;
     history?: History<LocationState>;
     isProjectActive?: boolean;
+    dynamicWindowHeight?: string;
 }
 
 interface ProjectState {
@@ -40,12 +41,14 @@ export class Project extends React.Component<ProjectProps, ProjectState> {
     };
 
     render() {
-        let popupContext: PopupContext = this.context;
         if (this.props.isProjectActive) {
             return (
                 <React.Fragment>
                     <object
                         className="active-project"
+                        style={{
+                            height: this.props.dynamicWindowHeight
+                        }}
                         type="text/html"
                         data={Appsettings.brandGameUrl}
                     ></object>

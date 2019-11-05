@@ -1,10 +1,10 @@
 import * as React from "react";
+import { useLayoutEffect, useState } from "react";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
 import { Main } from "./components/Main";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { useState } from "react";
 import "./i18n";
 import { PopupContextProvider } from "./context/PopupContext";
 import { Popup } from "./components/Popup";

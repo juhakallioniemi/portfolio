@@ -28,46 +28,61 @@ export class Main extends React.Component<MainProps, MainState> {
         return id;
     };
 
-    componentDidUpdate() {
-        if (location.hash.split("/")[2] && !this.state.isProjectActive) {
-            this.setState({
-                isProjectActive: true
-            });
-            // window.onbeforeunload = function() {
-            //     return "Your work will be lost.";
-            // };
-        } else if (!location.hash.split("/")[2] && this.state.isProjectActive) {
-            this.setState({
-                isProjectActive: false
-            });
-            // window.onbeforeunload = undefined;
+    titleToKey = (title: string) => {
+        title = title.replace(/\s/g, "").toLowerCase();
+        let myKey: string;
+        Object.keys(localesEn.header["menu-titles"]).some((key: string) => {
+            if (key.toLowerCase() === title) {
+                myKey = key;
+            }
+        });
+        return myKey;
+    };
+
+    renderSwitch(locationHash: string): JSX.Element {
+        switch (locationHash) {
+            case this.titleToKey(localesEn.header["menu-titles"].aboutMe):
+                return (
+                    <div className="main-content" key={this.getShortId()}>
+                        <div className="no-content">
+                            {this.props.t("main.noContent")}
+                        </div>
+                    </div>
+                );
+
+            case this.titleToKey(localesEn.header["menu-titles"].projects):
+                return (
+                    <div className="main-content" key={this.getShortId()}>
+                        <ProjectsList
+                            t={this.props.t}
+                            i18n={this.props.i18n}
+                            history={this.props.history}
+                        />
+                    </div>
+                );
+
+            case this.titleToKey(localesEn.header["menu-titles"].contact):
+                return (
+                    <div className="main-content" key={this.getShortId()}>
+                        <div className="no-content">
+                            {this.props.t("main.noContent")}
+                        </div>
+                    </div>
+                );
+
+            default:
+                return (
+                    <div className="main-content" key={this.getShortId()}>
+                        <div className="no-content">README.md</div>
+                    </div>
+                );
         }
-        console.log(
-            "main update - project active: " + this.state.isProjectActive
-        );
     }
 
     render() {
-        if (
-            location.hash.split("/")[1] ===
-            localesEn.header["menu-titles"][1].toLowerCase()
-        ) {
-            return (
-                <div className="main-content" key={this.getShortId()}>
-                    <ProjectsList
-                        t={this.props.t}
-                        i18n={this.props.i18n}
-                        history={this.props.history}
-                    />
-                </div>
-            );
-        }
+        let locationHash = location.hash.split("/")[1];
         return (
-            <div className="main-content" key={this.getShortId()}>
-                <div className="no-content">
-                    {this.props.t("main.noContent")}
-                </div>
-            </div>
+            <React.Fragment>{this.renderSwitch(locationHash)}</React.Fragment>
         );
     }
 }

@@ -2,8 +2,6 @@ import * as React from "react";
 import { TFunction, i18n } from "i18next";
 const Appsettings: AppSettings = require("appsettings");
 
-const appEnvironment = process.env.NODE_ENV;
-
 interface FooterProps {
     t: TFunction;
     i18n: i18n;
@@ -14,24 +12,33 @@ interface FooterState {
 }
 
 export class Footer extends React.Component<FooterProps, FooterState> {
+    isComponentMounted: boolean = false;
+
     constructor(props: any) {
         super(props);
         this.state = { lastUpdate: "" };
         this.lastModified();
     }
 
+    componentDidMount() {
+        this.isComponentMounted = true;
+    }
+
+    componentWillUnmount() {
+        this.isComponentMounted = false;
+    }
+
     async lastModified() {
-        const requestUrl =
-            appEnvironment === "production"
-                ? "https://api.github.com/repos/juhakallioniemi/portfolio/contents/docs/main.bundle.js"
-                : "/docs/main.bundle.js";
+        const requestUrl = Appsettings.lastModified;
         const response = await fetch(requestUrl);
         const lastModified = new Date(response.headers.get("Last-Modified"));
-        this.setState({
-            lastUpdate: lastModified.toLocaleDateString(
-                this.props.i18n.language
-            )
-        });
+        if (this.isComponentMounted) {
+            this.setState({
+                lastUpdate: lastModified.toLocaleDateString(
+                    this.props.i18n.language
+                )
+            });
+        }
     }
 
     iconClicked(id: string) {

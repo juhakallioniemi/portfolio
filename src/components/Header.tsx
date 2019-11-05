@@ -22,9 +22,7 @@ export class Header extends React.Component<HeaderProps, HeaderState> {
     constructor(props: any) {
         super(props);
         this.state = {
-            menuButtons: localesEn.header["menu-titles"].map(title =>
-                title.replace(/\s/g, "").toLowerCase()
-            ),
+            menuButtons: Object.keys(localesEn.header["menu-titles"]),
             activeButton: location.hash.split("/")[1],
             activeProject: location.hash.split("/")[2]
         };
@@ -36,7 +34,6 @@ export class Header extends React.Component<HeaderProps, HeaderState> {
 
     componentDidUpdate() {
         this.state.menuButtons.forEach(menuButton => {
-            // if (menuButton === this.state.activeButton) {
             if (menuButton === location.hash.split("/")[1]) {
                 (ReactDOM.findDOMNode(
                     this.refs[menuButton]
@@ -84,18 +81,17 @@ export class Header extends React.Component<HeaderProps, HeaderState> {
     }
 
     menuClick = (btnName: string) => {
-        // TODO: Could this be taken from i18n?
-        let currentLocale = location.hash.split("/")[0];
+        let localeHash = "#" + this.props.i18n.language;
 
         if (location.hash.split("/")[2] !== undefined) {
             let popupContext: PopupContext = this.context;
             popupContext.setContext(
                 popupContext.popupType.confirmation,
-                currentLocale + "/" + btnName,
+                localeHash + "/" + btnName,
                 location.hash.split("/")[1]
             );
         } else {
-            this.props.history.push(currentLocale + "/" + btnName);
+            this.props.history.push(localeHash + "/" + btnName);
             this.setState({
                 activeButton: location.hash.split("/")[1]
             });
@@ -104,19 +100,10 @@ export class Header extends React.Component<HeaderProps, HeaderState> {
 
     render() {
         return (
-            <React.Fragment>
+            <span ref="Header">
                 <div className="portfolio-title">
                     <h1 onClick={() => this.menuClick("")}>Portfolio</h1>
                 </div>
-                {/* <a
-                    href="https://github.com/juhakallioniemi/portfolio"
-                    className="repository-link"
-                    target="_blank"
-                >
-                    <span className="underline-animation">
-                        {this.props.t("header.repository")}
-                    </span>
-                </a> */}
                 <div className="menu-links">
                     {this.state.menuButtons.map((btn, i) => (
                         <button
@@ -127,14 +114,14 @@ export class Header extends React.Component<HeaderProps, HeaderState> {
                             ref={btn}
                             onClick={() => this.menuClick(btn)}
                         >
-                            {this.props.t("header.menu-titles")[i]}
+                            {this.props.t("header.menu-titles." + btn)}
                         </button>
                     ))}
                 </div>
                 <div className="flag-icon">
                     {this.localeButton(this.props.i18n.language)}
                 </div>
-            </React.Fragment>
+            </span>
         );
     }
 }
