@@ -21,39 +21,46 @@ export class Popup extends React.Component<PopupProps, PopupState> {
         };
     }
 
-    mainButtonClicked = (popupContext: PopupContext) => {
-        this.props.history.push(popupContext.locationHash);
-        popupContext.setContext("");
-    };
+    modalButton(id: string, value: string, className?: string): JSX.Element {
+        let popupContext: PopupContext = this.context;
+        return (
+            <button
+                id={id}
+                type="button"
+                className={className}
+                onClick={(e: any) =>
+                    this.buttonClicked(e.target.id, popupContext)
+                }
+            >
+                {value !== "" ? this.props.t(value) : <span>&times;</span>}
+            </button>
+        );
+    }
 
-    tabButtonClicked = (popupContext: PopupContext) => {
-        window.open(popupContext.redirectUrl, "_blank");
-        popupContext.setContext("");
-    };
-
-    yesButtonClicked = (popupContext: PopupContext) => {
-        this.props.history.push(popupContext.redirectUrl);
-        popupContext.setContext("");
-    };
-
-    noButtonClicked = (popupContext: PopupContext) => {
+    buttonClicked = (id: string, popupContext: PopupContext) => {
+        switch (id) {
+            case "close" || "popup-no":
+                break;
+            case "main-view":
+                this.props.history.push(popupContext.locationHash);
+                break;
+            case "new-tab":
+                window.open(popupContext.redirectUrl, "_blank");
+                break;
+            case "popup-yes":
+                this.props.history.push(popupContext.redirectUrl);
+                break;
+        }
         popupContext.setContext("");
     };
 
     popupModal(): JSX.Element {
         let popupContext: PopupContext = this.context;
-
-        if (popupContext.activeType === "project") {
+        if (popupContext.activeType === "project")
             return (
                 <div id="popup">
                     <div className="popup-info">
-                        <button
-                            type="button"
-                            className="close popup-close"
-                            onClick={() => this.noButtonClicked(popupContext)}
-                        >
-                            <span>&times;</span>
-                        </button>
+                        {this.modalButton("close", "", "close popup-close")}
                     </div>
                     <h3 className="popup-title">
                         {this.props.t("popup.project.title", {
@@ -64,32 +71,22 @@ export class Popup extends React.Component<PopupProps, PopupState> {
                         })}
                     </h3>
                     <div className="button-container">
-                        <button
-                            id="popup-button-main"
-                            onClick={() => this.mainButtonClicked(popupContext)}
-                        >
-                            {this.props.t("popup.project.main-view")}
-                        </button>
-                        <button
-                            id="popup-button-tab"
-                            onClick={() => this.tabButtonClicked(popupContext)}
-                        >
-                            {this.props.t("popup.project.new-tab")}
-                        </button>
+                        {this.modalButton(
+                            "main-view",
+                            this.props.t("popup.project.main-view")
+                        )}
+                        {this.modalButton(
+                            "new-tab",
+                            this.props.t("popup.project.new-tab")
+                        )}
                     </div>
                 </div>
             );
-        } else if (popupContext.activeType === "confirmation") {
+        else if (popupContext.activeType === "confirmation") {
             return (
                 <div id="popup">
                     <div className="popup-info">
-                        <button
-                            type="button"
-                            className="close popup-close"
-                            onClick={() => this.noButtonClicked(popupContext)}
-                        >
-                            <span>&times;</span>
-                        </button>
+                        {this.modalButton("close", "", "close popup-close")}
                     </div>
                     <h3 className="popup-title">
                         {this.props.t("popup.confirmation.title")}
@@ -98,18 +95,14 @@ export class Popup extends React.Component<PopupProps, PopupState> {
                         {this.props.t("popup.confirmation.subtitle")}
                     </h4>
                     <div className="button-container">
-                        <button
-                            id="popup-button-main"
-                            onClick={() => this.yesButtonClicked(popupContext)}
-                        >
-                            {this.props.t("common.yes")}
-                        </button>
-                        <button
-                            id="popup-button-tab"
-                            onClick={() => this.noButtonClicked(popupContext)}
-                        >
-                            {this.props.t("common.no")}
-                        </button>
+                        {this.modalButton(
+                            "popup-yes",
+                            this.props.t("common.yes")
+                        )}
+                        {this.modalButton(
+                            "popup-no",
+                            this.props.t("common.no")
+                        )}
                     </div>
                 </div>
             );
@@ -118,30 +111,6 @@ export class Popup extends React.Component<PopupProps, PopupState> {
 
     render() {
         return <React.Fragment>{this.popupModal()}</React.Fragment>;
-
-        // } else if (popupContext.activeType === "confirmation") {
-        //     return (
-        //         <div id="popup">
-        //             <h3>Are you sure you want to leave this page?</h3>
-        //             <button
-        //                 id="popup-button-main"
-        //                 className="btn"
-        //                 onClick={() => this.yesClicked(popupContext)}
-        //             >
-        //                 Yes
-        //             </button>
-        //             <button
-        //                 id="popup-button-tab"
-        //                 className="btn"
-        //                 onClick={() => this.cancelClicked(popupContext)}
-        //             >
-        //                 Cancel
-        //             </button>
-        //         </div>
-        //     );
-        // } else {
-        //     return null;
-        // }
     }
 }
 

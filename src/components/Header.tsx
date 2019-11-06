@@ -100,7 +100,7 @@ export class Header extends React.Component<HeaderProps, HeaderState> {
 
     render() {
         return (
-            <span ref="Header">
+            <React.Fragment>
                 <div className="portfolio-title">
                     <h1 onClick={() => this.menuClick("")}>Portfolio</h1>
                 </div>
@@ -121,7 +121,7 @@ export class Header extends React.Component<HeaderProps, HeaderState> {
                 <div className="flag-icon">
                     {this.localeButton(this.props.i18n.language)}
                 </div>
-            </span>
+            </React.Fragment>
         );
     }
 }

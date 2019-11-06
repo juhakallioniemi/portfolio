@@ -45,13 +45,13 @@ export class Footer extends React.Component<FooterProps, FooterState> {
         let url = "";
         switch (id) {
             case "facebook":
-                url = Appsettings.facebook;
+                url = "https://www.facebook.com/kallioniemi.juha";
                 break;
             case "linkedin":
-                url = Appsettings.linkedin;
+                url = "https://www.linkedin.com/in/juha-kallioniemi-6b692b158/";
                 break;
             case "github":
-                url = Appsettings.github;
+                url = "https://github.com/juhakallioniemi";
                 break;
         }
         window.open(url, "_blank");

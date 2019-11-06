@@ -18,9 +18,6 @@ interface PopupType {
 }
 
 interface AppSettings {
-    facebook: string;
-    linkedin: string;
-    github: string;
     brandGameUrl: string;
     lastModified: string;
 }

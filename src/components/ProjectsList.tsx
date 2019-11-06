@@ -19,13 +19,13 @@ export class ProjectsList extends React.Component<
     ProjectsListState
 > {
     timeoutId: NodeJS.Timeout;
+    isComponentMounted: boolean = false;
 
     constructor(props: any) {
         super(props);
         this.state = {
             isProjectActive: location.hash.split("/")[2] !== undefined,
-            dynamicWindowHeight: `calc(100vh - ${$("header").outerHeight(true) +
-                $("footer").outerHeight(true)}px)`
+            dynamicWindowHeight: ""
         };
     }
 
@@ -41,10 +41,12 @@ export class ProjectsList extends React.Component<
     };
 
     componentDidMount() {
+        this.resizeProjectWindow();
         window.addEventListener("resize", this.resizeProjectWindow);
     }
 
     componentWillUnmount() {
+        if (this.timeoutId) clearTimeout(this.timeoutId);
         window.removeEventListener("resize", this.resizeProjectWindow);
     }
 
