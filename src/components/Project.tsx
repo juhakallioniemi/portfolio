@@ -2,7 +2,7 @@ import * as React from "react";
 import { TFunction, i18n } from "i18next";
 import { History, LocationState } from "history";
 import { PopupContext } from "../context/PopupContext";
-const Appsettings: AppSettings = require("appsettings");
+const appsettings: AppSettings = require("appsettings");
 
 interface ProjectProps {
     projectName?: string;
@@ -30,7 +30,7 @@ export class Project extends React.Component<ProjectProps, ProjectState> {
         if (this.props.projectName === this.props.t("projects.brand-game")) {
             popupContext.setContext(
                 popupContext.popupType.project,
-                Appsettings.brandGameUrl,
+                appsettings.brandGameUrl,
                 location.hash + "/" + "brand-game"
             );
         } else {
@@ -50,7 +50,7 @@ export class Project extends React.Component<ProjectProps, ProjectState> {
                             height: this.props.dynamicWindowHeight
                         }}
                         type="text/html"
-                        data={Appsettings.brandGameUrl}
+                        data={appsettings.brandGameUrl}
                     ></object>
                 </React.Fragment>
             );
