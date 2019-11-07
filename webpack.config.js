@@ -4,8 +4,7 @@ const HtmlWebPackPlugin = require("html-webpack-plugin");
 
 module.exports = (env, argv) => ({
     entry: {
-        main: "./src/index.tsx",
-        vendor: "./src/scripts/jquery-3.4.1.min.js"
+        main: "./src/index.tsx"
     },
     output: {
         filename: "[name].bundle.js",

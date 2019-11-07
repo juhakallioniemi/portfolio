@@ -2,6 +2,7 @@ import * as React from "react";
 import { Project } from "./Project";
 import { TFunction, i18n } from "i18next";
 import { History, LocationState } from "history";
+import $ from "jquery";
 
 interface ProjectsListProps {
     t: TFunction;

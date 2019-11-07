@@ -5,6 +5,7 @@
     "private": true,
     "dependencies": {
         "i18next": "^17.2.0",
+        "jquery": "^3.4.1",
         "react": "^16.10.2",
         "react-app-polyfill": "^1.0.4",
         "react-dom": "^16.10.2",
