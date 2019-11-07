@@ -71,7 +71,7 @@ module.exports = (env, argv) => ({
                 ]
             },
             {
-                test: /\.(png|svg|jpg|jpeg|gif|ico|otf|ttf|eot)$/,
+                test: /\.(png|svg|jpg|jpeg|gif|ico|otf|ttf|eot|md)$/,
                 exclude: /node_modules/,
                 use: ["file-loader?name=[name].[ext]"] // ?name=[name].[ext] is only necessary to preserve the original file name
             },
@@ -85,7 +85,8 @@ module.exports = (env, argv) => ({
         new HtmlWebPackPlugin({
             template: "./public/index.html",
             filename: "./index.html",
-            favicon: "./public/favicon.ico"
+            favicon: "./public/favicon.ico",
+            readmeEN: "./README-en.md"
         }),
         ...(argv.mode === "production"
             ? [

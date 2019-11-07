@@ -5,7 +5,7 @@ import localesEn from "../locales/en.json";
 import shortid from "shortid";
 import { History, LocationState } from "history";
 import ReactMarkdown from "react-markdown";
-const Appsettings: AppSettings = require("appsettings");
+//const Appsettings: AppSettings = require("appsettings");
 
 interface MainProps {
     history?: History<LocationState>;
@@ -46,8 +46,8 @@ export class Main extends React.Component<MainProps, MainState> {
     fetchReadme() {
         let requestFile =
             this.props.i18n.language === "en"
-                ? Appsettings.readmeEN
-                : Appsettings.readmeFI;
+                ? "../../README-en.md"
+                : "../../README-fi.md";
         fetch(requestFile)
             .then(response => response.text())
             .then(text => {
