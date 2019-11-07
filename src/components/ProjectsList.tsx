@@ -83,12 +83,12 @@ export class ProjectsList extends React.Component<
                         history={this.props.history}
                     />
                     <Project
-                        projectName="TODO"
+                        projectName="Todo"
                         t={this.props.t}
                         i18n={this.props.i18n}
                     />
                     <Project
-                        projectName="TODO"
+                        projectName="Todo"
                         t={this.props.t}
                         i18n={this.props.i18n}
                     />

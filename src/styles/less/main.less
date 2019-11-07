@@ -1,12 +1,34 @@
 @import "animations.less";
 @import "../icons/icomoon/icomoon.css";
 
+@font-face {
+    font-family: GistLight;
+    src: url(../fonts/GistLight.otf);
+}
+
+@font-face {
+    font-family: Linee;
+    src: url(../fonts/Linee.otf);
+}
+
 @mobile: ~"only screen and (max-width: 640px)";
 // IE fallback
 @IE: ~"screen and (-ms-high-contrast: active), (-ms-high-contrast: none)";
 
 @app-bg-gray: #222222;
 @app-basic-lightblue: #61DAFB;
+
+.headings(@style) {
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        @style();
+    }
+}
 
 html,
 body {
@@ -25,11 +47,19 @@ body {
     min-height: calc(100vh - 50px);
     background: url(../images/binary.jpg) no-repeat;
     background-size: cover;
+    font-family: Arial, Helvetica, sans-serif;
 
     @media @mobile {
         min-height: calc(100vh - 40px);
     }
 }
+
+.headings( {
+        font-family: GistLight;
+        margin: 0;
+    }
+
+);
 
 #popup {
     display: block;
@@ -48,6 +78,12 @@ body {
         height: 180px;
     }
 
+    .headings( {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+    );
+
     .popup-info {
         width: 100%;
         height: 40px;
@@ -63,7 +99,6 @@ body {
             width: 35px;
             height: 100%;
             font-size: 2.5em;
-            font-family: sans-serif;
             color: @app-basic-lightblue;
 
             @media @mobile {
@@ -205,9 +240,16 @@ header {
             vertical-align: middle;
             cursor: pointer;
             position: relative;
+            //font-family: Buttons;            
+            font-family: Linee;
+            letter-spacing: 2vw;
+            text-indent: 2vw;
+            font-size: 3em;
 
             @media @mobile {
-                font-size: 1.5em;
+                font-size: 1.75em;
+                letter-spacing: 0;
+                text-indent: 0;
             }
 
             .title-effect-lines(@titleColor: @app-basic-lightblue);
@@ -266,25 +308,37 @@ header {
         }
 
         .link-button {
-            width: calc(100% / 4);
+            width: calc(100% / 3);
             display: inline-block;
-            font-size: 1.2em;
+            // font-size: 1.2em;
             font-weight: bold;
             height: 41px;
             line-height: 41px;
             padding: 0;
+            margin: 0 6%;
 
             .button-effect-lines(@mainColor: @app-basic-lightblue, @secondaryColor: @app-bg-gray);
 
             @media @mobile {
-                font-size: 0.75em;
+                // font-size: 0.85em;
                 height: 30px;
                 line-height: 30px;
+                margin: 0 3%;
             }
 
             @media @IE {
                 margin: 0 6%;
             }
+
+            .headings( {
+                    font-weight: bold;
+
+                    @media @mobile {
+                        font-size: 0.8em;
+                    }
+                }
+
+            );
         }
     }
 
@@ -316,8 +370,8 @@ header {
             border: none;
 
             @media @mobile {
-                width: calc(35px / 1.25);
-                height: calc(25px / 1.25);
+                width: calc(35px / 1.35);
+                height: calc(25px / 1.35);
             }
 
             &:disabled {
@@ -337,76 +391,121 @@ main {
     }
 
     .main-content {
-        .no-content {
-            .fade-in-down(400ms);
-            border: 2px solid @app-basic-lightblue;
-            padding: 2px 0;
-            background: @app-bg-gray;
+        .fade-in-down(400ms);
+        border: 2px solid @app-basic-lightblue;
+        padding: 2px 0;
+        background: @app-bg-gray;
 
-            @media @mobile {
-                // border-width: 0 2px 2px 2px;
-                margin: 5px;
-            }
+        @media @mobile {
+            margin: 5px;
         }
 
-        .projects-list {
-            .fade-in-down(800ms);
+        .markdown {
+            text-align: left;
             width: 100%;
-            display: flex;
-            justify-content: center;
-            flex-wrap: nowrap;
-            padding: 5px;
+            height: 100%;
             margin: auto;
-            border: 2px solid @app-basic-lightblue;
-            max-height: 35vh;
+            padding: 2.5%;
+            color: #FFF;
+            font-size: 1.1em;
 
             @media @mobile {
-                flex-wrap: wrap;
-                border: none;
-                max-height: none;
+                font-size: 0.9em;
             }
 
-            .project {
-                width: 100%;
-                position: relative;
-                margin: 5px;
-                cursor: pointer;
-                overflow: hidden;
-                position: relative;
-
-                @media @mobile {
-                    width: 50%;
-                    margin: 5px;
-                    height: auto;
-                }
-
-                .rotating-border-animation(@app-basic-lightblue, #000, @app-bg-gray);
-
-                .project-content {
-                    position: absolute;
-                    width: 100%;
-                    height: 100%;
-                    top: 0;
-                    left: 0;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    font-size: 1.4em;
+            .headings( {
+                    color: @app-basic-lightblue;
+                    font-size: 1.15em;
+                    margin-bottom: 0.25em;
 
                     @media @mobile {
-                        font-size: 0.9em;
+                        font-size: 1.0em;
                     }
+                }
+
+            );
+
+            blockquote {
+                padding-left: 1.5rem;
+            }
+
+            p,
+            li {
+                font-size: 0.95em;
+                // font-family: 'Courier New',
+                //     Courier,
+                //     monospace;
+
+                @media @mobile {
+                    font-size: 0.9em;
                 }
             }
         }
+    }
 
-        .active-project {
+    .projects-list {
+        .fade-in-down(800ms);
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        flex-wrap: nowrap;
+        padding: 5px;
+        margin: auto;
+        border: 2px solid @app-basic-lightblue;
+        max-height: 35vh;
+
+        @media @mobile {
+            flex-wrap: wrap;
+            border: none;
+            max-height: none;
+        }
+
+        .project {
             width: 100%;
-            border: 2px solid @app-basic-lightblue;
+            position: relative;
+            margin: 5px;
+            cursor: pointer;
+            overflow: hidden;
+            position: relative;
 
             @media @mobile {
-                border-width: 0 2px 0 2px;
+                width: 50%;
+                margin: 5px;
+                height: auto;
             }
+
+            .rotating-border-animation(@app-basic-lightblue, #000, @app-bg-gray);
+
+            .project-content {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                top: 0;
+                left: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                .headings( {
+                        font-family: Arial, Helvetica, sans-serif;
+                        font-weight: bold;
+
+                        @media @mobile {
+                            font-size: 1.1em;
+                        }
+                    }
+
+                );
+            }
+        }
+    }
+
+    .active-project {
+        width: 100%;
+        border: 2px solid @app-basic-lightblue;
+
+        @media @mobile {
+            border-width: 0 2px 0 2px;
         }
     }
 }
@@ -424,6 +523,7 @@ footer {
     padding: 7.5px;
     display: flex;
     justify-content: center;
+    color: #FFF;
 
     @media @mobile {
         margin: 0;
@@ -441,6 +541,7 @@ footer {
         width: 50%;
         font-size: 1.5em;
         text-align: right;
+        color: @app-basic-lightblue;
 
         i[class*="icon-"] {
             cursor: pointer;

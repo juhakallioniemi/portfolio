@@ -114,7 +114,7 @@ export class Header extends React.Component<HeaderProps, HeaderState> {
                             ref={btn}
                             onClick={() => this.menuClick(btn)}
                         >
-                            {this.props.t("header.menu-titles." + btn)}
+                            <h5>{this.props.t("header.menu-titles." + btn)}</h5>
                         </button>
                     ))}
                 </div>

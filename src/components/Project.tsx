@@ -59,7 +59,7 @@ export class Project extends React.Component<ProjectProps, ProjectState> {
                 <React.Fragment>
                     <div className="project" onClick={this.openProject}>
                         <div className="project-content">
-                            {this.state.projectInfo}
+                            <h3>{this.state.projectInfo}</h3>
                         </div>
                     </div>
                 </React.Fragment>

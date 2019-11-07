@@ -9,16 +9,9 @@ interface PopupProps {
     i18n?: i18n;
 }
 
-interface PopupState {
-    projectName: string;
-}
-
-export class Popup extends React.Component<PopupProps, PopupState> {
+export class Popup extends React.Component<PopupProps, {}> {
     constructor(props: any) {
         super(props);
-        this.state = {
-            projectName: ""
-        };
     }
 
     modalButton(id: string, value: string, className?: string): JSX.Element {

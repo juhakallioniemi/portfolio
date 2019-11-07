@@ -71,7 +71,7 @@ module.exports = (env, argv) => ({
                 ]
             },
             {
-                test: /\.(png|svg|jpg|jpeg|gif|ico|ttf|eot)$/,
+                test: /\.(png|svg|jpg|jpeg|gif|ico|otf|ttf|eot)$/,
                 exclude: /node_modules/,
                 use: ["file-loader?name=[name].[ext]"] // ?name=[name].[ext] is only necessary to preserve the original file name
             },

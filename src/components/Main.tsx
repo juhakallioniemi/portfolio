@@ -4,6 +4,7 @@ import { ProjectsList } from "./ProjectsList";
 import localesEn from "../locales/en.json";
 import shortid from "shortid";
 import { History, LocationState } from "history";
+import ReactMarkdown from "react-markdown";
 
 interface MainProps {
     history?: History<LocationState>;
@@ -13,13 +14,15 @@ interface MainProps {
 
 interface MainState {
     isProjectActive: boolean;
+    readme: string;
 }
 
 export class Main extends React.Component<MainProps, MainState> {
     constructor(props: any) {
         super(props);
         this.state = {
-            isProjectActive: false
+            isProjectActive: false,
+            readme: ""
         };
     }
 
@@ -39,41 +42,55 @@ export class Main extends React.Component<MainProps, MainState> {
         return myKey;
     };
 
+    fetchReadme() {
+        let requestFile =
+            this.props.i18n.language === "en"
+                ? "../../README-en.md"
+                : "../../README-fi.md";
+        fetch(requestFile)
+            .then(response => response.text())
+            .then(text => {
+                this.setState({ readme: text });
+            });
+    }
+
+    componentWillMount() {
+        this.fetchReadme();
+    }
+
     renderSwitch(locationHash: string): JSX.Element {
         switch (locationHash) {
             case this.titleToKey(localesEn.header["menu-titles"].aboutMe):
                 return (
                     <div className="main-content" key={this.getShortId()}>
-                        <div className="no-content">
-                            {this.props.t("main.noContent")}
-                        </div>
+                        {this.props.t("main.noContent")}
                     </div>
                 );
 
             case this.titleToKey(localesEn.header["menu-titles"].projects):
                 return (
-                    <div className="main-content" key={this.getShortId()}>
-                        <ProjectsList
-                            t={this.props.t}
-                            i18n={this.props.i18n}
-                            history={this.props.history}
-                        />
-                    </div>
+                    <ProjectsList
+                        key={this.getShortId()}
+                        t={this.props.t}
+                        i18n={this.props.i18n}
+                        history={this.props.history}
+                    />
                 );
 
             case this.titleToKey(localesEn.header["menu-titles"].contact):
                 return (
                     <div className="main-content" key={this.getShortId()}>
-                        <div className="no-content">
-                            {this.props.t("main.noContent")}
-                        </div>
+                        {this.props.t("main.noContent")}
                     </div>
                 );
 
             default:
                 return (
                     <div className="main-content" key={this.getShortId()}>
-                        <div className="no-content">README.md</div>
+                        <ReactMarkdown
+                            className="markdown"
+                            source={this.state.readme}
+                        />
                     </div>
                 );
         }
