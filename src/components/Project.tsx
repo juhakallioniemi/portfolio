@@ -2,7 +2,7 @@ import * as React from "react";
 import { TFunction, i18n } from "i18next";
 import { History, LocationState } from "history";
 import { PopupContext } from "../context/PopupContext";
-var Appsettings: AppSettings = require("appsettings");
+const Appsettings: AppSettings = require("appsettings");
 
 interface ProjectProps {
     projectName?: string;

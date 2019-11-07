@@ -20,6 +20,8 @@ interface PopupType {
 interface AppSettings {
     brandGameUrl: string;
     lastModified: string;
+    readmeEN: string;
+    readmeFI: string;
 }
 
 interface LocationHashContext {

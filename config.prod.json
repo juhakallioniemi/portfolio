@@ -1,4 +1,6 @@
 {
     "brandGameUrl": "brand-game/index.html",
-    "lastModified": "https://api.github.com/repos/juhakallioniemi/portfolio/contents/docs/main.bundle.js"
+    "lastModified": "https://api.github.com/repos/juhakallioniemi/portfolio/contents/docs/main.bundle.js",
+    "readmeEN": "https://github.com/juhakallioniemi/portfolio/blob/master/README-en.md",
+    "readmeFI": "https://github.com/juhakallioniemi/portfolio/blob/master/README-fi.md"
 }
