@@ -108,6 +108,7 @@ module.exports = (env, argv) => ({
             argv.mode === "production"
                 ? require("./config.prod.json")
                 : require("./config.dev.json")
-        )
+        ),
+        jquery: "jQuery"
     }
 });
