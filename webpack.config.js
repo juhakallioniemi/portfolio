@@ -71,24 +71,13 @@ module.exports = (env, argv) => ({
                 ]
             },
             {
-                test: /\.(png|svg|jpg|jpeg|gif|ico|otf|ttf|eot)$/,
+                test: /\.(png|svg|jpg|jpeg|gif|ico|otf|ttf|eot|md)$/,
                 exclude: /node_modules/,
-                use: [
-                    {
-                        loader: "file-loader?name=[name].[ext]", // ?name=[name].[ext] is only necessary to preserve the original file name
-                        options: {
-                            emitFile: false
-                        }
-                    }
-                ]
+                use: ["file-loader?name=[name].[ext]"] // ?name=[name].[ext] is only necessary to preserve the original file name
             },
             {
                 test: /\.woff(2)?(\?[a-z0-9]+)?$/,
                 loader: "url-loader?limit=10000&mimetype=application/font-woff"
-            },
-            {
-                test: /\.md$/,
-                use: ["file-loader?name=[name].[ext]"] // ?name=[name].[ext] is only necessary to preserve the original file name
             }
         ]
     },
