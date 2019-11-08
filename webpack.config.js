@@ -87,6 +87,12 @@ module.exports = (env, argv) => ({
                     },
                     {
                         loader: "markdown-loader"
+                    },
+                    {
+                        loader: "raw-loader"
+                    },
+                    {
+                        loader: "react-markdown-loader"
                     }
                 ]
             }

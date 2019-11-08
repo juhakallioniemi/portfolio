@@ -6,8 +6,10 @@ import shortid from "shortid";
 import { History, LocationState } from "history";
 import ReactMarkdown from "react-markdown";
 const appsettings: AppSettings = require("appsettings");
-require("../../README-en.md");
-require("../../README-fi.md");
+// require("../../README-en.md");
+// require("../../README-fi.md");
+require("!!html-loader!markdown-loader!../../README-en.md");
+require("!!raw-loader!../../README-fi.md");
 
 interface MainProps {
     history?: History<LocationState>;
@@ -48,8 +50,8 @@ export class Main extends React.Component<MainProps, MainState> {
     fetchReadme() {
         let requestFile =
             this.props.i18n.language === "en"
-                ? appsettings.readmeEN
-                : appsettings.readmeFI;
+                ? "../../README-en.md"
+                : "../../README-fi.md";
         fetch(requestFile)
             .then(response => response.text())
             .then(text => {
