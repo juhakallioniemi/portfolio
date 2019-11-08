@@ -12,5 +12,3 @@
 
 -   Brändi-peli
     -   Vue, JavaScript, Sass
-
-test test
