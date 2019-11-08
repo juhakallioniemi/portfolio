@@ -4,7 +4,7 @@
 
 ## Technologies used
 
--   Portfolio user interface
+-   Portfolio's user interface
     -   React, TypeScript, Less, i18next, webpack, jQuery
 
 ## Todos
