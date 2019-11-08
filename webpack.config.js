@@ -73,7 +73,14 @@ module.exports = (env, argv) => ({
             {
                 test: /\.(png|svg|jpg|jpeg|gif|ico|otf|ttf|eot)$/,
                 exclude: /node_modules/,
-                use: ["file-loader?name=[name].[ext]"] // ?name=[name].[ext] is only necessary to preserve the original file name
+                use: [
+                    {
+                        loader: "file-loader?name=[name].[ext]", // ?name=[name].[ext] is only necessary to preserve the original file name
+                        options: {
+                            emitFile: false
+                        }
+                    }
+                ]
             },
             {
                 test: /\.woff(2)?(\?[a-z0-9]+)?$/,
@@ -81,20 +88,7 @@ module.exports = (env, argv) => ({
             },
             {
                 test: /\.md$/,
-                use: [
-                    {
-                        loader: "html-loader"
-                    },
-                    {
-                        loader: "markdown-loader"
-                    },
-                    {
-                        loader: "raw-loader"
-                    },
-                    {
-                        loader: "react-markdown-loader"
-                    }
-                ]
+                use: ["file-loader?name=[name].[ext]"] // ?name=[name].[ext] is only necessary to preserve the original file name
             }
         ]
     },
