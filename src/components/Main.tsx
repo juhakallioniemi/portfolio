@@ -58,6 +58,9 @@ export class Main extends React.Component<MainProps, MainState> {
     }
 
     UNSAFE_componentWillMount() {
+        console.log("appsettings.readmeEN: " + appsettings.readmeEN);
+        console.log("appsettings.readmeEN: " + appsettings.readmeFI);
+        console.log("appsettings.slash: " + appsettings.slash);
         this.fetchReadme();
     }
 

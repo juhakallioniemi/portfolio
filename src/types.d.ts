@@ -22,6 +22,7 @@ interface AppSettings {
     lastModified: string;
     readmeEN: string;
     readmeFI: string;
+    slash: string;
 }
 
 interface LocationHashContext {
