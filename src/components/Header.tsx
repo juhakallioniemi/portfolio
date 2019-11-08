@@ -104,13 +104,13 @@ export class Header extends React.Component<HeaderProps, HeaderState> {
                 <div className="portfolio-title">
                     <h1 onClick={() => this.menuClick("")}>Portfolio</h1>
                 </div>
-                <div className="menu-links">
+                <div className="menu">
                     {this.state.menuButtons.map((btn, i) => (
                         <button
                             id={btn}
                             key={btn}
                             type="button"
-                            className="link-button"
+                            className="menu-button"
                             ref={btn}
                             onClick={() => this.menuClick(btn)}
                         >

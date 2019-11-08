@@ -278,7 +278,7 @@ header {
     //     .underline-animation(@app-basic-lightblue);
     // }
 
-    .menu-links {
+    .menu {
         display: flex;
         overflow: hidden;
         justify-content: space-evenly;
@@ -307,7 +307,7 @@ header {
             margin: auto;
         }
 
-        .link-button {
+        .menu-button {
             width: calc(100% / 3);
             display: inline-block;
             // font-size: 1.2em;
@@ -317,7 +317,7 @@ header {
             padding: 0;
             margin: 0 6%;
 
-            .button-effect-lines(@mainColor: @app-basic-lightblue, @secondaryColor: @app-bg-gray);
+            .button-effect-lines(@mainColor: @app-basic-lightblue, @secondaryColor: @app-bg-gray, @buttonHeight: 41px);
 
             @media @mobile {
                 // font-size: 0.85em;

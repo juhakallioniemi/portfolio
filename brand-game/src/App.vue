@@ -2,9 +2,9 @@
 	<div id="brand-game">
 		<h1 style="margin: 0">{{ gameTitle }}</h1>
 		<div>{{message}}</div>
-		<div>Counter: {{ counter }}</div>
+		<!-- <div>Counter: {{ counter }}</div>
 		<button v-on:click="increment">Increment</button>
-		<Hello />
+		<Hello />-->
 	</div>
 </template>
 

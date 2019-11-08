@@ -91,7 +91,7 @@
     }
 }
 
-.button-effect-lines(@mainColor, @secondaryColor) {
+.button-effect-lines(@mainColor, @secondaryColor, @buttonHeight) {
     background: @mainColor;
     color: @secondaryColor;
     border: none;
@@ -136,6 +136,7 @@
         color: @mainColor;
         transform: translateY(20px);
         pointer-events: none;
+        height: @buttonHeight + 1px;
 
         &:before,
         &:after {
