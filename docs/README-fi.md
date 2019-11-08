@@ -5,7 +5,7 @@
 
 ## Käytetyt teknologiat
 
--   Portfolio käyttöliittymä
+-   Portfolion käyttöliittymä
     -   React, TypeScript, Less, i18next, webpack, jQuery
 
 ## Keskeneräiset tehtävät

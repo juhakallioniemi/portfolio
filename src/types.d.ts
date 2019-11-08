@@ -17,14 +17,13 @@ interface PopupType {
     project: string;
 }
 
+interface LocationHashContext {
+    isProjectActive: boolean;
+}
+
 interface AppSettings {
     brandGameUrl: string;
     lastModified: string;
     readmeEN: string;
     readmeFI: string;
-    slash: string;
-}
-
-interface LocationHashContext {
-    isProjectActive: boolean;
 }

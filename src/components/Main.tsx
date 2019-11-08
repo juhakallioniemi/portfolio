@@ -27,6 +27,7 @@ export class Main extends React.Component<MainProps, MainState> {
             isProjectActive: false,
             readme: ""
         };
+        this.fetchReadme();
     }
 
     getShortId = () => {
@@ -57,12 +58,8 @@ export class Main extends React.Component<MainProps, MainState> {
             });
     }
 
-    UNSAFE_componentWillMount() {
-        console.log("appsettings.readmeEN: " + appsettings.readmeEN);
-        console.log("appsettings.readmeEN: " + appsettings.readmeFI);
-        console.log("appsettings.slash: " + appsettings.slash);
-        this.fetchReadme();
-    }
+    // UNSAFE_componentWillMount() {
+    // }
 
     renderSwitch(locationHash: string): JSX.Element {
         switch (locationHash) {
