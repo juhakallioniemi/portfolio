@@ -20,7 +20,7 @@ export class ProjectsList extends React.Component<
     ProjectsListState
 > {
     timeoutId: NodeJS.Timeout;
-    isComponentMounted: boolean = false;
+    //isComponentMounted: boolean = false;
 
     constructor(props: any) {
         super(props);
@@ -69,6 +69,8 @@ export class ProjectsList extends React.Component<
                 <Project
                     isProjectActive={true}
                     dynamicWindowHeight={this.state.dynamicWindowHeight}
+                    t={this.props.t}
+                    i18n={this.props.i18n}
                 />
             );
         } else {

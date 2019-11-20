@@ -14,13 +14,26 @@
     animation: fade-in-down @time ease-out forwards;
 }
 
+.fade(@time) {
+    @keyframes fade {
+        from {
+            opacity: 1;
+        }
+        to {
+            opacity: 0;
+        }
+    }
+    animation-delay: 2s;
+    animation: fade @time ease forwards;
+}
+
 .underline-animation(@underline-color) {
     transition: color ease 0.3s;
     position: relative;
 
     &:before,
     &:after {
-        content: '';
+        content: "";
         position: absolute;
         background-color: @underline-color;
         height: 2px;
@@ -39,7 +52,6 @@
     }
 
     &:hover {
-
         &:before {
             width: 100%;
         }
@@ -57,7 +69,7 @@
 
     &:before,
     &:after {
-        content: '';
+        content: "";
         position: absolute;
         width: 50%;
         top: 100%;
@@ -102,7 +114,7 @@
 
     &:before,
     &:after {
-        content: '';
+        content: "";
         position: absolute;
         top: 0;
         right: 0;
@@ -119,7 +131,6 @@
         bottom: 0;
     }
 
-
     &:hover {
         background: @secondaryColor;
         color: @mainColor;
@@ -134,7 +145,7 @@
     &.active {
         background: @secondaryColor;
         color: @mainColor;
-        height: @buttonHeight + 1px;
+        height: @buttonHeight + 1px; // +1px prevents a bug in firefox
         transform: translateY(20px);
         pointer-events: none;
 
@@ -158,7 +169,7 @@
     }
 
     &:before {
-        content: '';
+        content: "";
         position: absolute;
         z-index: -2;
         left: -50%;
@@ -168,7 +179,10 @@
         background-repeat: no-repeat;
         background-size: 50% 50%, 50% 50%;
         background-position: 0 0, 100% 0, 100% 100%, 0 100%;
-        background-image: linear-gradient(@borderColorFirst, @borderColorFirst), linear-gradient(@borderColorSecond, @borderColorSecond), linear-gradient(@borderColorFirst, @borderColorFirst), linear-gradient(@borderColorSecond, @borderColorSecond);
+        background-image: linear-gradient(@borderColorFirst, @borderColorFirst),
+            linear-gradient(@borderColorSecond, @borderColorSecond),
+            linear-gradient(@borderColorFirst, @borderColorFirst),
+            linear-gradient(@borderColorSecond, @borderColorSecond);
         animation: rotate 16s linear infinite;
         pointer-events: none;
     }
@@ -179,7 +193,7 @@
     }
 
     &:after {
-        content: '';
+        content: "";
         position: absolute;
         z-index: -1;
         left: 2px;

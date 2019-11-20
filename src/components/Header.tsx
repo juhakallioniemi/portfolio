@@ -10,6 +10,7 @@ interface HeaderProps {
     t: TFunction;
     i18n: i18n;
     changeLanguage: any;
+    loginInfo: LoginInfo;
 }
 
 interface HeaderState {
@@ -19,6 +20,7 @@ interface HeaderState {
 }
 
 export class Header extends React.Component<HeaderProps, HeaderState> {
+    isComponentMounted: boolean = false;
     constructor(props: any) {
         super(props);
         this.state = {
@@ -29,7 +31,18 @@ export class Header extends React.Component<HeaderProps, HeaderState> {
     }
 
     componentDidMount() {
+        this.isComponentMounted = true;
         this.urlHandler();
+
+        if (this.props.loginInfo) {
+            (ReactDOM.findDOMNode(
+                this.refs["login"]
+            ) as Element).firstElementChild.innerHTML = this.props.loginInfo.username;
+        }
+    }
+
+    componentWillUnmount() {
+        this.isComponentMounted = false;
     }
 
     componentDidUpdate() {
@@ -114,7 +127,9 @@ export class Header extends React.Component<HeaderProps, HeaderState> {
                             ref={btn}
                             onClick={() => this.menuClick(btn)}
                         >
-                            <h5>{this.props.t("header.menu-titles." + btn)}</h5>
+                            <h5 className="button-title">
+                                {this.props.t("header.menu-titles." + btn)}
+                            </h5>
                         </button>
                     ))}
                 </div>

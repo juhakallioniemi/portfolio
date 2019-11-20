@@ -15,13 +15,15 @@ interface ProjectProps {
 
 interface ProjectState {
     projectInfo: string;
+    noContent: string;
 }
 
 export class Project extends React.Component<ProjectProps, ProjectState> {
     constructor(props: any) {
         super(props);
         this.state = {
-            projectInfo: this.props.projectName
+            projectInfo: this.props.projectName,
+            noContent: this.props.t("main.noContent")
         };
     }
 
@@ -39,6 +41,12 @@ export class Project extends React.Component<ProjectProps, ProjectState> {
             });
         }
     };
+
+    projectInfoRenderer(): JSX.Element {
+        if (this.state.projectInfo === this.state.noContent) {
+            return <p>{this.state.projectInfo}</p>;
+        } else return <h3>{this.state.projectInfo}</h3>;
+    }
 
     render() {
         if (this.props.isProjectActive) {
@@ -59,7 +67,7 @@ export class Project extends React.Component<ProjectProps, ProjectState> {
                 <React.Fragment>
                     <div className="project" onClick={this.openProject}>
                         <div className="project-content">
-                            <h3>{this.state.projectInfo}</h3>
+                            {this.projectInfoRenderer()}
                         </div>
                     </div>
                 </React.Fragment>

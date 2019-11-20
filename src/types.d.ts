@@ -1,5 +1,3 @@
-declare module "shortid";
-
 interface PopupContext {
     popupType: PopupType;
     activeType: string;
@@ -21,9 +19,21 @@ interface LocationHashContext {
     isProjectActive: boolean;
 }
 
+interface LoginInfo {
+    username: string;
+    timeStamp: number;
+}
+
 interface AppSettings {
     brandGameUrl: string;
     lastModified: string;
     readmeEN: string;
     readmeFI: string;
+    loginPassPhrase: string;
+    apiUrl: string;
+}
+
+interface ApiResponse {
+    data: string;
+    class: string;
 }

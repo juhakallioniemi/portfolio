@@ -3,7 +3,7 @@
         "menu-titles": {
             "aboutMe": "Minusta",
             "projects": "Projektit",
-            "contact": "Yhteydenotto"
+            "login": "Kirjautuminen"
         },
         "locale-button-disabled": "Tämä painike on poissa käytöstä nykyisessä tilassa.",
         "repository": "Portfolio ohjelmavarasto"
@@ -31,5 +31,18 @@
             "main-view": "Päänäkymä",
             "new-tab": "Uusi välilehti"
         }
+    },
+    "login": {
+        "login": "Kirjautuminen",
+        "log-in": "Kirjaudu",
+        "create-account": "Luo tunnus",
+        "create": "Luo",
+        "username": "Käyttäjänimi",
+        "password": "Salasana",
+        "email": "Sähköposti",
+        "logged-in": "Kirjautunut sisään käyttäjänä",
+        "log-out": "Kirjaudu ulos",
+        "username-exists": "Käyttäjänimi on jo käytössä!",
+        "account-created-successfully": "Tili luotiin onnistuneesti!"
     }
 }

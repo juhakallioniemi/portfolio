@@ -3,7 +3,7 @@
         "menu-titles": {
             "aboutMe": "About Me",
             "projects": "Projects",
-            "contact": "Contact"
+            "login": "Login"
         },
         "locale-button-disabled": "This button is disabled in the current state.",
         "repository": "Portfolio repository"
@@ -31,5 +31,18 @@
             "main-view": "Main view",
             "new-tab": "New tab"
         }
+    },
+    "login": {
+        "login": "Login",
+        "log-in": "Log in",
+        "create-account": "Create account",
+        "create": "Create",
+        "username": "Username",
+        "password": "Password",
+        "email": "Email",
+        "logged-in": "Logged in as user",
+        "log-out": "Log out",
+        "username-exists": "Username already exists!",
+        "account-created-successfully": "Account created successfully!"
     }
 }
