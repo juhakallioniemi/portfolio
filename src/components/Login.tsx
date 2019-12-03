@@ -1,6 +1,8 @@
 import * as React from "react";
 import { TFunction, i18n } from "i18next";
 import axios from "axios";
+import { TextExpire } from "./TextExpire";
+import { PopupContext } from "../context/PopupContext";
 const appsettings: AppSettings = require("appsettings");
 
 export interface LoginProps {
@@ -31,8 +33,8 @@ export class Login extends React.Component<LoginProps, LoginState> {
             loginInfo: JSON.parse(localStorage.getItem("loginInfo")),
             isLoggedIn: false,
             apiResponse: {
-                data: "",
-                class: ""
+                text: "",
+                type: ""
             },
             isCreateAccountForm: false
         };
@@ -45,7 +47,7 @@ export class Login extends React.Component<LoginProps, LoginState> {
                 password: password
             });
             let { data } = response;
-            if (data[0].id) {
+            if (data[0].username) {
                 localStorage.setItem(
                     "loginInfo",
                     JSON.stringify({
@@ -54,6 +56,13 @@ export class Login extends React.Component<LoginProps, LoginState> {
                     })
                 );
                 this.props.setLoginState(true);
+            } else {
+                this.setState({
+                    apiResponse: {
+                        text: this.props.t("login.not-found"),
+                        type: "error"
+                    }
+                });
             }
         } catch (error) {
             console.log(error);
@@ -74,17 +83,17 @@ export class Login extends React.Component<LoginProps, LoginState> {
                     password: "",
                     email: "",
                     apiResponse: {
-                        data: this.props.t(
+                        text: this.props.t(
                             "login.account-created-successfully"
                         ),
-                        class: "success"
+                        type: "success"
                     }
                 });
             } else if (response.data === "ER_DUP_ENTRY") {
                 this.setState({
                     apiResponse: {
-                        data: this.props.t("login.username-exists"),
-                        class: "error"
+                        text: this.props.t("login.username-exists"),
+                        type: "error"
                     }
                 });
             }
@@ -107,14 +116,30 @@ export class Login extends React.Component<LoginProps, LoginState> {
         this.isComponentMounted = false;
     }
 
-    handleUsernameChange(e: any) {
-        this.setState({ username: e.target.value });
-    }
-    handlePasswordChange(e: any) {
-        this.setState({ password: e.target.value });
-    }
-    handleEmailChange(e: any) {
-        this.setState({ email: e.target.value });
+    formInputHandler(e: any) {
+        // This allows better localization for invalid email message.
+        if (!e.target.validity.typeMismatch) e.target.setCustomValidity("");
+
+        if (e.target.id === "username") {
+            this.setState({
+                username: e.target.value
+            });
+        } else if (e.target.id === "password") {
+            this.setState({
+                password: e.target.value
+            });
+        } else if (e.target.id === "email") {
+            this.setState({
+                email: e.target.value
+            });
+        }
+
+        this.setState({
+            apiResponse: {
+                text: "",
+                type: ""
+            }
+        });
     }
 
     loginHandler = (e: any) => {
@@ -131,10 +156,37 @@ export class Login extends React.Component<LoginProps, LoginState> {
         }
     };
 
+    invalidMessage = ({ target }: any) => {
+        const message = target.dataset.message;
+        target.setCustomValidity(message);
+    };
+
     logOut = (e: any) => {
         localStorage.removeItem("loginInfo");
         this.props.setLoginState(false);
     };
+
+    forgotCredentials() {
+        let popupContext: PopupContext = this.context;
+        popupContext.setContext(popupContext.popupType.forgottenCredentials);
+    }
+
+    forgotCredentialsButton(): JSX.Element {
+        if (!this.state.isCreateAccountForm) {
+            return (
+                <div className="form-group">
+                    <button
+                        type="button"
+                        className="forgotten link-look-alike"
+                        onClick={() => this.forgotCredentials()}
+                    >
+                        Forgot login credentials?
+                    </button>
+                </div>
+            );
+        }
+        return null;
+    }
 
     formHeaderClick(id: string) {
         if (id !== "login-header") {
@@ -144,6 +196,12 @@ export class Login extends React.Component<LoginProps, LoginState> {
         } else {
             this.setState({ isCreateAccountForm: false });
         }
+        this.setState({
+            apiResponse: {
+                text: "",
+                type: ""
+            }
+        });
     }
 
     formHeader(): JSX.Element {
@@ -176,7 +234,11 @@ export class Login extends React.Component<LoginProps, LoginState> {
                     id="email"
                     placeholder={this.props.t("login.email")}
                     value={this.state.email}
-                    onChange={(e: any) => this.handleEmailChange(e)}
+                    onChange={(e: any) => this.formInputHandler(e)}
+                    data-message={this.props.t("login.invalid.email")}
+                    onInvalid={(e: any) => this.invalidMessage(e)}
+                    autoComplete="off"
+                    title={this.props.t("login.email-title")}
                 />
                 <label htmlFor="email">{this.props.t("login.email")}</label>
             </div>
@@ -190,7 +252,11 @@ export class Login extends React.Component<LoginProps, LoginState> {
                         id="username"
                         placeholder={this.props.t("login.username")}
                         value={this.state.username}
-                        onChange={(e: any) => this.handleUsernameChange(e)}
+                        onChange={(e: any) => this.formInputHandler(e)}
+                        data-message={this.props.t("login.invalid.username")}
+                        onInvalid={(e: any) => this.invalidMessage(e)}
+                        autoComplete="off"
+                        title={this.props.t("login.required")}
                         required
                     />
                     <label htmlFor="username">
@@ -204,7 +270,11 @@ export class Login extends React.Component<LoginProps, LoginState> {
                         id="password"
                         placeholder={this.props.t("login.password")}
                         value={this.state.password}
-                        onChange={(e: any) => this.handlePasswordChange(e)}
+                        onChange={(e: any) => this.formInputHandler(e)}
+                        data-message={this.props.t("login.invalid.password")}
+                        onInvalid={(e: any) => this.invalidMessage(e)}
+                        autoComplete="off"
+                        title={this.props.t("login.required")}
                         required
                     />
                     <label htmlFor="password">
@@ -212,14 +282,19 @@ export class Login extends React.Component<LoginProps, LoginState> {
                     </label>
                 </div>
                 <React.Fragment>{emailField}</React.Fragment>
+                {/* <React.Fragment>
+                    {this.forgotCredentialsButton()}
+                </React.Fragment> */}
                 <button type="submit" className="form-submit-button">
                     {!this.state.isCreateAccountForm
                         ? this.props.t("login.log-in")
                         : this.props.t("login.create")}
                 </button>
-                <div id="api-response" className={this.state.apiResponse.class}>
-                    {this.state.apiResponse.data}
-                </div>
+                <TextExpire
+                    text={this.state.apiResponse.text}
+                    type={this.state.apiResponse.type}
+                    delay={5000}
+                />
             </div>
         );
     }
@@ -245,7 +320,7 @@ export class Login extends React.Component<LoginProps, LoginState> {
                         </span>
                     }
                     <button
-                        className="button"
+                        className="button logout"
                         onClick={(e: any) => this.logOut(e)}
                     >
                         {this.props.t("login.log-out")}
@@ -255,3 +330,5 @@ export class Login extends React.Component<LoginProps, LoginState> {
         }
     }
 }
+
+Login.contextType = PopupContext;

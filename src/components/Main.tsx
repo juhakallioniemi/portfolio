@@ -5,6 +5,7 @@ import localesEn from "../locales/en.json";
 import { History, LocationState } from "history";
 import ReactMarkdown from "react-markdown";
 import { Login } from "./Login";
+import { Todo } from "./Todo";
 const appsettings: AppSettings = require("appsettings");
 require("../../README-en.md");
 require("../../README-fi.md");
@@ -68,18 +69,11 @@ export class Main extends React.Component<MainProps, MainState> {
 
     renderSwitch(locationHash: string): JSX.Element {
         let titles = localesEn.header["menu-titles"];
-        let aboutMe = this.titleToKey(titles.aboutMe);
         let projects = this.titleToKey(titles.projects);
+        let todo = this.titleToKey(titles.todo);
         let login = this.titleToKey(titles.login);
 
         switch (locationHash) {
-            case aboutMe:
-                return (
-                    <div className="no-content" key={aboutMe}>
-                        {this.props.t("main.noContent")}
-                    </div>
-                );
-
             case projects:
                 return (
                     <ProjectsList
@@ -88,6 +82,11 @@ export class Main extends React.Component<MainProps, MainState> {
                         i18n={this.props.i18n}
                         history={this.props.history}
                     />
+                );
+
+            case todo:
+                return (
+                    <Todo key={todo} t={this.props.t} i18n={this.props.i18n} />
                 );
 
             case login:

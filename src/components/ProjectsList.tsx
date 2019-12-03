@@ -77,7 +77,7 @@ export class ProjectsList extends React.Component<
             return (
                 <div
                     className="projects-list"
-                    style={{ height: this.state.dynamicWindowHeight }}
+                    // style={{ height: this.state.dynamicWindowHeight }}
                 >
                     <Project
                         projectName={this.props.t("projects.brand-game")}

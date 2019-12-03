@@ -18,7 +18,8 @@ export const PopupContextProvider = (props: any) => {
 
     const popupType = {
         project: "project",
-        confirmation: "confirmation"
+        confirmation: "confirmation",
+        forgottenCredentials: "forgotten-credentials"
     } as PopupType;
 
     const initState = {

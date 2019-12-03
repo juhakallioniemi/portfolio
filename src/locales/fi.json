@@ -1,8 +1,8 @@
 {
     "header": {
         "menu-titles": {
-            "aboutMe": "Minusta",
             "projects": "Projektit",
+            "todo": "Keskeneräiset",
             "login": "Kirjautuminen"
         },
         "locale-button-disabled": "Tämä painike on poissa käytöstä nykyisessä tilassa.",
@@ -19,7 +19,8 @@
     },
     "common": {
         "yes": "Kyllä",
-        "no": "Ei"
+        "no": "Ei",
+        "send": "Lähetä"
     },
     "popup": {
         "confirmation": {
@@ -30,6 +31,12 @@
             "title": "Miten haluat avata projektin {{project}}?",
             "main-view": "Päänäkymä",
             "new-tab": "Uusi välilehti"
+        },
+        "forgotten-credentials": {
+            "title": "Unohditko käyttäjätunnuksesi?",
+            "subtitle": "Lähetä käyttäjätunnuksesi sähköpostiisi.",
+            "empty": "Ei voi lähettää tyhjään sähköpostiin!",
+            "not-found": "Valittua sähköpostia ei löytynyt!"
         }
     },
     "login": {
@@ -40,9 +47,17 @@
         "username": "Käyttäjänimi",
         "password": "Salasana",
         "email": "Sähköposti",
+        "email-title": "Ei pakollinen, mutta sähköpostia tarvitaan jos kirjautumistiedot unohtuvat.",
         "logged-in": "Kirjautunut sisään käyttäjänä",
         "log-out": "Kirjaudu ulos",
         "username-exists": "Käyttäjänimi on jo käytössä!",
-        "account-created-successfully": "Tili luotiin onnistuneesti!"
+        "account-created-successfully": "Tili luotiin onnistuneesti!",
+        "not-found": "Käyttäjänimi tai salasana on väärin!",
+        "invalid": {
+            "username": "Käyttäjänimi ei voi olla tyhjä.",
+            "password": "Salasana ei voi olla tyhjä.",
+            "email": "Sähköposti ei ole oikeassa muodossa."
+        },
+        "required": "Täytä tämä kenttä."
     }
 }

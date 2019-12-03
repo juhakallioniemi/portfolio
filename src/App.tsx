@@ -47,7 +47,7 @@ const App: React.FC = () => {
         if (loginInfo && !isLangChanged) {
             let timeSinceLogin = new Date().getTime() - loginInfo.timeStamp;
             let minutes = Math.floor(timeSinceLogin / 1000 / 60);
-            if (minutes >= 1) {
+            if (minutes >= 60) {
                 localStorage.removeItem("loginInfo");
                 setLoginState(false);
             }

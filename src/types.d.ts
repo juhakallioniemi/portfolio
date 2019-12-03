@@ -13,6 +13,7 @@ interface PopupContext {
 interface PopupType {
     confirmation: string;
     project: string;
+    forgottenCredentials: string;
 }
 
 interface LocationHashContext {
@@ -34,6 +35,17 @@ interface AppSettings {
 }
 
 interface ApiResponse {
-    data: string;
-    class: string;
+    text: string;
+    type: string;
+}
+
+interface Todos {
+    id: number;
+    title: string;
+}
+
+interface Tasks {
+    id: number;
+    task: string;
+    todo_id: number;
 }

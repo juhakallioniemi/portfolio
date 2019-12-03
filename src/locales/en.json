@@ -1,8 +1,8 @@
 {
     "header": {
         "menu-titles": {
-            "aboutMe": "About Me",
             "projects": "Projects",
+            "todo": "Todo",
             "login": "Login"
         },
         "locale-button-disabled": "This button is disabled in the current state.",
@@ -19,7 +19,8 @@
     },
     "common": {
         "yes": "Yes",
-        "no": "No"
+        "no": "No",
+        "send": "Send"
     },
     "popup": {
         "confirmation": {
@@ -30,6 +31,12 @@
             "title": "How do you want to open the project {{project}}?",
             "main-view": "Main view",
             "new-tab": "New tab"
+        },
+        "forgotten-credentials": {
+            "title": "Forgot your credentials?",
+            "subtitle": "Send credentials to your email.",
+            "empty": "Can't send to an empty email!",
+            "not-found": "Selected email not found!"
         }
     },
     "login": {
@@ -40,9 +47,17 @@
         "username": "Username",
         "password": "Password",
         "email": "Email",
+        "email-title": "Not mandatory but email is needed in case of forgotten login credentials.",
         "logged-in": "Logged in as user",
         "log-out": "Log out",
         "username-exists": "Username already exists!",
-        "account-created-successfully": "Account created successfully!"
+        "account-created-successfully": "Account created successfully!",
+        "not-found": "Username or password is incorrect!",
+        "invalid": {
+            "username": "Username can't be empty.",
+            "password": "Password can't be empty.",
+            "email": "Email is not in correct format."
+        },
+        "required": "Please fill out this field."
     }
 }

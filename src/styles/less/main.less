@@ -64,6 +64,16 @@ body {
     margin: 0;
 });
 
+.link-look-alike {
+    background: none !important;
+    border: none;
+    padding: 0 !important;
+    font-family: arial, sans-serif;
+    color: #069;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
 form {
     .form-group {
         display: flex;
@@ -207,6 +217,10 @@ form {
         }
     }
 
+    .popup-text {
+        margin: 1rem;
+    }
+
     .button-container {
         position: absolute;
         bottom: 0;
@@ -247,6 +261,17 @@ form {
         background: @app-bg-gray;
         z-index: -1;
         border: 2px solid @app-basic-lightblue;
+    }
+
+    #email {
+        width: 80%;
+        border-radius: 0;
+        display: inline-block;
+
+        @media @mobile {
+            padding: 0.1rem 0.3rem;
+            font-size: 0.75em;
+        }
     }
 }
 
@@ -421,6 +446,125 @@ main {
         @media @mobile {
             margin: 5px;
         }
+
+        .logout {
+            display: block;
+            margin: 1rem auto;
+        }
+    }
+
+    .todos {
+        .fade-in-down(800ms);
+        width: 100%;
+        border: 2px solid @app-basic-lightblue;
+        text-align: left;
+        padding: 5px;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-bottom: 20px;
+
+        @media @mobile {
+            border: none;
+        }
+
+        // prettier-ignore
+        .headings({
+            font-family: Soloist3D;
+            margin-bottom: 0.25em;
+
+            @media @mobile {
+                font-size: 1.0em;
+            }
+        });
+
+        .todo {
+            margin: 5px;
+            //cursor: pointer;
+            overflow: hidden;
+            vertical-align: top;
+            position: relative;
+            padding: 1rem;
+            flex: 0 0 calc(50% - 10px);
+            border: 2px solid @app-basic-lightblue;
+            background: @app-bg-gray;
+
+            .close {
+                &.delete {
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    width: 1.75rem;
+                    font-size: 1.75rem;
+
+                    color: @app-bg-gray;
+                    text-shadow: 0 2px 2px @app-basic-lightblue;
+                    opacity: 1;
+
+                    &:hover {
+                        color: @app-basic-lightblue;
+                        text-shadow: 0 2px 2px #000;
+                    }
+
+                    &:active {
+                        transform: scale(1.05);
+                    }
+
+                    &:focus {
+                        outline: none;
+                    }
+                }
+            }
+
+            .todo-tasks {
+                margin-bottom: 0;
+                padding-inline-end: 40px;
+
+                @media @mobile {
+                    font-size: 0.8rem;
+                    padding-left: 1rem;
+                }
+
+                .new-task {
+                    display: flex;
+
+                    &.link-look-alike {
+                        //visibility: visible;
+                        text-decoration: none;
+
+                        &:hover {
+                            text-decoration: underline;
+                        }
+                    }
+
+                    // visibility: hidden;
+
+                    // &.visible {
+                    //     visibility: visible;
+                    // }
+
+                    input {
+                        width: 100%;
+                        margin-right: 10px;
+                    }
+
+                    .add-task-button {
+                        cursor: pointer;
+                        background: @app-basic-lightblue;
+                        border-color: @app-basic-lightblue;
+                    }
+                }
+            }
+        }
+    }
+
+    .add-todo {
+        input {
+            border-radius: 0;
+            width: 25%;
+            display: inline-block;
+            margin: 0 1rem 0;
+        }
     }
 
     .login-form {
@@ -434,6 +578,7 @@ main {
 
         @media @mobile {
             margin: 5px;
+            min-width: 75%;
             width: auto;
             font-size: 0.95rem;
         }
@@ -495,6 +640,11 @@ main {
 
             input {
                 border-radius: 0;
+
+                @media @mobile {
+                    font-size: 0.8em;
+                    padding: 0.1rem 0.3rem;
+                }
             }
 
             .form-submit-button {
@@ -502,8 +652,8 @@ main {
                 display: block;
             }
 
-            #api-response {
-                .fade(15s);
+            .api-response {
+                //.fade(15s);
 
                 &.success {
                     color: #28a745;
@@ -515,6 +665,19 @@ main {
                 position: absolute;
                 right: 1rem;
                 bottom: 1rem;
+            }
+
+            .forgotten {
+                display: inline-flex;
+                font-size: 0.95em;
+
+                &:focus {
+                    outline: 0;
+                }
+
+                @media @mobile {
+                    font-size: 0.85em;
+                }
             }
         }
     }
@@ -570,32 +733,26 @@ main {
     .projects-list {
         .fade-in-down(800ms);
         width: 100%;
-        display: flex;
-        justify-content: center;
-        flex-wrap: nowrap;
         padding: 5px;
-        margin: auto;
+        margin-bottom: 20px;
         border: 2px solid @app-basic-lightblue;
-        max-height: 35vh;
 
         @media @mobile {
-            flex-wrap: wrap;
             border: none;
-            max-height: none;
         }
 
         .project {
-            width: 100%;
-            position: relative;
+            width: calc(33.333% - 10px);
+            height: 27.5vh;
             margin: 5px;
             cursor: pointer;
             overflow: hidden;
+            vertical-align: top;
             position: relative;
+            display: inline-block;
 
             @media @mobile {
-                width: 50%;
-                margin: 5px;
-                height: auto;
+                width: calc(50% - 10px);
             }
 
             .rotating-border-animation(
