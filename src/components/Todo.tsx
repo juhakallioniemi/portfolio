@@ -2,7 +2,6 @@ import * as React from "react";
 import { History, LocationState } from "history";
 import { TFunction, i18n } from "i18next";
 import axios from "axios";
-import { timingSafeEqual } from "crypto";
 
 interface TodoProps {
     history?: History<LocationState>;
@@ -15,7 +14,9 @@ interface TodoState {
     tasks: Tasks[];
     newTitle: string;
     newTask: string;
-    activeIndex: number;
+    editingIndex: number;
+    isSaveVisible: boolean;
+    isAdmin: boolean;
 }
 
 export class Todo extends React.Component<TodoProps, TodoState> {
@@ -26,8 +27,23 @@ export class Todo extends React.Component<TodoProps, TodoState> {
             tasks: [],
             newTitle: "",
             newTask: "",
-            activeIndex: null
+            editingIndex: null,
+            isSaveVisible: false,
+            isAdmin: false
         };
+    }
+
+    componentDidMount() {
+        let loginInfo: LoginInfo = JSON.parse(
+            localStorage.getItem("loginInfo")
+        );
+        if (loginInfo && loginInfo.username === "admin") {
+            this.setState({
+                isAdmin: true
+            });
+        }
+
+        this.getTodos();
     }
 
     async getTodos() {
@@ -35,7 +51,7 @@ export class Todo extends React.Component<TodoProps, TodoState> {
             const response = await axios.get("/todo");
             let todos: Todos[] = [...this.state.todos];
 
-            if (response.data.length > 0) {
+            if (response.data) {
                 for (let i in response.data) {
                     todos.push(response.data[i]);
                 }
@@ -58,7 +74,7 @@ export class Todo extends React.Component<TodoProps, TodoState> {
 
             let tasks: Tasks[] = [...this.state.tasks];
 
-            if (response.data.length > 0) {
+            if (response.data) {
                 for (let i in response.data) {
                     tasks.push(response.data[i]);
                 }
@@ -70,11 +86,9 @@ export class Todo extends React.Component<TodoProps, TodoState> {
         });
     }
 
-    componentDidMount() {
-        this.getTodos();
-    }
-
     async addTodo(title: string) {
+        if (title === "") title = "...";
+
         try {
             const response = await axios.post("/todo", {
                 title: title
@@ -94,19 +108,35 @@ export class Todo extends React.Component<TodoProps, TodoState> {
                 this.setState({
                     todos: todos
                 });
+
+                this.addTodoTask(newTodo.id);
             }
         } catch (error) {
             console.log(error);
         }
     }
 
-    deleteButton(id: number): JSX.Element {
+    editTodo(todoIndex: number) {
+        if (todoIndex !== this.state.editingIndex) {
+            this.setState({
+                editingIndex: todoIndex
+            });
+        } else {
+            this.setState({
+                editingIndex: null
+            });
+        }
+    }
+
+    deleteButton(id: number, type: string): JSX.Element {
         return (
             <button
                 type="button"
                 className="close delete"
                 title="Delete todo!"
-                onClick={() => this.deleteTodo(id)}
+                onClick={() =>
+                    type === "todo" ? this.deleteTodo(id) : this.deleteTask(id)
+                }
             >
                 <span>&times;</span>
             </button>
@@ -134,7 +164,8 @@ export class Todo extends React.Component<TodoProps, TodoState> {
                 todos.splice(index, 1);
 
                 this.setState({
-                    todos: todos
+                    todos: todos,
+                    editingIndex: null
                 });
             }
         } catch (error) {
@@ -142,57 +173,227 @@ export class Todo extends React.Component<TodoProps, TodoState> {
         }
     }
 
-    editTodo(e: any, todoIndex: any) {
-        let activeElementType: string = document.activeElement.getAttribute(
-            "type"
-        );
-
-        for (let i = 0; i < this.state.todos.length; i++) {
-            let el = document.getElementsByClassName("new-task")[
-                i
-            ] as HTMLElement;
-
-            if (activeElementType !== "text") {
-                if (i === todoIndex) {
-                    this.setState({
-                        activeIndex: todoIndex
-                    });
-                } else {
-                    this.setState({
-                        newTask: ""
-                    });
+    async deleteTask(id: number) {
+        try {
+            const response = await axios.delete("/todo/tasks", {
+                params: {
+                    id: id
                 }
+            });
+
+            let { data } = response;
+
+            let tasks: Tasks[] = [...this.state.tasks];
+
+            if (data.affectedRows >= 1) {
+                var index = tasks
+                    .map(t => {
+                        return t.id;
+                    })
+                    .indexOf(id);
+                tasks.splice(index, 1);
+
+                this.setState({
+                    tasks: tasks
+                });
             }
+        } catch (error) {
+            console.log(error);
         }
-        let el = document.getElementsByClassName("new-task")[
-            todoIndex
-        ] as HTMLElement;
-        return <input type="text"></input>;
     }
 
-    addTask(e: any) {}
+    async addTodoTask(todo_id: number) {
+        let initializedTask: string = "...";
+
+        try {
+            const response = await axios.post(
+                `${"/todo/" + todo_id + "/tasks"}`,
+                {
+                    task: this.state.newTask || initializedTask,
+                    todo_id: todo_id
+                }
+            );
+
+            let { data } = response;
+
+            let tasks: Tasks[] = [...this.state.tasks];
+
+            let newTask: Tasks = {
+                id: data.insertId,
+                task: this.state.newTask || initializedTask,
+                todo_id: todo_id
+            };
+
+            if (data.affectedRows === 1) {
+                tasks.push(newTask);
+
+                this.setState({
+                    tasks: tasks,
+                    newTask: ""
+                });
+            }
+        } catch (error) {
+            console.log(error);
+        }
+
+        return true;
+    }
+
+    handleTodoTitleChange(value: any, todoIndex: number) {
+        let todos: Todos[] = [...this.state.todos];
+        todos[todoIndex].title = value;
+        todos[todoIndex].hasUnsavedChanges = true;
+        this.setState({
+            todos: todos,
+            isSaveVisible: true
+        });
+    }
+
+    handleTodoTaskChange(value: any, taskIndex: number) {
+        let tasks: Tasks[] = [...this.state.tasks];
+        tasks[taskIndex].task = value;
+        tasks[taskIndex].hasUnsavedChanges = true;
+        this.setState({
+            tasks: tasks,
+            isSaveVisible: true
+        });
+    }
+
+    async saveUnsavedChanges() {
+        let unsavedTodos: Todos[] = this.state.todos.filter(
+            t => t.hasUnsavedChanges
+        );
+        let unsavedTasks: Tasks[] = this.state.tasks.filter(
+            t => t.hasUnsavedChanges
+        );
+
+        try {
+            unsavedTodos.forEach(async todo => {
+                const response = await axios.put(`${"/todo/" + todo.id}`, {
+                    params: {
+                        id: todo.id
+                    },
+                    title: todo.title
+                });
+            });
+
+            unsavedTasks.forEach(async task => {
+                const response = await axios.put(
+                    `${"/todo/" + task.todo_id + "/tasks/" + task.id}`,
+                    {
+                        params: {
+                            id: task.id,
+                            todo_id: task.todo_id
+                        },
+                        task: task.task
+                    }
+                );
+            });
+        } catch (error) {
+            console.log(error);
+        }
+
+        this.setState({
+            editingIndex: null,
+            isSaveVisible: false
+        });
+    }
+
+    resetTodoList() {
+        window.location.reload(false);
+    }
+
+    tasksRender(
+        task: string,
+        todo_id: number,
+        id: number,
+        taskIndex: number,
+        todoIndex: number,
+        task_id: number
+    ): JSX.Element {
+        if (todo_id === id) {
+            let elementValue: any = null;
+            if (this.state.editingIndex === todoIndex) {
+                elementValue = (
+                    <React.Fragment>
+                        <input
+                            type="text"
+                            value={this.state.tasks[taskIndex].task}
+                            onChange={(e: any) =>
+                                this.handleTodoTaskChange(
+                                    e.target.value,
+                                    taskIndex
+                                )
+                            }
+                            className="task-edit"
+                        ></input>
+                        {this.deleteButton(task_id, "task")}
+                    </React.Fragment>
+                );
+            } else {
+                elementValue = task;
+            }
+            return (
+                <li className="task" key={taskIndex}>
+                    {elementValue}
+                </li>
+            );
+        } else {
+            return null;
+        }
+    }
 
     todosRender(todos: Todos[], tasks: Tasks[]): JSX.Element {
         return (
             <div className="todos">
                 {todos.map(({ id, title }, todoIndex) => (
-                    <div
-                        className="todo"
-                        key={todoIndex}
-                        title="Click ... to add a new task!"
-                    >
-                        <h5 className="todo-title">{title}</h5>
-                        {this.deleteButton(id)}
+                    <div className="todo" key={todoIndex}>
+                        {todoIndex === this.state.editingIndex ? (
+                            <input
+                                type="text"
+                                value={this.state.todos[todoIndex].title}
+                                onChange={(e: any) =>
+                                    this.handleTodoTitleChange(
+                                        e.target.value,
+                                        todoIndex
+                                    )
+                                }
+                                className="todo-edit"
+                            ></input>
+                        ) : (
+                            <h5 className="todo-title">{title}</h5>
+                        )}
+                        {this.state.isAdmin ? (
+                            <React.Fragment>
+                                <button
+                                    className="todo-edit-button link-look-alike"
+                                    onClick={(e: any) =>
+                                        this.editTodo(todoIndex)
+                                    }
+                                >
+                                    {todoIndex === this.state.editingIndex
+                                        ? "close"
+                                        : "edit"}
+                                </button>
+                                {this.state.editingIndex === todoIndex
+                                    ? this.deleteButton(id, "todo")
+                                    : null}
+                            </React.Fragment>
+                        ) : null}
                         <ul className="todo-tasks">
-                            {tasks.map(({ task, todo_id }, taskIndex) =>
-                                todo_id === id ? (
-                                    <li className="task" key={taskIndex}>
-                                        {task}
-                                    </li>
-                                ) : null
+                            {tasks.map(
+                                ({ id: task_id, task, todo_id }, taskIndex) =>
+                                    this.tasksRender(
+                                        task,
+                                        todo_id,
+                                        id,
+                                        taskIndex,
+                                        todoIndex,
+                                        task_id
+                                    )
                             )}
-                            <li>
-                                {this.state.activeIndex === todoIndex ? (
+                            {this.state.editingIndex === todoIndex ? (
+                                <li>
                                     <div className="new-task">
                                         <input
                                             type="text"
@@ -205,28 +406,57 @@ export class Todo extends React.Component<TodoProps, TodoState> {
                                         ></input>
                                         <button
                                             className="add-task-button"
-                                            onClick={(e: any) =>
-                                                this.addTask(e)
-                                            }
+                                            onClick={() => this.addTodoTask(id)}
                                         >
-                                            Add
+                                            Add task
                                         </button>
                                     </div>
-                                ) : (
-                                    <div
-                                        className="link-look-alike new-task"
-                                        style={{ float: "left" }}
-                                        onClick={(e: any) =>
-                                            this.editTodo(e, todoIndex)
-                                        }
-                                    >
-                                        ...
-                                    </div>
-                                )}
-                            </li>
+                                </li>
+                            ) : null}
                         </ul>
                     </div>
                 ))}
+                {this.state.isAdmin && !this.state.editingIndex ? (
+                    <div className="add-todo">
+                        <input
+                            type="text"
+                            className="form-control"
+                            placeholder="Todo title"
+                            value={this.state.newTitle}
+                            onChange={(e: any) =>
+                                this.setState({
+                                    newTitle: e.target.value
+                                })
+                            }
+                        ></input>
+                        <button
+                            type="button"
+                            className="button"
+                            onClick={() => this.addTodo(this.state.newTitle)}
+                        >
+                            Add todo
+                        </button>
+                    </div>
+                ) : null}
+
+                {this.state.isSaveVisible ? (
+                    <div className="save-changes">
+                        <button
+                            type="button"
+                            className="button"
+                            onClick={() => this.saveUnsavedChanges()}
+                        >
+                            Save changes
+                        </button>
+                        <button
+                            type="button"
+                            className="reset"
+                            onClick={() => this.resetTodoList()}
+                        >
+                            Reset
+                        </button>
+                    </div>
+                ) : null}
             </div>
         );
     }
@@ -235,27 +465,6 @@ export class Todo extends React.Component<TodoProps, TodoState> {
         return (
             <React.Fragment>
                 {this.todosRender(this.state.todos, this.state.tasks)}
-
-                <div className="add-todo">
-                    <input
-                        type="text"
-                        className="form-control"
-                        placeholder="Todo title"
-                        value={this.state.newTitle}
-                        onChange={(e: any) =>
-                            this.setState({
-                                newTitle: e.target.value
-                            })
-                        }
-                    ></input>
-                    <button
-                        type="button"
-                        className="button"
-                        onClick={() => this.addTodo(this.state.newTitle)}
-                    >
-                        Add todo
-                    </button>
-                </div>
             </React.Fragment>
         );
     }

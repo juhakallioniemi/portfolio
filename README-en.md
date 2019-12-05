@@ -6,12 +6,7 @@
 
 -   Portfolio's user interface
     -   GitHub, React, TypeScript, Less, i18next, webpack, jQuery, axios
--   Login (back end)
+-   Todo and Login (back end)
     -   Heroku, Node.js, Express, Jade, MySQL, Google Cloud Platform
 -   Source Control
     -   Git
-
-## Todos
-
--   Brand game
-    -   Vue, JavaScript, Sass

@@ -7,12 +7,7 @@
 
 -   Portfolion käyttöliittymä
     -   GitHub, React, TypeScript, Less, i18next, webpack, jQuery, axios
--   Kirjautuminen (back end)
+-   Keskeneräiset ja Kirjautuminen (back end)
     -   Heroku, Node.js, Express, Jade, MySQL, Google Cloud Platform
 -   Versionhallinta
     -   Git
-
-## Keskeneräiset tehtävät
-
--   Brändi-peli
-    -   Vue, JavaScript, Sass

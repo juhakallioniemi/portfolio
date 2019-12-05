@@ -42,10 +42,12 @@ interface ApiResponse {
 interface Todos {
     id: number;
     title: string;
+    hasUnsavedChanges?: boolean;
 }
 
 interface Tasks {
     id: number;
     task: string;
     todo_id: number;
+    hasUnsavedChanges?: boolean;
 }

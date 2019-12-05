@@ -72,6 +72,10 @@ body {
     color: #069;
     text-decoration: underline;
     cursor: pointer;
+
+    &:focus {
+        outline: none;
+    }
 }
 
 form {
@@ -113,7 +117,7 @@ form {
     }
 
     &:hover {
-        transform: scale(1.05);
+        transform: scale(1.02);
     }
 }
 
@@ -171,10 +175,6 @@ form {
 
                 &:active {
                     transform: scale(1.05);
-                }
-
-                &:focus {
-                    outline: none;
                 }
             }
 
@@ -449,7 +449,7 @@ main {
 
         .logout {
             display: block;
-            margin: 1rem auto;
+            margin: 1rem auto 2px;
         }
     }
 
@@ -466,6 +466,8 @@ main {
 
         @media @mobile {
             border: none;
+            display: block;
+            padding: 0;
         }
 
         // prettier-ignore
@@ -480,7 +482,6 @@ main {
 
         .todo {
             margin: 5px;
-            //cursor: pointer;
             overflow: hidden;
             vertical-align: top;
             position: relative;
@@ -488,6 +489,49 @@ main {
             flex: 0 0 calc(50% - 10px);
             border: 2px solid @app-basic-lightblue;
             background: @app-bg-gray;
+
+            @media @IE {
+                display: inline-block;
+                width: calc(50% - 10px);
+            }
+
+            .todo-title {
+                float: left;
+            }
+
+            .todo-edit-button {
+                display: inline-block;
+                margin-left: 1rem;
+                vertical-align: bottom;
+                font-size: 0.85rem;
+                text-decoration: none;
+                font-weight: bold;
+
+                @media @mobile {
+                    float: left;
+                    font-size: 0.7rem;
+                }
+
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+
+            .todo-edit,
+            .task-edit {
+                background: @app-bg-gray;
+                color: @app-basic-lightblue;
+                margin: 1px;
+                border-width: 1px;
+                padding: 0 5px;
+                height: 1.5rem;
+            }
+
+            .todo-edit {
+                @media @mobile {
+                    float: left;
+                }
+            }
 
             .close {
                 &.delete {
@@ -519,17 +563,36 @@ main {
             .todo-tasks {
                 margin-bottom: 0;
                 padding-inline-end: 40px;
+                clear: both;
 
                 @media @mobile {
                     font-size: 0.8rem;
                     padding-left: 1rem;
                 }
 
+                .task {
+                    position: relative;
+
+                    .delete {
+                        position: absolute;
+                        top: 0;
+                        bottom: 0;
+                        right: unset;
+                        font-size: 1.25rem;
+                    }
+                }
+
                 .new-task {
                     display: flex;
+                    height: 1.5rem;
+                    line-height: 0;
+                    margin: 1px 0;
+
+                    @media @IE {
+                        display: inline-block;
+                    }
 
                     &.link-look-alike {
-                        //visibility: visible;
                         text-decoration: none;
 
                         &:hover {
@@ -537,33 +600,84 @@ main {
                         }
                     }
 
-                    // visibility: hidden;
-
-                    // &.visible {
-                    //     visibility: visible;
-                    // }
-
                     input {
                         width: 100%;
-                        margin-right: 10px;
+                        margin-right: 2px;
+                        margin-left: 1px;
+                        padding: 0 5px;
+                        height: 100%;
+
+                        @media @IE {
+                            width: auto;
+                        }
                     }
 
                     .add-task-button {
                         cursor: pointer;
                         background: @app-basic-lightblue;
                         border-color: @app-basic-lightblue;
+                        font-weight: bold;
+                        font-size: 0.9rem;
+                        white-space: nowrap;
+                        height: 100%;
                     }
+                }
+            }
+        }
+
+        .save-changes {
+            width: 100%;
+            text-align: center;
+            border: 2px solid @app-basic-lightblue;
+            background: @app-bg-gray;
+            margin: 5px;
+            padding: 5px;
+
+            @media @mobile {
+                width: auto;
+            }
+
+            .reset {
+                margin-left: 5px;
+                cursor: pointer;
+
+                &:hover {
+                    transform: scale(1.02);
                 }
             }
         }
     }
 
     .add-todo {
+        width: 100%;
+        text-align: center;
+        border: 2px solid @app-basic-lightblue;
+        background: @app-bg-gray;
+        margin: 5px;
+        padding: 5px;
+
+        @media @mobile {
+            width: auto;
+            display: flex;
+            align-items: center;
+        }
+
         input {
             border-radius: 0;
             width: 25%;
+            height: 100%;
+            vertical-align: middle;
             display: inline-block;
             margin: 0 1rem 0;
+
+            @media @mobile {
+                width: auto;
+                margin: 0 1rem 0 0;
+            }
+        }
+
+        button {
+            vertical-align: middle;
         }
     }
 
@@ -670,10 +784,6 @@ main {
             .forgotten {
                 display: inline-flex;
                 font-size: 0.95em;
-
-                &:focus {
-                    outline: 0;
-                }
 
                 @media @mobile {
                     font-size: 0.85em;
