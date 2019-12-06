@@ -23,7 +23,7 @@ export class Todo extends React.Component<TodoProps, TodoState> {
     constructor(props: any) {
         super(props);
         this.state = {
-            todos: [],
+            todos: null,
             tasks: [],
             newTitle: "",
             newTask: "",
@@ -31,7 +31,9 @@ export class Todo extends React.Component<TodoProps, TodoState> {
             isSaveVisible: false,
             isAdmin: false
         };
+    }
 
+    componentDidMount() {
         let loginInfo: LoginInfo = JSON.parse(
             localStorage.getItem("loginInfo")
         );
@@ -47,7 +49,8 @@ export class Todo extends React.Component<TodoProps, TodoState> {
     async getTodos() {
         try {
             const response = await axios.get("/todo");
-            let todos: Todos[] = [...this.state.todos];
+            let todos: Todos[] = [];
+            console.log(todos);
 
             if (response.data) {
                 for (let i in response.data) {
@@ -58,6 +61,7 @@ export class Todo extends React.Component<TodoProps, TodoState> {
                     todos: todos
                 });
             }
+            console.log(response);
             this.getTasksFromTodos();
         } catch (error) {
             console.log(error);
@@ -462,18 +466,21 @@ export class Todo extends React.Component<TodoProps, TodoState> {
     }
 
     render() {
-        console.log(this.state.todos.length);
-        if (this.state.todos.length || this.state.isAdmin) {
-            return (
-                <React.Fragment>
-                    {this.todosRender(this.state.todos, this.state.tasks)}
-                </React.Fragment>
-            );
-        } else
+        console.log(this.state.todos);
+        if (this.state.todos === null) {
             return (
                 <div className="no-content">
                     {this.props.t("main.noContent")}
                 </div>
             );
+        } else if (this.state.todos.length || this.state.isAdmin) {
+            return (
+                <React.Fragment>
+                    {this.todosRender(this.state.todos, this.state.tasks)}
+                </React.Fragment>
+            );
+        } else {
+            return <div>Loading...</div>;
+        }
     }
 }
