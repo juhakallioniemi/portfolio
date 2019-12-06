@@ -50,7 +50,6 @@ export class Todo extends React.Component<TodoProps, TodoState> {
         try {
             const response = await axios.get("/todo");
             let todos: Todos[] = [];
-            console.log(todos);
 
             if (response.data) {
                 for (let i in response.data) {
@@ -61,7 +60,6 @@ export class Todo extends React.Component<TodoProps, TodoState> {
                     todos: todos
                 });
             }
-            console.log(response);
             this.getTasksFromTodos();
         } catch (error) {
             console.log(error);
@@ -466,21 +464,20 @@ export class Todo extends React.Component<TodoProps, TodoState> {
     }
 
     render() {
-        console.log(this.state.todos);
-        if (this.state.todos === null) {
+        if (!this.state.todos) {
+            return <div>Loading...</div>;
+        } else if (!this.state.todos.length && !this.state.isAdmin) {
             return (
                 <div className="no-content">
                     {this.props.t("main.noContent")}
                 </div>
             );
-        } else if (this.state.todos.length || this.state.isAdmin) {
+        } else {
             return (
                 <React.Fragment>
                     {this.todosRender(this.state.todos, this.state.tasks)}
                 </React.Fragment>
             );
-        } else {
-            return <div>Loading...</div>;
         }
     }
 }
