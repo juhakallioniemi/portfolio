@@ -31,9 +31,7 @@ export class Todo extends React.Component<TodoProps, TodoState> {
             isSaveVisible: false,
             isAdmin: false
         };
-    }
 
-    componentDidMount() {
         let loginInfo: LoginInfo = JSON.parse(
             localStorage.getItem("loginInfo")
         );
@@ -464,6 +462,7 @@ export class Todo extends React.Component<TodoProps, TodoState> {
     }
 
     render() {
+        console.log(this.state.todos.length);
         if (this.state.todos.length || this.state.isAdmin) {
             return (
                 <React.Fragment>
