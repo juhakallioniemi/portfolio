@@ -464,7 +464,7 @@ export class Todo extends React.Component<TodoProps, TodoState> {
     }
 
     render() {
-        if (this.state.todos.length) {
+        if (this.state.todos.length || this.state.isAdmin) {
             return (
                 <React.Fragment>
                     {this.todosRender(this.state.todos, this.state.tasks)}
