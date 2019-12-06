@@ -20,7 +20,8 @@
     "common": {
         "yes": "Yes",
         "no": "No",
-        "send": "Send"
+        "send": "Send",
+        "loading": "Loading..."
     },
     "popup": {
         "confirmation": {

@@ -24,7 +24,7 @@ export class Todo extends React.Component<TodoProps, TodoState> {
         super(props);
         this.state = {
             todos: null,
-            tasks: [],
+            tasks: null,
             newTitle: "",
             newTask: "",
             editingIndex: null,
@@ -60,30 +60,37 @@ export class Todo extends React.Component<TodoProps, TodoState> {
                     todos: todos
                 });
             }
-            this.getTasksFromTodos();
+
+            this.getTasksFromTodos(this.state.todos);
         } catch (error) {
             console.log(error);
         }
     }
 
-    getTasksFromTodos() {
-        this.state.todos.forEach(async todo => {
-            const response = await axios.get(
-                `${"/todo/" + todo.id + "/tasks"}`
-            );
+    getTasksFromTodos(todos: Todos[]) {
+        let tasks: Tasks[] = [];
 
-            let tasks: Tasks[] = [...this.state.tasks];
+        if (todos.length) {
+            todos.forEach(async todo => {
+                const response = await axios.get(
+                    `${"/todo/" + todo.id + "/tasks"}`
+                );
 
-            if (response.data) {
-                for (let i in response.data) {
-                    tasks.push(response.data[i]);
+                if (response.data) {
+                    for (let i in response.data) {
+                        tasks.push(response.data[i]);
+                    }
+
+                    this.setState({
+                        tasks: tasks
+                    });
                 }
-
-                this.setState({
-                    tasks: tasks
-                });
-            }
-        });
+            });
+        } else {
+            this.setState({
+                tasks: []
+            });
+        }
     }
 
     async addTodo(title: string) {
@@ -464,8 +471,8 @@ export class Todo extends React.Component<TodoProps, TodoState> {
     }
 
     render() {
-        if (!this.state.todos) {
-            return <div>Loading...</div>;
+        if (!this.state.todos || !this.state.tasks) {
+            return <div>{this.props.t("common.loading")}</div>;
         } else if (!this.state.todos.length && !this.state.isAdmin) {
             return (
                 <div className="no-content">

@@ -20,7 +20,8 @@
     "common": {
         "yes": "Kyllä",
         "no": "Ei",
-        "send": "Lähetä"
+        "send": "Lähetä",
+        "loading": "Lataa..."
     },
     "popup": {
         "confirmation": {
