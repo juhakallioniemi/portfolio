@@ -37,11 +37,14 @@ export class Popup extends React.Component<PopupProps, PopupState> {
 
     buttonClicked = (e: any, popupContext: PopupContext) => {
         switch (e.target.id) {
-            case "close" || "popup-no":
-                popupContext.setContext(""); // Closes popup.
+            case "close":
                 this.setState({
                     text: ""
                 });
+                popupContext.setContext(""); // Closes popup.
+                break;
+            case "popup-no":
+                popupContext.setContext("");
                 break;
             case "main-view":
                 this.props.history.push(popupContext.locationHash);

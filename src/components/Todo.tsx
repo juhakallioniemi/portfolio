@@ -348,38 +348,40 @@ export class Todo extends React.Component<TodoProps, TodoState> {
             <div className="todos">
                 {todos.map(({ id, title }, todoIndex) => (
                     <div className="todo" key={todoIndex}>
-                        {todoIndex === this.state.editingIndex ? (
-                            <input
-                                type="text"
-                                value={this.state.todos[todoIndex].title}
-                                onChange={(e: any) =>
-                                    this.handleTodoTitleChange(
-                                        e.target.value,
-                                        todoIndex
-                                    )
-                                }
-                                className="todo-edit"
-                            ></input>
-                        ) : (
-                            <h5 className="todo-title">{title}</h5>
-                        )}
-                        {this.state.isAdmin ? (
-                            <React.Fragment>
-                                <button
-                                    className="todo-edit-button link-look-alike"
-                                    onClick={(e: any) =>
-                                        this.editTodo(todoIndex)
+                        <div className="wrapper">
+                            {todoIndex === this.state.editingIndex ? (
+                                <input
+                                    type="text"
+                                    value={this.state.todos[todoIndex].title}
+                                    onChange={(e: any) =>
+                                        this.handleTodoTitleChange(
+                                            e.target.value,
+                                            todoIndex
+                                        )
                                     }
-                                >
-                                    {todoIndex === this.state.editingIndex
-                                        ? "close"
-                                        : "edit"}
-                                </button>
-                                {this.state.editingIndex === todoIndex
-                                    ? this.deleteButton(id, "todo")
-                                    : null}
-                            </React.Fragment>
-                        ) : null}
+                                    className="todo-edit"
+                                ></input>
+                            ) : (
+                                <h5 className="todo-title">{title}</h5>
+                            )}
+                            {this.state.isAdmin ? (
+                                <React.Fragment>
+                                    <button
+                                        className="todo-edit-button link-look-alike"
+                                        onClick={(e: any) =>
+                                            this.editTodo(todoIndex)
+                                        }
+                                    >
+                                        {todoIndex === this.state.editingIndex
+                                            ? "close"
+                                            : "edit"}
+                                    </button>
+                                    {this.state.editingIndex === todoIndex
+                                        ? this.deleteButton(id, "todo")
+                                        : null}
+                                </React.Fragment>
+                            ) : null}
+                        </div>
                         <ul className="todo-tasks">
                             {tasks.map(
                                 ({ id: task_id, task, todo_id }, taskIndex) =>
@@ -462,10 +464,17 @@ export class Todo extends React.Component<TodoProps, TodoState> {
     }
 
     render() {
-        return (
-            <React.Fragment>
-                {this.todosRender(this.state.todos, this.state.tasks)}
-            </React.Fragment>
-        );
+        if (this.state.todos.length) {
+            return (
+                <React.Fragment>
+                    {this.todosRender(this.state.todos, this.state.tasks)}
+                </React.Fragment>
+            );
+        } else
+            return (
+                <div className="no-content">
+                    {this.props.t("main.noContent")}
+                </div>
+            );
     }
 }

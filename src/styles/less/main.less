@@ -176,6 +176,10 @@ form {
                 &:active {
                     transform: scale(1.05);
                 }
+
+                &:focus {
+                    outline: none;
+                }
             }
 
             span {
@@ -495,6 +499,10 @@ main {
                 width: calc(50% - 10px);
             }
 
+            .wrapper {
+                display: flex;
+            }
+
             .todo-title {
                 float: left;
             }
@@ -525,9 +533,12 @@ main {
                 border-width: 1px;
                 padding: 0 5px;
                 height: 1.5rem;
+                width: 90%;
             }
 
             .todo-edit {
+                width: 70%;
+
                 @media @mobile {
                     float: left;
                 }
@@ -601,7 +612,7 @@ main {
                     }
 
                     input {
-                        width: 100%;
+                        width: 90%;
                         margin-right: 2px;
                         margin-left: 1px;
                         padding: 0 5px;
