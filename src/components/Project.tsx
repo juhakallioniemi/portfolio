@@ -2,6 +2,7 @@ import * as React from "react";
 import { TFunction, i18n } from "i18next";
 import { History, LocationState } from "history";
 import { PopupContext } from "../context/PopupContext";
+import { Portfolio } from "../context/projects/Portfolio";
 const appsettings: AppSettings = require("appsettings");
 
 interface ProjectProps {
@@ -29,7 +30,11 @@ export class Project extends React.Component<ProjectProps, ProjectState> {
 
     openProject = () => {
         let popupContext: PopupContext = this.context;
-        if (this.props.projectName === this.props.t("projects.brand-game")) {
+        if (this.props.projectName === "Portfolio") {
+            this.props.history.push(location.hash + "/" + "portfolio");
+        } else if (
+            this.props.projectName === this.props.t("projects.brand-game")
+        ) {
             popupContext.setContext(
                 popupContext.popupType.project,
                 appsettings.brandGameUrl,
@@ -48,12 +53,32 @@ export class Project extends React.Component<ProjectProps, ProjectState> {
         } else return <h3>{this.state.projectInfo}</h3>;
     }
 
-    render() {
-        if (this.props.isProjectActive) {
+    activeProjectRender(): JSX.Element {
+        let activeProjectUrl = location.hash.split("/")[2];
+        if (activeProjectUrl === "portfolio") {
+            return (
+                <React.Fragment>
+                    <div
+                        className="active-project static"
+                        // style={{
+                        //     height: this.props.dynamicWindowHeight
+                        // }}
+                    >
+                        {
+                            <Portfolio
+                                t={this.props.t}
+                                i18n={this.props.i18n}
+                                history={this.props.history}
+                            />
+                        }
+                    </div>
+                </React.Fragment>
+            );
+        } else if (activeProjectUrl === "brand-game") {
             return (
                 <React.Fragment>
                     <object
-                        className="active-project"
+                        className="active-project dynamic"
                         style={{
                             height: this.props.dynamicWindowHeight
                         }}
@@ -62,6 +87,12 @@ export class Project extends React.Component<ProjectProps, ProjectState> {
                     ></object>
                 </React.Fragment>
             );
+        } else return null;
+    }
+
+    render() {
+        if (this.props.isProjectActive) {
+            return this.activeProjectRender();
         } else {
             return (
                 <React.Fragment>

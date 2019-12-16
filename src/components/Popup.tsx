@@ -79,6 +79,7 @@ export class Popup extends React.Component<PopupProps, PopupState> {
 
     popupModal(): JSX.Element {
         let popupContext: PopupContext = this.context;
+        console.log(popupContext.activeType);
         if (popupContext.activeType === "project")
             return (
                 <div id="popup">

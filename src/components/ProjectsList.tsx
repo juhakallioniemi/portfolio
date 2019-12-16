@@ -71,6 +71,7 @@ export class ProjectsList extends React.Component<
                     dynamicWindowHeight={this.state.dynamicWindowHeight}
                     t={this.props.t}
                     i18n={this.props.i18n}
+                    history={this.props.history}
                 />
             );
         } else {
@@ -80,15 +81,16 @@ export class ProjectsList extends React.Component<
                     // style={{ height: this.state.dynamicWindowHeight }}
                 >
                     <Project
-                        projectName={this.props.t("projects.brand-game")}
+                        projectName="Portfolio"
                         t={this.props.t}
                         i18n={this.props.i18n}
                         history={this.props.history}
                     />
                     <Project
-                        projectName="Todo"
+                        projectName={this.props.t("projects.brand-game")}
                         t={this.props.t}
                         i18n={this.props.i18n}
+                        history={this.props.history}
                     />
                     <Project
                         projectName="Todo"

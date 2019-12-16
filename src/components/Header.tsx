@@ -76,18 +76,18 @@ export class Header extends React.Component<HeaderProps, HeaderState> {
     }
 
     localeButton(lang: string): JSX.Element {
-        let isActiveProject: boolean =
-            location.hash.split("/")[2] !== undefined;
+        let isDynamicProject: boolean =
+            location.hash.split("/")[2] === "brand-game";
         let newLang = lang === "en" ? "fi" : "en";
         return (
             <button
                 className={"flag-" + newLang}
                 title={
-                    isActiveProject
+                    isDynamicProject
                         ? this.props.t("header.locale-button-disabled")
                         : ""
                 }
-                disabled={isActiveProject}
+                disabled={isDynamicProject}
                 onClick={() => this.changeLanguage(newLang)}
             ></button>
         );
@@ -96,7 +96,7 @@ export class Header extends React.Component<HeaderProps, HeaderState> {
     menuClick = (btnName: string) => {
         let localeHash = "#" + this.props.i18n.language;
 
-        if (location.hash.split("/")[2] !== undefined) {
+        if (location.hash.split("/")[2] === "brand-game") {
             let popupContext: PopupContext = this.context;
             popupContext.setContext(
                 popupContext.popupType.confirmation,

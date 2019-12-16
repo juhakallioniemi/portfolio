@@ -802,15 +802,10 @@ main {
     }
 
     .markdown {
-        .fade-in-down(800ms);
+        .fade-in-down(600ms);
         border: 2px solid @app-basic-lightblue;
         padding: 2px 0;
         background: @app-bg-gray;
-
-        @media @mobile {
-            margin: 5px;
-        }
-
         text-align: left;
         width: 100%;
         height: 100%;
@@ -820,7 +815,8 @@ main {
         font-size: 1.1em;
 
         @media @mobile {
-            font-size: 0.9em;
+            width: auto;
+            margin: 5px;
         }
 
         // prettier-ignore
@@ -828,15 +824,21 @@ main {
             font-family: Soloist3D;
             color: @app-basic-lightblue; 
             font-size: 1.15em; 
-            margin-bottom: 0.25em;
+            margin-bottom: 1rem;
 
             @media @mobile {
-                font-size: 1.0em;
+                font-size: 1.0rem;
             }
         });
 
         blockquote {
             padding-left: 1.5rem;
+
+            p {
+                @media @mobile {
+                    font-size: 0.8rem;
+                }
+            }
         }
 
         p,
@@ -908,11 +910,103 @@ main {
     }
 
     .active-project {
+        .fade-in-down(800ms);
         width: 100%;
         border: 2px solid @app-basic-lightblue;
 
         @media @mobile {
             border-width: 0 2px 0 2px;
+        }
+
+        &.dynamic {
+            //
+        }
+
+        &.static {
+            background: @app-bg-gray;
+            padding: 10px;
+            position: relative;
+
+            // prettier-ignore
+            .headings({
+                font-family: Soloist3D;
+                color: @app-basic-lightblue; 
+                margin-bottom: 0.25em;
+            });
+
+            .close {
+                padding: 0;
+                position: absolute;
+                right: 0;
+                top: 0;
+                width: 35px;
+                height: 35px;
+                line-height: 35px;
+                font-size: 2.5em;
+                color: @app-bg-gray;
+                text-shadow: 0 2px 2px @app-basic-lightblue;
+                opacity: 1;
+
+                @media @mobile {
+                    font-size: 1.75em;
+                    width: 30px;
+                }
+
+                &:hover {
+                    color: @app-basic-lightblue;
+                    text-shadow: 0 2px 2px #000;
+                }
+
+                &:active {
+                    transform: scale(1.05);
+                }
+
+                &:focus {
+                    outline: none;
+                }
+            }
+
+            .title {
+                @media @mobile {
+                    font-size: 1.25rem;
+                }
+            }
+
+            .sub-title {
+                padding: 1rem 1rem 0;
+                text-align: left;
+
+                @media @mobile {
+                    font-size: 0.95rem;
+                }
+            }
+
+            .project-info {
+                .context {
+                    display: flex;
+                    justify-content: center;
+                    padding: 1rem;
+
+                    @media @mobile {
+                        display: block;
+                        font-size: 0.8rem;
+                    }
+
+                    .list {
+                        width: 100%;
+                        text-align: left;
+                        padding: 0 1rem;
+
+                        p {
+                            margin: 0;
+                        }
+
+                        ul {
+                            color: #fff;
+                        }
+                    }
+                }
+            }
         }
     }
 }
