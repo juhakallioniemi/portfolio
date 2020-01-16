@@ -24,7 +24,7 @@
 @mobile: ~"only screen and (max-width: 640px)";
 @IE: ~"screen and (-ms-high-contrast: active), (-ms-high-contrast: none)"; // IE fallback
 
-@app-bg-gray: #222222;
+@app-bg-gray: #303030;
 @app-basic-lightblue: #61dafb;
 
 // prettier-ignore
@@ -306,6 +306,7 @@ header {
             letter-spacing: 2vw;
             text-indent: 2vw;
             font-size: 3em;
+            transition: letter-spacing 0.6s ease;
 
             @media @mobile {
                 font-size: 1.75em;
@@ -313,7 +314,13 @@ header {
                 text-indent: 0;
             }
 
-            .title-effect-lines(@titleColor: @app-basic-lightblue);
+            &:hover {
+                letter-spacing: 2.5vw;
+
+                @media @mobile {
+                    letter-spacing: 0;
+                }
+            }
 
             &:active {
                 transform: scale(1.02);
