@@ -7,9 +7,7 @@ module.exports = (env, argv) => ({
         main: "./src/index.tsx",
     },
     output: {
-        filename: "[name].bundle.js",
-        chunkFilename: "[name].[contenthash].js",
-        path: path.join(__dirname, "/docs/"),
+        path: path.resolve(__dirname, "../docs/point-game/"),
     },
     resolve: {
         extensions: [".ts", ".tsx", ".js", ".json"],
