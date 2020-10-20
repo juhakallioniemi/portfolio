@@ -1,0 +1,113 @@
+body {
+    background-color: lightgreen;
+    margin: 0 8px;
+    padding: 0;
+}
+
+.app {
+    height: 100vh;
+
+    h1 {
+        margin-top: 0;
+        text-align: center;
+    }
+
+    .main {
+        height: 98vh;
+        padding-top: 1vh;
+
+        .create-scorecard {
+            margin-top: 10vh;
+
+            .holes {
+                font-size: 1.2em;
+                line-height: 1.2em;
+                width: 38%;
+            }
+
+            .max-holes {
+                display: inline-flex;
+                width: 100%;
+
+                span {
+                    font-size: 1.2em;
+                    margin: 0 10px;
+                }
+            }
+
+            .create-scorecard-button {
+                height: 6vh;
+                position: absolute;
+                bottom: 1vh;
+                right: 1vh;
+            }
+        }
+    }
+
+    .remove-button {
+        margin-right: 1vh;
+        height: 22px;
+    }
+
+    .player-list {
+        clear: both;
+
+        ul {
+            padding-left: 0;
+
+            li {
+                list-style-type: none;
+            }
+        }
+
+        .listed-player {
+            width: 100%;
+            margin: 1vh;
+
+            span {
+                font-size: 1.2em;
+                width: 45%;
+                display: inline-block;
+                vertical-align: middle;
+            }
+
+            .add-throws {
+                display: inline-flex;
+
+                span {
+                    margin: 0 10px;
+                }
+            }
+        }
+
+        .add-player {
+        }
+    }
+
+    .total-points {
+        .listed-player {
+            font-size: 0.6em;
+        }
+    }
+
+    .hole {
+        position: relative;
+
+        .home-button {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .hole-navigation {
+            margin: 10vh 0;
+
+            .previous {
+                float: left;
+            }
+            .next {
+                float: right;
+            }
+        }
+    }
+}
