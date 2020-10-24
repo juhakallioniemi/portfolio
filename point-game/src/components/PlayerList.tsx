@@ -74,6 +74,7 @@ var defaultPlayerList: {
         // }
     ];
 
+
 function PlayerList(props: any) {
     const [playerList, setPlayerList] = useState(defaultPlayerList);
     const [newPlayer, setNewPlayer] = useState(null);
