@@ -31,22 +31,22 @@ var defaultPlayerList: {
             playerHoleThrows: holeDefaultThrows,
             playerHolePoints: holeDefaultPoints,
         },
-        // {
-        //     playerName: "Tommi",
-        //     playerTotalPoints: 0,
-        //     playerTotalThrows: 0,
-        //     playerHoleRank: 0,
-        //     playerHoleThrows: holeDefaultThrows,
-        //     playerHolePoints: holeDefaultPoints,
-        // },
-        // {
-        //     playerName: "Mikko",
-        //     playerTotalPoints: 0,
-        //     playerTotalThrows: 0,
-        //     playerHoleRank: 0,
-        //     playerHoleThrows: holeDefaultThrows,
-        //     playerHolePoints: holeDefaultPoints,
-        // },
+        {
+            playerName: "Tommi",
+            playerTotalPoints: 0,
+            playerTotalThrows: 0,
+            playerHoleRank: 0,
+            playerHoleThrows: holeDefaultThrows,
+            playerHolePoints: holeDefaultPoints,
+        },
+        {
+            playerName: "Janpe",
+            playerTotalPoints: 0,
+            playerTotalThrows: 0,
+            playerHoleRank: 0,
+            playerHoleThrows: holeDefaultThrows,
+            playerHolePoints: holeDefaultPoints,
+        },
         // {
         //     playerName: "Roope",
         //     playerTotalPoints: 0,
@@ -63,6 +63,15 @@ var defaultPlayerList: {
         //     playerHoleThrows: holeDefaultThrows,
         //     playerHolePoints: holeDefaultPoints,
         // },
+
+        // {
+        //     playerName: "Mikko",
+        //     playerTotalPoints: 0,
+        //     playerTotalThrows: 0,
+        //     playerHoleRank: 0,
+        //     playerHoleThrows: holeDefaultThrows,
+        //     playerHolePoints: holeDefaultPoints,
+        // }
     ];
 
 function PlayerList(props: any) {

@@ -5,8 +5,8 @@ import Hole from "./Hole";
 // että ethän tuomitse. Arvioi jotain muuta projektia. Kiitos!
 
 function Main() {
-    const [startGame, setStartGame] = useState(true); // default false
-    const [maxHoles, setMaxHoles] = useState(3); // default 18
+    const [startGame, setStartGame] = useState(false); // default false
+    const [maxHoles, setMaxHoles] = useState(18); // default 18
     const [savedScores, setSavedScores] = useState([]);
 
     // TALLENTAMINEN KESKEN
