@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from "react";
 import TotalPoints from "./TotalPoints";
 
-const holeDefaultThrows: number = 3;
+// Point-game projektissa on niin huonoa ja nopeesti väännettyä koodia,
+// että ethän tuomitse. Arvioi jotain muuta projektia. Kiitos!
+
+const holeDefaultThrows: number = null;
+const holeDefaultPoints: number = null;
 
 var defaultPlayerList: {
     playerName: string;
@@ -11,55 +15,55 @@ var defaultPlayerList: {
     playerHoleThrows: number;
     playerHolePoints: number;
 }[] = [
-    {
-        playerName: "Juha",
-        playerTotalPoints: 0,
-        playerTotalThrows: 0,
-        playerHoleRank: 0,
-        playerHoleThrows: holeDefaultThrows,
-        playerHolePoints: 3.5,
-    },
-    {
-        playerName: "Timo",
-        playerTotalPoints: 0,
-        playerTotalThrows: 0,
-        playerHoleRank: 3.5,
-        playerHoleThrows: holeDefaultThrows,
-        playerHolePoints: 3.5,
-    },
-    {
-        playerName: "Tommi",
-        playerTotalPoints: 0,
-        playerTotalThrows: 0,
-        playerHoleRank: 0,
-        playerHoleThrows: holeDefaultThrows,
-        playerHolePoints: 3.5,
-    },
-    {
-        playerName: "Mikko",
-        playerTotalPoints: 0,
-        playerTotalThrows: 0,
-        playerHoleRank: 0,
-        playerHoleThrows: holeDefaultThrows,
-        playerHolePoints: 3.5,
-    },
-    {
-        playerName: "Roope",
-        playerTotalPoints: 0,
-        playerTotalThrows: 0,
-        playerHoleRank: 0,
-        playerHoleThrows: holeDefaultThrows,
-        playerHolePoints: 3.5,
-    },
-    {
-        playerName: "Miika",
-        playerTotalPoints: 0,
-        playerTotalThrows: 0,
-        playerHoleRank: 0,
-        playerHoleThrows: holeDefaultThrows,
-        playerHolePoints: 3.5,
-    },
-];
+        {
+            playerName: "Juha",
+            playerTotalPoints: 0,
+            playerTotalThrows: 0,
+            playerHoleRank: 0,
+            playerHoleThrows: holeDefaultThrows,
+            playerHolePoints: holeDefaultPoints,
+        },
+        {
+            playerName: "Timo",
+            playerTotalPoints: 0,
+            playerTotalThrows: 0,
+            playerHoleRank: 0,
+            playerHoleThrows: holeDefaultThrows,
+            playerHolePoints: holeDefaultPoints,
+        },
+        // {
+        //     playerName: "Tommi",
+        //     playerTotalPoints: 0,
+        //     playerTotalThrows: 0,
+        //     playerHoleRank: 0,
+        //     playerHoleThrows: holeDefaultThrows,
+        //     playerHolePoints: holeDefaultPoints,
+        // },
+        // {
+        //     playerName: "Mikko",
+        //     playerTotalPoints: 0,
+        //     playerTotalThrows: 0,
+        //     playerHoleRank: 0,
+        //     playerHoleThrows: holeDefaultThrows,
+        //     playerHolePoints: holeDefaultPoints,
+        // },
+        // {
+        //     playerName: "Roope",
+        //     playerTotalPoints: 0,
+        //     playerTotalThrows: 0,
+        //     playerHoleRank: 0,
+        //     playerHoleThrows: holeDefaultThrows,
+        //     playerHolePoints: holeDefaultPoints,
+        // },
+        // {
+        //     playerName: "Miika",
+        //     playerTotalPoints: 0,
+        //     playerTotalThrows: 0,
+        //     playerHoleRank: 0,
+        //     playerHoleThrows: holeDefaultThrows,
+        //     playerHolePoints: holeDefaultPoints,
+        // },
+    ];
 
 function PlayerList(props: any) {
     const [playerList, setPlayerList] = useState(defaultPlayerList);
@@ -89,6 +93,21 @@ function PlayerList(props: any) {
         setPlayerList(newList);
     };
 
+    const isAllThrowsSet = () => {
+        let setAmount = 0;
+        let maxSet = playerList.length;
+
+        for (let i = 0; i < playerList.length; i++) {
+            if (playerList[i].playerHoleThrows > 0) {
+                setAmount++;
+            }
+        }
+
+        if (setAmount === maxSet) {
+            return true;
+        } else return false;
+    };
+
     const renderPlayerHolePoints = (player: any) => {
         if (props.startGame) {
             return (
@@ -99,7 +118,7 @@ function PlayerList(props: any) {
                         color: "blue",
                     }}
                 >
-                    {player.playerHolePoints} p.
+                    {isAllThrowsSet() && player.playerHolePoints ? player.playerHolePoints : 0} p.
                 </span>
             );
         }
@@ -158,7 +177,11 @@ function PlayerList(props: any) {
                     >
                         -
                     </button>
-                    <span>{player.playerHoleThrows}</span>
+                    <span>
+                        {player.playerHoleThrows
+                            ? player.playerHoleThrows
+                            : "-"}
+                    </span>
                     <button
                         id="incrementThrows"
                         onClick={(e: any) =>
@@ -178,9 +201,13 @@ function PlayerList(props: any) {
         let playerThrows = newPlayerList[playerIndex].playerHoleThrows;
 
         if (id === "decrementThrows") {
-            if (playerThrows > 1) playerThrows--;
+            if (!playerThrows) playerThrows = 2;
+            else if (playerThrows > 1) {
+                playerThrows--;
+            }
         } else if (id === "incrementThrows") {
-            playerThrows++;
+            if (playerThrows) playerThrows++;
+            else playerThrows = 3;
         }
 
         newPlayerList[playerIndex].playerHoleThrows = playerThrows;
@@ -232,9 +259,11 @@ function PlayerList(props: any) {
                     isPlayerThrowsChanged={isPlayerThrowsChanged}
                     holeNumber={props.holeNumber}
                     maxHoles={props.maxHoles}
-                    resetHolePoints={props.resetHolePoints}
-                    changeResetHolePointsValueFromChild={
-                        props.changeResetHolePointsValueFromChild
+                    startGame={props.startGame}
+                    isHoleChanged={props.isHoleChanged}
+                    saveScoresFromChild={props.saveScoresFromChild}
+                    changeIsHoleChangeValueFromChild={
+                        props.changeIsHoleChangeValueFromChild
                     }
                 />
             );

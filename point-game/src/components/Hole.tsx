@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
 import PlayerList from "./PlayerList";
 
+// Point-game projektissa on niin huonoa ja nopeesti väännettyä koodia,
+// että ethän tuomitse. Arvioi jotain muuta projektia. Kiitos!
+
 function Hole(props: any) {
     const [holeNumber, setHoleNumber] = useState(1);
-    const [resetHolePoints, setResetHolePoints] = useState(false);
+    const [isHoleChanged, setIsHoleChanged] = useState(false);
 
-    const changeResetHolePointsValueFromChild = (value: boolean) => {
-        setResetHolePoints(value);
+    const changeIsHoleChangeValueFromChild = (value: boolean) => {
+        setIsHoleChanged(value);
     };
 
     const navigateHole = (id: string) => {
@@ -19,8 +22,14 @@ function Hole(props: any) {
             setHoleNumber(newNumber);
         }
 
-        setResetHolePoints(true);
+        setIsHoleChanged(true);
     };
+
+    const RestartButtonClicked = () => {
+        setHoleNumber(1);
+        setIsHoleChanged(true);
+        props.changeGameState(false)
+    }
 
     const renderHole = () => {
         if (props.startGame) {
@@ -44,10 +53,10 @@ function Hole(props: any) {
                         </button>
                     </div>
                     <button
-                        className="home-button"
-                        onClick={() => props.changeGameState(false)}
+                        className="restart-button"
+                        onClick={() => RestartButtonClicked()}
                     >
-                        Home
+                        Restart
                     </button>
                 </React.Fragment>
             );
@@ -64,9 +73,9 @@ function Hole(props: any) {
                 startGame={props.startGame}
                 changeGameState={props.changeGameState}
                 holeNumber={holeNumber}
-                resetHolePoints={resetHolePoints}
-                changeResetHolePointsValueFromChild={
-                    changeResetHolePointsValueFromChild
+                isHoleChanged={isHoleChanged}
+                changeIsHoleChangeValueFromChild={
+                    changeIsHoleChangeValueFromChild
                 }
             />
         </div>

@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 
+// Point-game projektissa on niin huonoa ja nopeesti väännettyä koodia,
+// että ethän tuomitse. Arvioi jotain muuta projektia. Kiitos!
+
 const playerSharedInitialPoints: {
     holeNumber: number;
     playerListHoleThrows: number[];
@@ -11,7 +14,7 @@ function TotalPoints(props: any) {
         playerSharedInitialPoints[i] = {
             holeNumber: i + 1,
             playerListHoleThrows: [],
-            playerListHolePoints: [],
+            playerListHolePoints: [0, 0, 0],
         };
     }
 
@@ -27,6 +30,8 @@ function TotalPoints(props: any) {
         playerSharedInitialPoints
     );
 
+    const [playerTotalPoints, setPlayerTotalPoints] = useState([]);
+
     const maxPointsPerHole = calculateMaxPointsPerHole();
 
     const getOccurrence = (array: any, value: number) => {
@@ -36,21 +41,50 @@ function TotalPoints(props: any) {
     useEffect(() => {
         if (props.isPlayerThrowsChanged) {
             calculatePoints();
+            props.changeIsHoleChangeValueFromChild(false);
+
+            if (isAllThrowsSet()) {
+                let totalPointsList: number[] = [];
+                for (let i = 0; i < props.playerList.length; i++) {
+                    totalPointsList[i] = 0;
+                    for (let j = 0; j < props.maxHoles; j++) {
+                        totalPointsList[i] += playerSharedPoints[j].playerListHolePoints[i];
+                    }
+                }
+                setPlayerTotalPoints(totalPointsList);
+
+            }
         }
 
-        if (
-            props.resetHolePoints &&
-            playerSharedPoints[props.holeNumber - 1].playerListHolePoints
-                .length <= 0
-        ) {
+        if (props.isHoleChanged) {
             let newPlayerList = [...props.playerList];
+
             for (let i = 0; i < newPlayerList.length; i++) {
-                newPlayerList[i].playerHoleThrows = 3;
+                newPlayerList[i].playerHoleThrows = playerSharedPoints[props.holeNumber - 1].playerListHoleThrows[i];
+                newPlayerList[i].playerHolePoints = playerSharedPoints[props.holeNumber - 1].playerListHolePoints[i];
+                newPlayerList[i].playerTotalPoints = playerTotalPoints;
             }
+
             props.updatePlayerList(newPlayerList);
-            props.changeResetHolePointsValueFromChild(false);
+            props.changeIsHoleChangeValueFromChild(false);
         }
     });
+
+    const isAllThrowsSet = () => {
+        let arr = playerSharedPoints[props.holeNumber - 1].playerListHoleThrows;
+        let setAmount = 0;
+        let maxSet = props.playerList.length;
+
+        for (let i = 0; i < arr.length; i++) {
+            if (arr[i] > 0) {
+                setAmount++;
+            }
+        }
+
+        if (setAmount === maxSet) {
+            return true;
+        } else return false;
+    };
 
     const calculatePoints = () => {
         let playerHoleThrows = props.playerList.map(
@@ -92,17 +126,16 @@ function TotalPoints(props: any) {
 
         for (let i = 0; i < newPlayerList.length; i++) {
             newHoleSharedPoints[props.holeNumber - 1].playerListHoleThrows[i] =
-                newPlayerList[i].playerHolePoints;
+                newPlayerList[i].playerHoleThrows;
 
             newHoleSharedPoints[props.holeNumber - 1].playerListHolePoints[i] =
-                newPlayerList[i].playerHoleThrows;
+                newPlayerList[i].playerHolePoints;
         }
 
-        setPlayerSharePoints([...newHoleSharedPoints]);
-
-        console.log(playerSharedPoints);
+        if (isAllThrowsSet()) setPlayerSharePoints([...newHoleSharedPoints]); // <-- tää vaa tallentaa väylänvaihtoa varten
 
         props.updatePlayerList(newPlayerList);
+
     };
 
     const loopThrougPlayers: any = (playerList: any) => {

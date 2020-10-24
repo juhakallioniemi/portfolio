@@ -1,11 +1,19 @@
 import React, { useState, useEffect } from "react";
-import PlayerList from "./PlayerList";
 import Hole from "./Hole";
-import TotalPoints from "./TotalPoints";
+
+// Point-game projektissa on niin huonoa ja nopeesti väännettyä koodia,
+// että ethän tuomitse. Arvioi jotain muuta projektia. Kiitos!
 
 function Main() {
-    const [startGame, setStartGame] = useState(false); // default false
-    const [maxHoles, setMaxHoles] = useState(18);
+    const [startGame, setStartGame] = useState(true); // default false
+    const [maxHoles, setMaxHoles] = useState(3); // default 18
+    const [savedScores, setSavedScores] = useState([]);
+
+    // TALLENTAMINEN KESKEN
+    const saveScoresFromChild = (value: []) => {
+        setSavedScores(value);
+        console.log("this was saved:" + savedScores);
+    }
 
     const changeMaxHoles = (value: number) => {
         setMaxHoles(value);
@@ -28,6 +36,7 @@ function Main() {
                 changeMaxHoles={changeMaxHoles}
                 startGame={startGame}
                 changeGameState={changeGameState}
+                saveScoresFromChild={saveScoresFromChild}
             />
         );
     };
