@@ -7,6 +7,7 @@ import Hole from "./Hole";
 function Main() {
     const [startGame, setStartGame] = useState(false); // default false
     const [maxHoles, setMaxHoles] = useState(18); // default 18
+    const [coursePar, setCoursePar] = useState(54); // default 54
     const [savedScores, setSavedScores] = useState([]);
 
     // TALLENTAMINEN KESKEN
@@ -37,6 +38,7 @@ function Main() {
                 startGame={startGame}
                 changeGameState={changeGameState}
                 saveScoresFromChild={saveScoresFromChild}
+                coursePar={coursePar}
             />
         );
     };
@@ -47,8 +49,23 @@ function Main() {
             newMaxHoles++;
             changeMaxHoles(newMaxHoles);
         } else if (id === "decrementHoles") {
-            newMaxHoles--;
-            changeMaxHoles(newMaxHoles);
+            if (newMaxHoles > 1) {
+                newMaxHoles--;
+                changeMaxHoles(newMaxHoles);
+            }
+        }
+    };
+
+    const editCoursePar = (id: string) => {
+        let newCoursePar = coursePar;
+        if (id === "incrementCoursePar") {
+            newCoursePar++;
+            setCoursePar(newCoursePar);
+        } else if (id === "decrementCoursePar") {
+            if (newCoursePar > 1) {
+                newCoursePar--;
+                setCoursePar(newCoursePar);
+            }
         }
     };
 
@@ -72,6 +89,23 @@ function Main() {
                             +
                         </button>
                     </div>
+                    <br></br><br></br>
+                    {/* <div style={{ float: "left" }} className="max-holes">
+                        <div className="holes">Course par:</div>
+                        <button
+                            id="decrementCoursePar"
+                            onClick={(e: any) => editCoursePar(e.target.id)}
+                        >
+                            -
+                        </button>
+                        <span>{coursePar}</span>
+                        <button
+                            id="incrementCoursePar"
+                            onClick={(e: any) => editCoursePar(e.target.id)}
+                        >
+                            +
+                        </button>
+                    </div> */}
                     <button
                         className="create-scorecard-button"
                         onClick={() => changeGameState(true)}

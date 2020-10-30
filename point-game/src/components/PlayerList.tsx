@@ -4,8 +4,8 @@ import TotalPoints from "./TotalPoints";
 // Point-game projektissa on niin huonoa ja nopeesti väännettyä koodia,
 // että ethän tuomitse. Arvioi jotain muuta projektia. Kiitos!
 
-const holeDefaultThrows: number = null;
-const holeDefaultPoints: number = null;
+const holeDefaultThrows: number = 0;
+const holeDefaultPoints: number = 0;
 
 var defaultPlayerList: {
     playerName: string;
@@ -14,6 +14,7 @@ var defaultPlayerList: {
     playerHoleRank: number;
     playerHoleThrows: number;
     playerHolePoints: number;
+    allHolesMarked: boolean;
 }[] = [
         {
             playerName: "Juha",
@@ -22,6 +23,7 @@ var defaultPlayerList: {
             playerHoleRank: 0,
             playerHoleThrows: holeDefaultThrows,
             playerHolePoints: holeDefaultPoints,
+            allHolesMarked: false
         },
         {
             playerName: "Timo",
@@ -30,6 +32,7 @@ var defaultPlayerList: {
             playerHoleRank: 0,
             playerHoleThrows: holeDefaultThrows,
             playerHolePoints: holeDefaultPoints,
+            allHolesMarked: false
         },
         {
             playerName: "Tommi",
@@ -38,15 +41,17 @@ var defaultPlayerList: {
             playerHoleRank: 0,
             playerHoleThrows: holeDefaultThrows,
             playerHolePoints: holeDefaultPoints,
+            allHolesMarked: false
         },
-        {
-            playerName: "Janpe",
-            playerTotalPoints: 0,
-            playerTotalThrows: 0,
-            playerHoleRank: 0,
-            playerHoleThrows: holeDefaultThrows,
-            playerHolePoints: holeDefaultPoints,
-        },
+        // {
+        //     playerName: "Janpe",
+        //     playerTotalPoints: 0,
+        //     playerTotalThrows: 0,
+        //     playerHoleRank: 0,
+        //     playerHoleThrows: holeDefaultThrows,
+        //     playerHolePoints: holeDefaultPoints,
+        //     allHolesMarked: false
+        // },
         // {
         //     playerName: "Roope",
         //     playerTotalPoints: 0,
@@ -54,6 +59,7 @@ var defaultPlayerList: {
         //     playerHoleRank: 0,
         //     playerHoleThrows: holeDefaultThrows,
         //     playerHolePoints: holeDefaultPoints,
+        //      allHolesMarked: false,
         // },
         // {
         //     playerName: "Miika",
@@ -62,16 +68,18 @@ var defaultPlayerList: {
         //     playerHoleRank: 0,
         //     playerHoleThrows: holeDefaultThrows,
         //     playerHolePoints: holeDefaultPoints,
+        //      allHolesMarked: false,
         // },
 
-        // {
-        //     playerName: "Mikko",
-        //     playerTotalPoints: 0,
-        //     playerTotalThrows: 0,
-        //     playerHoleRank: 0,
-        //     playerHoleThrows: holeDefaultThrows,
-        //     playerHolePoints: holeDefaultPoints,
-        // }
+        {
+            playerName: "Mikko",
+            playerTotalPoints: 0,
+            playerTotalThrows: 0,
+            playerHoleRank: 0,
+            playerHoleThrows: holeDefaultThrows,
+            playerHolePoints: holeDefaultPoints,
+            allHolesMarked: false,
+        }
     ];
 
 
@@ -126,6 +134,7 @@ function PlayerList(props: any) {
                         float: "right",
                         width: "auto",
                         color: "blue",
+                        marginRight: "3vw"
                     }}
                 >
                     {isAllThrowsSet() && player.playerHolePoints ? player.playerHolePoints : 0} p.
@@ -134,25 +143,42 @@ function PlayerList(props: any) {
         }
     };
 
+    const renderPlayerTotalThrows = (player: any, index: number) => {
+        let defaultHoleThrows = 3;
+        let playerThrows = defaultHoleThrows;
+
+        if (player.playerHoleThrows !== 0) playerThrows = player.playerHoleThrows;
+
+        let totalThrows = (((18 - props.holeNumber) * defaultHoleThrows) + playerThrows) - (props.coursePar - (props.holeNumber - 1) * defaultHoleThrows);
+
+        if (totalThrows === 0)
+            return "E";
+        else if (totalThrows < 0)
+            return totalThrows;
+        else
+            return "+" + totalThrows;
+    }
+
     const loopThrougPlayers: any = (playerList: any) => {
         return (
             <ul>
-                {playerList.map((p: any, index: number) => {
+                {playerList.map((player: any, index: number) => {
                     return (
                         <li key={index}>
                             <div className="listed-player">
                                 <span>
-                                    {p.playerName}(
+                                    {player.playerName}
+                                    {/* (
                                     <span
                                         style={{ width: "auto", color: "red" }}
                                     >
-                                        E
+                                        {renderPlayerTotalThrows(player, index)}
                                     </span>
-                                    )
+                                    ) */}
                                 </span>
-                                {renderRemoveButton(p)}
-                                {renderEditThrows(p)}
-                                {renderPlayerHolePoints(p)}
+                                {renderRemoveButton(player)}
+                                {renderEditThrows(player)}
+                                {renderPlayerHolePoints(player)}
                             </div>
                         </li>
                     );
@@ -251,6 +277,7 @@ function PlayerList(props: any) {
             playerHoleRank: 0,
             playerHoleThrows: holeDefaultThrows,
             playerHolePoints: 0,
+            allHolesMarked: false
         });
 
         for (let i = 0; i < newList.length; i++) {
@@ -275,6 +302,8 @@ function PlayerList(props: any) {
                     changeIsHoleChangeValueFromChild={
                         props.changeIsHoleChangeValueFromChild
                     }
+                    isGameFinished={props.isGameFinished}
+                    isFinishClicked={props.isFinishClicked}
                 />
             );
     };
@@ -285,15 +314,20 @@ function PlayerList(props: any) {
 
     return (
         <div className="player-list">
-            {newPlayerField()}
-            <br></br>
-            <div>
-                {!props.startGame ? <h2>Players:</h2> : <h2>Scores:</h2>}
-                {loopThrougPlayers(playerList)}
-            </div>
+            {!props.isGameFinished ?
+                <div >
+                    {newPlayerField()}
+                    <br></br>
+                    <div>
+                        {!props.startGame ? <h2>Players:</h2> : <h2>Scores:</h2>}
+                        {loopThrougPlayers(playerList)}
+                    </div>
+                </div> : null}
             {totalPointsRender()}
         </div>
     );
+
+
 }
 
 export default PlayerList;

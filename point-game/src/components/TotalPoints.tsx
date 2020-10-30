@@ -13,8 +13,8 @@ function TotalPoints(props: any) {
     for (let i = 0; i < props.maxHoles; i++) {
         playerSharedInitialPoints[i] = {
             holeNumber: i + 1,
-            playerListHoleThrows: [],
-            playerListHolePoints: [0, 0, 0],
+            playerListHoleThrows: Array(props.playerList.length).fill(0),
+            playerListHolePoints: Array(props.playerList.length).fill(0)
         };
     }
 
@@ -26,11 +26,16 @@ function TotalPoints(props: any) {
         return pointsPerHole;
     };
 
+    const coursePar = () => {
+        return props.maxHoles * 3;
+    }
+
     const [playerSharedPoints, setPlayerSharePoints] = useState(
         playerSharedInitialPoints
     );
 
-    const [playerTotalPoints, setPlayerTotalPoints] = useState([]);
+    const [playerTotalPoints, setPlayerTotalPoints] = useState(Array(props.playerList.length).fill(0));
+    const [playerTotalThrows, setPlayerTotalThrows] = useState(Array(props.playerList.length).fill(0));
 
     const maxPointsPerHole = calculateMaxPointsPerHole();
 
@@ -45,14 +50,17 @@ function TotalPoints(props: any) {
 
             if (isAllThrowsSet()) {
                 let totalPointsList: number[] = [];
+                let totalThrowsList: number[] = [];
                 for (let i = 0; i < props.playerList.length; i++) {
                     totalPointsList[i] = 0;
+                    totalThrowsList[i] = 0;
                     for (let j = 0; j < props.maxHoles; j++) {
                         totalPointsList[i] += playerSharedPoints[j].playerListHolePoints[i];
+                        totalThrowsList[i] += playerSharedPoints[j].playerListHoleThrows[i];
                     }
                 }
                 setPlayerTotalPoints(totalPointsList);
-
+                setPlayerTotalThrows(totalThrowsList);
             }
         }
 
@@ -63,11 +71,15 @@ function TotalPoints(props: any) {
                 newPlayerList[i].playerHoleThrows = playerSharedPoints[props.holeNumber - 1].playerListHoleThrows[i];
                 newPlayerList[i].playerHolePoints = playerSharedPoints[props.holeNumber - 1].playerListHolePoints[i];
                 newPlayerList[i].playerTotalPoints = playerTotalPoints;
+                newPlayerList[i].playerTotalThrows = playerTotalThrows;
             }
 
             props.updatePlayerList(newPlayerList);
             props.changeIsHoleChangeValueFromChild(false);
         }
+
+        if (props.isFinishClicked)
+            setAllHolesMarked();
     });
 
     const isAllThrowsSet = () => {
@@ -85,6 +97,22 @@ function TotalPoints(props: any) {
             return true;
         } else return false;
     };
+
+    const setAllHolesMarked = () => {
+        let newPlayerList = [...props.playerList];
+
+        for (let i = 0; i < props.playerList.length; i++) {
+            let allMarked = true;
+            for (let j = 0; j < props.maxHoles; j++) {
+                if (playerSharedPoints[j].playerListHolePoints[i] === 0)
+                    allMarked = false;
+            }
+            newPlayerList[i].allHolesMarked = allMarked;
+        }
+
+        props.updatePlayerList(newPlayerList);
+
+    }
 
     const calculatePoints = () => {
         let playerHoleThrows = props.playerList.map(
@@ -138,36 +166,67 @@ function TotalPoints(props: any) {
 
     };
 
+    const totalScoreComparedWithCoursePar = (playerTotalThrows: any) => {
+        let totalScore = playerTotalThrows - coursePar();
+        if (totalScore === 0) return "E";
+        else if (totalScore > 0) return "+" + totalScore;
+        else return totalScore;
+    }
+
     const loopThrougPlayers: any = (playerList: any) => {
         return (
-            <ul>
-                {playerList.map((p: any, index: number) => {
-                    return (
-                        <li key={index}>
-                            <div className="listed-player">
-                                <span>{p.playerName}</span>
+            <div>
+                <h2>Total Points:</h2>
+                <ul>
+                    {playerList.map((p: any, index: number) => {
+                        return (
+                            <li key={index}>
+                                <div className="listed-player">
+                                    <div className="player-name">{p.playerName}</div>
 
-                                <span
-                                    style={{
-                                        float: "right",
-                                        width: "auto",
-                                        color: "red",
-                                    }}
-                                >
-                                    {p.playerTotalPoints} p.
-                                </span>
-                            </div>
-                        </li>
-                    );
-                })}
-            </ul>
+                                    <div className="player-total-points">
+                                        {playerTotalPoints[index] ? playerTotalPoints[index] : 0} p.
+                                </div>
+                                </div>
+                            </li>
+                        );
+                    })}
+                </ul>
+                {/* {props.isGameFinished ? <React.Fragment><h2>Total Throws:</h2>
+                    <ul>
+                        {playerList.map((p: any, index: number) => {
+                            return (
+                                <li key={index}>
+                                    <div className="listed-player">
+                                        <div className="player-name">{p.playerName}</div>
+
+                                        <div className="player-total-throws">
+                                            <div className="throws">{playerTotalThrows[index] ? playerTotalThrows[index] : 0}</div>
+
+                                            {p.allHolesMarked
+                                                ? <div className="score">
+                                                    <span>(</span>
+                                                    <span style={{ color: "red" }}>{totalScoreComparedWithCoursePar(playerTotalThrows[index])}</span>
+                                                    <span>)</span>
+                                                </div>
+                                                : <div style={{ fontSize: "0.75em", fontStyle: "italic" }} className="score">(Player did not finish.)</div>
+                                            }
+                                        </div>
+                                    </div>
+                                </li>
+                            );
+                        })}
+                    </ul>
+                    <br></br>
+                    <div style={{ fontStyle: "italic" }}>Course par: {coursePar()}</div>
+                </React.Fragment> : null} */}
+            </div>
         );
     };
 
     return (
         <div className="total-points">
-            <h2>Total Points:</h2>
-            <p>Max points per hole: {maxPointsPerHole}</p>
+            {!props.isGameFinished ? <div className="max-points">Max points per hole: {maxPointsPerHole}</div> : null}
             {loopThrougPlayers(props.playerList)}
         </div>
     );
